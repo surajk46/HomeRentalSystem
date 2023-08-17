@@ -136,7 +136,7 @@ CREATE TABLE `login` (
   `role_id` int DEFAULT NULL,
   `status` tinyint NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `email_UNIQUE` (`email`),
+  UNIQUE KEY `email` (`email`),
   KEY `login_fk_role_id` (`role_id`),
   CONSTRAINT `login_fk_role_id` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -160,7 +160,8 @@ DROP TABLE IF EXISTS `owners`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `owners` (
   `id` int NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
+  `fname` varchar(255) NOT NULL,
+  `lname` varchar(255) NOT NULL,
   `area_id` int DEFAULT NULL,
   `add_property_request_rem` int DEFAULT NULL,
   `login_id` int DEFAULT NULL,
@@ -286,7 +287,7 @@ CREATE TABLE `roles` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -295,7 +296,7 @@ CREATE TABLE `roles` (
 
 LOCK TABLES `roles` WRITE;
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
-INSERT INTO `roles` VALUES (1,'Admin'),(2,'Owner'),(3,'Tenant'),(4,'Admin'),(5,'Owner'),(6,'Tenant');
+INSERT INTO `roles` VALUES (1,'Admin'),(2,'Owner'),(3,'Tenant');
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -334,7 +335,8 @@ DROP TABLE IF EXISTS `tenants`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tenants` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
+  `fname` varchar(255) NOT NULL,
+  `lname` varchar(255) NOT NULL,
   `area_id` int DEFAULT NULL,
   `no_of_req_rem` int DEFAULT NULL,
   `login_id` int DEFAULT NULL,
@@ -368,4 +370,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-17 10:40:56
+-- Dump completed on 2023-08-17 14:12:22
