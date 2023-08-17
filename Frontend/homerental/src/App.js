@@ -6,13 +6,29 @@ import Home from './components/Home';
 function App() {
   return (
     <div className="App">
-      <header>
-        <Link to="/home">Home</Link>
+       <ul class="nav navbar">
+            <li class="nav-item">
+                <Link to="/home" class="nav-link">Home</Link>
+            </li>
+            <li class="nav-item">
+                <Link to="/login" class="nav-link">Log In</Link>
+            </li>
+            <li class="nav-item">
+                <Link to="/tenantreg" class="nav-link">Tenant Registration</Link>
+            </li>
+            <li class="nav-item">
+                <Link to="/ownerreg" class="nav-link">Owner Registration</Link>
+            </li>
+            <li class="nav-item">
+                <Link to="/contactus" class="nav-link">Contact Us</Link>
+            </li> 
+        </ul>
 
         <Routes>
-          <Route path='/home' element={<Home/>}/>
-        </Routes>
-      </header>
+            <Route path='/home' element={<Home/>}/>
+            
+       </Routes>
+
     </div>
   );
 }
