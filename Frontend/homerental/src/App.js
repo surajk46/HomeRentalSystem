@@ -1,7 +1,9 @@
 import logo from './logo.svg';
 import './App.css';
 import { Link, Route, Routes } from 'react-router-dom';
-import Home from './components/Home';
+import Home from './components/HomeFunc';
+import LogInComp from './components/LogInComp';
+import HomeFunc from './components/HomeFunc';
 
 function App() {
   return (
@@ -25,8 +27,8 @@ function App() {
         </ul>
 
         <Routes>
-            <Route path='/home' element={<Home/>}/>
-            
+            <Route path='/home' element={<HomeFunc/>}/>
+            <Route path='/login' element={<LogInComp/>}/>
        </Routes>
 
     </div>
