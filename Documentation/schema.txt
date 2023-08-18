@@ -57,7 +57,8 @@ create table payment (
 
 create table tenants (
     id int auto_increment primary key,
-    name varchar(255) not null,
+    fname varchar(255) not null,
+    lname varchar(255) not null,
     area_id int,
     no_of_req_rem int,
     login_id int,
@@ -71,7 +72,8 @@ create table tenants (
 
 create table owners (
     id int primary key,
-    name varchar(255),
+    fname varchar(255) not null,
+    lname varchar(255) not null,
     area_id int,
     add_property_request_rem int,
     login_id int,

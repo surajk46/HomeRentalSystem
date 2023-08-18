@@ -1,7 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
 import { Link, Route, Routes } from 'react-router-dom';
-import Home from './components/HomeFunc';
 import LogInComp from './components/LogInComp';
 import HomeFunc from './components/HomeFunc';
 import TenantReg from './components/TenantReg';
