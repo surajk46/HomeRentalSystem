@@ -4,6 +4,8 @@ import { Link, Route, Routes } from 'react-router-dom';
 import Home from './components/HomeFunc';
 import LogInComp from './components/LogInComp';
 import HomeFunc from './components/HomeFunc';
+import TenantReg from './components/TenantReg';
+import ContactUs from './components/ContactUs';
 
 function App() {
   return (
@@ -29,8 +31,9 @@ function App() {
         <Routes>
             <Route path='/home' element={<HomeFunc/>}/>
             <Route path='/login' element={<LogInComp/>}/>
+            <Route path='/tenantreg' element={<TenantReg/>}/>
+            <Route path='/contactus' element={<ContactUs/>}/>
        </Routes>
-
     </div>
   );
 }
