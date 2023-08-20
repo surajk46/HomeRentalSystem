@@ -5,6 +5,8 @@ import LogInComp from './components/LogInComp';
 import HomeFunc from './components/HomeFunc';
 import TenantReg from './components/TenantReg';
 import ContactUs from './components/ContactUs';
+import AddProperty from './components/AddProperty';
+import OwnerReg from './components/OwnerReg';
 
 function App() {
   return (
@@ -23,7 +25,7 @@ function App() {
                 <Link to="/ownerreg" class="nav-link">Owner Registration</Link>
             </li>
             <li class="nav-item">
-                <Link to="/contactus" class="nav-link">Contact Us</Link>
+                <Link to="/addproperty" class="nav-link">AddProperty</Link>
             </li> 
         </ul>
 
@@ -31,7 +33,8 @@ function App() {
             <Route path='/home' element={<HomeFunc/>}/>
             <Route path='/login' element={<LogInComp/>}/>
             <Route path='/tenantreg' element={<TenantReg/>}/>
-            <Route path='/contactus' element={<ContactUs/>}/>
+            <Route path='/ownerreg' element={<OwnerReg/>}/>
+            <Route path='/addproperty' element={<AddProperty/>}/>
        </Routes>
     </div>
   );
