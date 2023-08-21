@@ -25,6 +25,7 @@ public class Owner {
 	String contact_no;
 	@Column
 	String address;
+	
 	@ManyToOne
 	@JoinColumn(name = "area_id")
 	Area area_id;
@@ -66,6 +67,8 @@ public class Owner {
 		this.area_id = area_id;
 		this.login_id = login_id;
 	}
+	
+	
 
 	public int getId() {
 		return id;
