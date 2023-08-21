@@ -35,6 +35,7 @@ function App() {
             <Route path='/tenantreg' element={<TenantReg/>}/>
             <Route path='/ownerreg' element={<OwnerReg/>}/>
             <Route path='/addproperty' element={<AddProperty/>}/>
+            <Route path='/contactus' element={<ContactUs/>}/>
        </Routes>
     </div>
   );
