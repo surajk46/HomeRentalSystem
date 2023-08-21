@@ -1,6 +1,22 @@
-import { useReducer } from "react"
+import { useEffect, useReducer, useState } from "react"
 
 export default function TenantReg() {
+    const[cities,setCities]=useState([]);
+    const CITYURL="http://localhost:8080/getallcity";
+
+    const[areas,setAreas]=useState([]);
+    const AREAURL="http://localhost:8080/getallarea/";//need to add areaid
+
+useEffect(()=>{
+    fetch(CITYURL)
+    .then(res => res.json())
+    .then(data => {setCities(data)})
+});
+useEffect(()=>{
+    fetch(AREAURL)
+    .then(res => res.json())
+    .then(data => {setAreas(data)})
+});
 
     const init = 
     {
@@ -158,6 +174,8 @@ export default function TenantReg() {
                 pwd: info.pwd.value,
                 fname: info.fname.value,
                 lname: info.lname.value,
+                city: info.city.value,
+                area: info.area.value,
                 contact: info.contact.value,
                 pincode: info.pincode.value
             })
@@ -223,19 +241,37 @@ export default function TenantReg() {
 
                 
   
-                {/* <div className="mb-3">
-                    <label htmlFor="city" className="form-label">Enter City Name: </label>
-                    <input type="text" className="form-control" id="city" name="city" value={info.city}
-                    onChange={(e)=>{dispatch({type:'update', fid:'city', val: e.target.value})}} />
+                
+
+
+
+                <div className="mb-3">
+                <label htmlFor="city" className="form-label">Enter City Name: </label>
+                    <select id="city" name="city" value={info.city.value}  
+                    onChange={(e) => { onInputChange("city", e.target.value, dispatch) }}
+                    onBlur={(e) => { onFocusOut("city", e.target.value, dispatch) }} >
+                        {/* <option >Choose option</option> */}
+                        {cities.map((c)=>(
+                             <option key={c.id} value={c.name}>{c.name}</option>
+                        ))}             
+                    </select>
                     <div id="cityhelp" className="form-text">....</div>
                 </div>
 
+
                 <div className="mb-3">
-                    <label htmlFor="area" className="form-label">Enter Area Name: </label>
-                    <input type="text" className="form-control" id="area" name="area" value={info.area}
-                    onChange={(e)=>{dispatch({type:'update', fid:'area', val: e.target.value})}} />
+                <label htmlFor="area" className="form-label">Enter area Name: </label>
+                    <select id="area" name="area" value={info.area.value}  
+                    onChange={(e) => { onInputChange("area", e.target.value, dispatch) }}
+                    onBlur={(e) => { onFocusOut("area", e.target.value, dispatch) }} >
+                        {/* <option >Choose option</option> */}
+                        {areas.map((c)=>(
+                             <option key={c.id} value={c.name}>{c.name}</option>
+                        ))}             
+                    </select>
                     <div id="areahelp" className="form-text">....</div>
-                </div> */}
+                </div>
+
 
 
                 <div className="mb-3">
@@ -255,6 +291,8 @@ export default function TenantReg() {
                     pwd: info.pwd.value,
                     fname: info.fname.value,
                     lname: info.lname.value,
+                    city: info.city.value,
+                    area: info.area.value,
                     contact: info.contact.value,
                     pincode: info.pincode.value
                  })}</p>

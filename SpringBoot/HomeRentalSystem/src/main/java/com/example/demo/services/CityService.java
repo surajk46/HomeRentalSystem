@@ -1,5 +1,7 @@
 package com.example.demo.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,4 +26,8 @@ public class CityService
 		return crepo.findById(id).get();
 	}
 
+	public List<City> getAll()
+	{
+		return crepo.findAll();
+	}
 }
