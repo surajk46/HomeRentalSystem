@@ -18,5 +18,7 @@ public class TenantService {
 		return trepo.save(l);
 	}
 	
+	
+	
 
 }

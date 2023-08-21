@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -23,9 +24,13 @@ public class Payment {
 	float amount;
 	@Column
 	String transcation;
+	
 	@ManyToOne
+	@JoinColumn(name = "login_id")
 	Login login_id;
+	
 	@ManyToOne
+	@JoinColumn(name = "subscription_id")
 	Subscription subscription_id;
 	public Payment() {
 		super();

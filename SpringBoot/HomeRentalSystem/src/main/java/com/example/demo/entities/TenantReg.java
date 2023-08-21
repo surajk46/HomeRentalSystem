@@ -1,7 +1,25 @@
 package com.example.demo.entities;
 
 public class TenantReg {
-	String email,password,fname,lname,contact_no,area,city,pincode;
+	String email,password,fname,lname,contact_no,address;
+	int areaid;
+	
+	public TenantReg() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public TenantReg(String email, String password, String fname, String lname, String contact_no, String address,
+			int areaid) {
+		super();
+		this.email = email;
+		this.password = password;
+		this.fname = fname;
+		this.lname = lname;
+		this.contact_no = contact_no;
+		this.address = address;
+		this.areaid = areaid;
+	}
 
 	public String getEmail() {
 		return email;
@@ -43,30 +61,25 @@ public class TenantReg {
 		this.contact_no = contact_no;
 	}
 
-	public String getArea() {
-		return area;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setArea(String area) {
-		this.area = area;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
-	public String getCity() {
-		return city;
+	public int getAreaid() {
+		return areaid;
 	}
 
-	public void setCity(String city) {
-		this.city = city;
+	public void setAreaid(int areaid) {
+		this.areaid = areaid;
 	}
+	
+	
 
-	public String getPincode() {
-		return pincode;
-	}
-
-	public void setPincode(String pincode) {
-		this.pincode = pincode;
-	}
-
+	
 	
 	
 }

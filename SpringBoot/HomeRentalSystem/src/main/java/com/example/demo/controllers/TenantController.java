@@ -41,13 +41,15 @@ public class TenantController
 		Login l=new Login(tr.getEmail(), tr.getPassword(), r, false);
 		Login saved1=lservice.save(l);
 		
-		City c=new City(tr.getCity());
+		/*City c=new City(tr.getCity());
 		City saved3=cservice.save(c);
 		
 		Area a=new Area(tr.getArea(), tr.getPincode(), saved3);
-		Area saved4=aservice.save(a);
+		Area saved4=aservice.save(a);*/
 		
-		Tenant t=new Tenant(tr.getFname(), tr.getFname(), 0, tr.getContact_no(), saved4, saved1, null);
+		Area area = aservice.getById(tr.getAreaid());
+		
+		Tenant t=new Tenant(tr.getFname(), tr.getLname(), 0, tr.getContact_no(),tr.getAddress(), area, l);
 		Tenant saved2=tservice.save(t);
 		return saved2;
 	}
