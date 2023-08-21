@@ -2,6 +2,7 @@ drop database homerentalsystem;
 
 create database homerentalsystem;
 
+use homerentalsystem;
 
 create table roles (
 	id int primary key auto_increment,
@@ -63,6 +64,7 @@ create table tenants (
     no_of_req_rem int,
     login_id int,
     payment_id int,
+    address varchar(255) not null,
     contact_no varchar(20) not null,
     constraint tenants_fk_login_id foreign key (login_id) references login(id),
     constraint tenants_fk_area_id foreign key (area_id) references area(id),
@@ -71,13 +73,14 @@ create table tenants (
 
 
 create table owners (
-    id int primary key,
+    id int auto_increment primary key,
     fname varchar(255) not null,
     lname varchar(255) not null,
     area_id int,
     add_property_request_rem int,
     login_id int,
     payment_id int,
+    address varchar(255) not null,
     contact_no varchar(20),
     constraint owners_fk_login_id foreign key (login_id) references login(id),
     constraint owners_fk_area_id foreign key (area_id) references area(id),
