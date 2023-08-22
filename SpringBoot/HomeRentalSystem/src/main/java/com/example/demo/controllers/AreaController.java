@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.entities.Area;
@@ -16,9 +17,14 @@ import com.example.demo.services.AreaService;
 public class AreaController {
 	@Autowired
 	AreaService aService;
-	@GetMapping("/getallarea")
-	public List<Area> getAll()
+//	@GetMapping("/getallarea")
+//	public List<Area> getAll()
+//	{
+//		return aService.getAll();
+//	}
+	@GetMapping("/getallarea/{id}/")
+	public List<Area> getAll(@PathVariable int id)
 	{
-		return aService.getAll();
+		return aService.getAreaByCityid(id);
 	}
 }
