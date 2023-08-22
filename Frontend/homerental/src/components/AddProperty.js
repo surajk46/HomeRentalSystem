@@ -1,29 +1,145 @@
-import { useReducer } from "react"
+import { useEffect, useReducer, useState } from "react"
 
 export default function AddProperty() {
+   // const cont=new AbortController();
+   const[cities,setCities]=useState([]);
+   const CITYURL="http://localhost:8080/getallcity";
+
+   const[areas,setAreas]=useState([]);
+   const[cityid,setCityid]=useState(1);
+   const AREAURL="http://localhost:8080/getallarea"//+cityid;//need to add areaid
+
+   const[propertytype,setPropertytype]=useState([]);
+   const PROPERTYTYPEURL="http://localhost:8080/getallpropertytype";
+
+   const[homeFacility,setHomeFacility]=useState([]);
+   const FACILITYURL="http://localhost:8080/getallfacility";
+   
+ 
+
+
+useEffect(()=>{
+   fetch(CITYURL)
+   .then(res => res.json())
+   .then(data => {setCities(data)})
+   //return()=>{cont.abort()};
+},[]);
+useEffect(()=>{
+   fetch(AREAURL)
+   .then(res => res.json())
+   .then(data => {setAreas(data)})
+  // return()=>{cont.abort()};
+},[]);
+useEffect(()=>{
+   fetch(PROPERTYTYPEURL)
+   .then(res => res.json())
+   .then(data => {setPropertytype(data)})
+  // return()=>{cont.abort()};
+},[]);
+// useEffect(()=>{
+//    fetch(FACILITYURL)
+//    .then(res => res.json())
+//    .then(data => {setHomeFacility(data)})
+//   // return()=>{cont.abort()};
+// },[]);
+
+
 
     const init = {
-        city: "",
-        area:"",
-        pincode:"",
-        propertytype:"",
-        propertyname:"",
-        pdesc:"",
-        price:"",
-        deposit:""
+        areaid:  { value: "", hasError: true, touched: false, error: "" },             
+        propertytype_id:  { value: "", hasError: true, touched: false, error: "" },
+        propertyname:  { value: "", hasError: true, touched: false, error: "" },
+        pdesc:  { value: "", hasError: true, touched: false, error: "" },
+        price:  { value: "", hasError: true, touched: false, error: "" },
+        deposit:  { value: "", hasError: true, touched: false, error: "" },
+        city: { value: "", hasError: true, touched: false, error: "" },
+        facility: { value: "", hasError: true, touched: false, error: "" }
+    }
+
+
+    const validateData = (name, value) => {
+        let hasError = false, error = "";
+        switch (name) {
+            
+            case "propertyname":
+                let regex10 = /^[A-Za-z\s\d{1,}]{1,}$/;
+
+                if (!regex10.test(value)) {
+                    hasError = true;
+                    error = "property name Should be contain only Words"
+                }
+                break;
+            case "pdesc":
+                let regex11 = /^[A-Za-z\s\d{1,}]{1,}$/;
+
+                if (!regex11.test(value)) {
+                    hasError = true;
+                    error = "property description Should be contain only Words"
+                }
+                break;
+        }
+        return { hasError, error }
+
     }
 
     const reducer = (state, action) => {
         switch(action.type)
         {
-            case 'update':
-                return {...state , [action.fid]:action.val}
+            case 'update': {
+                const { name, value, hasError, error, touched, isFormValid } = action.data;
+                return {
+                    ...state,
+                    [name]: { ...state[name], value, hasError, error, touched },
+                    isFormValid
+                }   //modifying and returning new object as state
+            }
             case 'reset':
                 return init;
         }
     }
 
+
+    const onInputChange = (name, value, dispatch) => {
+        //validation logic
+        const { hasError, error } = validateData(name, value); //form field, latest value
+        //which key to be modified - value, hasError, error, touched 
+        let isFormValid = true;
+        for (const key in info) {
+            let item = info[key];
+           
+            if (item.hasError) {
+                isFormValid = false;
+                break;
+            }
+        }
+        dispatch({ type: 'update', data: { name, value, hasError, error, touched: true, isFormValid } })
+    }
+
+
+
     const [info, dispatch] = useReducer(reducer,init);
+
+
+    
+    const onFocusOut = (name, value, dispatch) => {
+        const { hasError, error } = validateData(name, value)
+        let isFormValid = true
+        for (const key in info) {
+            const item = info[key]
+            if (key === name && hasError) {
+                isFormValid = false
+                break
+            } else if (key !== name && item.hasError) {
+                isFormValid = false
+                break
+            }
+        }
+        dispatch({
+            type: "update",
+            data: { name, value, hasError, error, touched: true, isFormValid },
+        })
+    }
+
 
     const sendData= (e) => {
             //json
@@ -31,7 +147,16 @@ export default function AddProperty() {
         const reqOptions = {
             method: 'POST',
             headers: {'content-type':'application/json' },
-            body: JSON.stringify(info)
+            body: JSON.stringify({
+                areaid: info.areaid.value,
+                propertytype_id: info.propertytype_id.value,
+                propertyname: info.propertyname.value,
+                pdesc: info.pdesc.value,
+                price: info.price.value,
+                deposit: info.deposit.value,
+                facility:info.facility.value
+
+            })
             
         }
         fetch("http://localhost:8080/addproperty", reqOptions)
@@ -43,76 +168,125 @@ export default function AddProperty() {
         <div>
             <h1>Tenant SignUp Form</h1>
            <form >
-                <div className="mb-3">
-                    <label htmlFor="city" className="form-label">Enter City Name: </label>
-                    <input type="text" className="form-control" id="city" name="city" value={info.city}
-                    onChange={(e)=>{dispatch({type:'update', fid:'city', val: e.target.value})}} />
+           <div className="mb-3">
+                <label htmlFor="city" className="form-label">Enter City Name: </label>
+                    <select id="city" name="city" value={info.city.value}  
+                    onChange={(e) => { onInputChange("city", e.target.value, dispatch) ;setCityid(info.city.value)}}
+                    onBlur={(e) => { onFocusOut("city", e.target.value, dispatch) }} >
+                       
+                        {cities.map((c)=>(
+                             <option key={c.id} value={c.id}>{c.name}</option>
+                        ))}             
+                    </select>
                     <div id="cityhelp" className="form-text">....</div>
                 </div>
 
+
                 <div className="mb-3">
-                    <label htmlFor="area" className="form-label">Enter Area Name: </label>
-                    <input type="text" className="form-control" id="area" name="area" value={info.area}
-                    onChange={(e)=>{dispatch({type:'update', fid:'area', val: e.target.value})}} />
-                    <div id="areahelp" className="form-text">....</div>
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="pincode" className="form-label">Enter Pincode.: </label>
-                    <input type="number" className="form-control" id="pincode" name="pincode" value={info.contact}
-                    onChange={(e)=>{dispatch({type:'update', fid:'pincode', val: e.target.value})}} />
-                    <div id="pincodehelp" className="form-text">....</div>
+                <label htmlFor="areaid" className="form-label">Enter area Name: </label>
+                    <select id="areaid" name="areaid" value={info.areaid.value}  
+                    onChange={(e) => { onInputChange("areaid", e.target.value, dispatch) }}
+                    onBlur={(e) => { onFocusOut("areaid", e.target.value, dispatch) }} >
+                      
+                        {areas.map((c)=>(
+                             <option key={c.id} value={c.id}>{c.name}</option>
+                        ))}     
+                    
+
+                    </select>
+                    <div id="areaidhelp" className="form-text">....</div>
                 </div>
 
+                
+                
 
                 {/* we are using a table data here */}
                 <div className="mb-3">
-                    <label for="propertytype">Choose type of Property:</label>
-                    <select id="propertytype" name="propertytype" value={info.propertytype}  onChange={(e)=>{dispatch({type:'update', fid:'propertytype', val: e.target.value})}} >
-                        {/* <option >Choose option</option> */}
-                        <option value="flat">Flat</option>
-                        <option value="bunglow">Bunglow</option>
-                        <option value="house">House</option>
-                        <option value="apartment">Apartment</option>
+                <label htmlFor="propertytype_id" className="form-label">Enter propertytype Name: </label>
+                    <select id="propertytype_id" name="propertytype_id" value={info.propertytype_id.value}  
+                    onChange={(e) => { onInputChange("propertytype_id", e.target.value, dispatch) ;setCityid(info.propertytype_id.value)}}
+                    onBlur={(e) => { onFocusOut("propertytype_id", e.target.value, dispatch) }} >
+                       
+                        {propertytype.map((c)=>(
+                             <option key={c.id} value={c.id}>{c.name}</option>
+                        ))}             
                     </select>
-                    <div id="propertytypehelp" className="form-text">....</div>
+                    <div id="propertytype_idhelp" className="form-text">....</div>
                 </div>
 
 
 
                 <div className="mb-3">
                     <label htmlFor="propertyname" className="form-label">Enter Property Name: </label>
-                    <input type="text" className="form-control" id="propertyname" name="propertyname" value={info.propertyname}
-                    onChange={(e)=>{dispatch({type:'update', fid:'propertyname', val: e.target.value})}} />
-                    <div id="propertynamehelp" className="form-text">....</div>
+                    <input type="text" className="form-control" id="propertyname" name="propertyname" value={info.propertyname.value}
+                    onChange={(e) => { onInputChange("propertyname", e.target.value, dispatch) }}
+                    onBlur={(e) => { onFocusOut("propertyname", e.target.value, dispatch) }} />
+                   <div id="propertynamehelp" className="form-text">....</div>
+                   <p style={{ display: info.propertyname.touched && info.propertyname.hasError ? "block" : "none", color: "red" }}> {info.propertyname.error} </p>
                 </div>
+
 
                 <div className="mb-3">
                     <label htmlFor="pdesc" className="form-label">Enter Property description : </label>
-                    <input type="text" className="form-control" id="pdesc" name="pdesc" value={info.pdesc}
-                    onChange={(e)=>{dispatch({type:'update', fid:'pdesc', val: e.target.value})}} />
+                    <input type="text" className="form-control" id="pdesc" name="pdesc" value={info.pdesc.value}
+                     onChange={(e) => { onInputChange("pdesc", e.target.value, dispatch) }}
+                     onBlur={(e) => { onFocusOut("pdesc", e.target.value, dispatch) }} />
                     <div id="pdeschelp" className="form-text">....</div>
+                    <p style={{ display: info.pdesc.touched && info.pdesc.hasError ? "block" : "none", color: "red" }}> {info.pdesc.error} </p>
                 </div>
 
 
 
                 <div className="mb-3">
                     <label htmlFor="price" className="form-label">Enter Price : </label>
-                    <input type="number" className="form-control" id="price" name="price" value={info.price}
-                    onChange={(e)=>{dispatch({type:'update', fid:'price', val: e.target.value})}} />
-                    <div id="pricehelp" className="form-text">....</div>
+                    <input type="number" className="form-control" id="price" name="price" value={info.price.value}
+                   onChange={(e) => { onInputChange("price", e.target.value, dispatch) }}
+                   onBlur={(e) => { onFocusOut("price", e.target.value, dispatch) }} />
+                  <div id="pricehelp" className="form-text">....</div>
+                  <p style={{ display: info.price.touched && info.price.hasError ? "block" : "none", color: "red" }}> {info.price.error} </p>
                 </div>
 
                 <div className="mb-3">
                     <label htmlFor="deposit" className="form-label">Enter deposit Amount : </label>
-                    <input type="number" className="form-control" id="deposit" name="deposit" value={info.deposit}
-                    onChange={(e)=>{dispatch({type:'update', fid:'deposit', val: e.target.value})}} />
-                    <div id="deposithelp" className="form-text">....</div>
+                    <input type="number" className="form-control" id="deposit" name="deposit" value={info.deposit.value}
+                   onChange={(e) => { onInputChange("deposit", e.target.value, dispatch) }}
+                   onBlur={(e) => { onFocusOut("deposit", e.target.value, dispatch) }} />
+                  <div id="deposithelp" className="form-text">....</div>
+                  <p style={{ display: info.deposit.touched && info.deposit.hasError ? "block" : "none", color: "red" }}> {info.deposit.error} </p>
                 </div>
+
+
+                <div className="mb-3">
+                <label htmlFor="facility" className="form-label">Enter facility Name: </label>
+                    <select id="facility" name="facility" value={info.facility.value}  
+                    onChange={(e) => { onInputChange("facility", e.target.value, dispatch) }}
+                    onBlur={(e) => { onFocusOut("facility", e.target.value, dispatch) }}  >
+                       
+                        {homeFacility.map((c)=>(
+                             <option key={c.id} value={c.id}>{c.name}</option>
+                        ))}             
+                    </select>
+                    <div id="facilityype_idhelp" className="form-text">....</div>
+                </div>
+
+
+
 
                 <button type="submit" className="btn btn-primary mb-3" onClick={(e) => {sendData(e)}}>Submit</button>
                 <button type="reset" className="btn btn-primary mb-3" onClick={() => {dispatch({type:'reset'})}}>Reset</button>
                                                 
-                <p>{JSON.stringify(info)}</p>
+                <p>
+                    {
+                        JSON.stringify({
+                        areaid: info.areaid.value,
+                        propertytype_id: info.propertytype_id.value,
+                        propertyname: info.propertyname.value,
+                        pdesc: info.pdesc.value,
+                        price: info.price.value,
+                        deposit: info.deposit.value,
+                        facility:info.facility.value
+                    })}
+                </p>
             </form>
         </div>
     )

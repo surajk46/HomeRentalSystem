@@ -6,7 +6,7 @@ export default function AdminHome() {
   return (
     <div>
       <h1>Welcome To Admin Home Page</h1>
-      <ul className="nav navbar">
+      {/* <ul className="nav navbar">
         <li className="nav-item">
           <Link to="/home" className="nav-link">Home</Link>
         </li>
@@ -26,7 +26,7 @@ export default function AdminHome() {
 
       <Routes>
         <Route path="/home" element={<HomeFunc />} />
-      </Routes>
+      </Routes> */}
     </div>
   );
 }

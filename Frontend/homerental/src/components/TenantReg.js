@@ -1,14 +1,31 @@
 import { useEffect, useReducer, useState } from "react"
+import { useNavigate } from "react-router-dom"; 
+
 
 export default function TenantReg() {
    // const cont=new AbortController();
     const[cities,setCities]=useState([]);
     const CITYURL="http://localhost:8080/getallcity";
 
-    const[areas,setAreas]=useState([]);
+    var[areas,setAreas]=useState([]);
     const[cityid,setCityid]=useState(1);
     const AREAURL="http://localhost:8080/getallarea"//+cityid;//need to add areaid
-    
+    const ci=()=>{
+        setCityid(info.city.value);
+    }
+    const[filtered,setFiltered]=useState(areas);
+    function filt()
+    {
+        // areas=areas.filter(a=>{
+        //     return a.city_id=cityid;
+        // })
+        setFiltered(areas.filter(a=>{
+            return a.city_id===2;
+        }));
+    }
+    const navigate = useNavigate(); 
+
+
 
 useEffect(()=>{
     fetch(CITYURL)
@@ -83,24 +100,6 @@ useEffect(()=>{
                 }
                 break;
            
-            
-            // case "city":
-            //     let regex8 = /^[A-Za-z]{1,}$/;
-
-            //     if (!regex8.test(value)) {
-            //         hasError = true;
-            //         error = "Enter valid city"
-            //     }
-            //     break;
-            // case "pincode":
-            //     let regex9 = /^[0-9]{6}$/;
-
-            //     if (!regex9.test(value)) {
-            //         hasError = true;
-            //         error = "Enter valid postalcode"
-            //     }
-            //     break;
-                
             case "address":
                 let regex10 = /^[A-Za-z]{1,}$/;
 
@@ -109,10 +108,6 @@ useEffect(()=>{
                     error = "address Should be contain only Words"
                 }
                 break;
-               
-
-
-
         }
         return { hasError, error }
 
@@ -138,7 +133,7 @@ useEffect(()=>{
 
   
     const [info, dispatch] = useReducer(reducer,init);
-
+    
 
     const onInputChange = (name, value, dispatch) => {
         //validation logic
@@ -197,6 +192,7 @@ useEffect(()=>{
         }
         fetch("http://localhost:8080/regtenant", reqOptions)
         .then(resp => resp.json())
+        
         
     }
 
@@ -262,7 +258,7 @@ useEffect(()=>{
                 <div className="mb-3">
                 <label htmlFor="city" className="form-label">Enter City Name: </label>
                     <select id="city" name="city" value={info.city.value}  
-                    onChange={(e) => { onInputChange("city", e.target.value, dispatch) ;setCityid(info.city.value)}}
+                    onChange={(e) => { onInputChange("city", e.target.value, dispatch) ;filt()}}
                     onBlur={(e) => { onFocusOut("city", e.target.value, dispatch) }} >
                        
                         {cities.map((c)=>(
@@ -272,7 +268,9 @@ useEffect(()=>{
                     <div id="cityhelp" className="form-text">....</div>
                 </div>
 
-
+                
+            
+              
                 <div className="mb-3">
                 <label htmlFor="areaid" className="form-label">Enter area Name: </label>
                     <select id="areaid" name="areaid" value={info.areaid.value}  
@@ -281,7 +279,9 @@ useEffect(()=>{
                       
                         {areas.map((c)=>(
                              <option key={c.id} value={c.id}>{c.name}</option>
-                        ))}             
+                        ))}     
+                    
+
                     </select>
                     <div id="areaidhelp" className="form-text">....</div>
                 </div>
@@ -305,10 +305,11 @@ useEffect(()=>{
                     password: info.password.value,
                     fname: info.fname.value,
                     lname: info.lname.value,
-                   // city: info.city.value,
+                    city: info.city.value,
                     areaid: info.areaid.value,
                     contact_no: info.contact_no.value,
-                    address:info.address.value
+                    address:info.address.value,
+                    cityid:cityid
                    // pincode: info.pincode.value
                  })}</p>
               </form>
