@@ -7,21 +7,21 @@ export default function TenantReg() {
 
     const[areas,setAreas]=useState([]);
     const[cityid,setCityid]=useState(1);
-    const AREAURL="http://localhost:8080/getallarea/"+cityid;//need to add areaid
+    const AREAURL="http://localhost:8080/getallarea"//+cityid;//need to add areaid
     
 
-// useEffect(()=>{
-//     fetch(CITYURL)
-//     .then(res => res.json())
-//     .then(data => {setCities(data)})
-//     //return()=>{cont.abort()};
-// });
-// useEffect(()=>{
-//     fetch(AREAURL)
-//     .then(res => res.json())
-//     .then(data => {setAreas(data)})
-//    // return()=>{cont.abort()};
-// });
+useEffect(()=>{
+    fetch(CITYURL)
+    .then(res => res.json())
+    .then(data => {setCities(data)})
+    //return()=>{cont.abort()};
+},[]);
+useEffect(()=>{
+    fetch(AREAURL)
+    .then(res => res.json())
+    .then(data => {setAreas(data)})
+   // return()=>{cont.abort()};
+},[]);
 
     const init = 
     {
@@ -280,7 +280,7 @@ export default function TenantReg() {
                     onBlur={(e) => { onFocusOut("areaid", e.target.value, dispatch) }} >
                       
                         {areas.map((c)=>(
-                             <option key={c.id} value={c.name}>{c.name}</option>
+                             <option key={c.id} value={c.id}>{c.name}</option>
                         ))}             
                     </select>
                     <div id="areaidhelp" className="form-text">....</div>
