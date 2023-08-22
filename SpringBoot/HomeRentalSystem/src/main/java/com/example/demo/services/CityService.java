@@ -25,9 +25,10 @@ public class CityService
 	{
 		return crepo.findById(id).get();
 	}
-
+	
 	public List<City> getAll()
 	{
 		return crepo.findAll();
 	}
+
 }

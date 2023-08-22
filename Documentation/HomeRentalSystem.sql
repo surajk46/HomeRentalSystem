@@ -159,11 +159,12 @@ DROP TABLE IF EXISTS `owners`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `owners` (
-  `id` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `fname` varchar(255) NOT NULL,
   `lname` varchar(255) NOT NULL,
   `area_id` int DEFAULT NULL,
   `add_property_request_rem` int DEFAULT NULL,
+  'address' varchar(255) not null,
   `login_id` int DEFAULT NULL,
   `payment_id` int DEFAULT NULL,
   `contact_no` varchar(20) DEFAULT NULL,
