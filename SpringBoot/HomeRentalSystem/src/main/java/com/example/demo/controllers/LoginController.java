@@ -18,9 +18,8 @@ public class LoginController
 	LoginService lservice; 
 	
 	@PostMapping("checklogin")
-	public Login checkLogin(@RequestBody LoginCheck lcheck)
-	{
-		return lservice.getLogin(lcheck.getEmail(), lcheck.getPassword());
-	}
+	  public Login checkLogin(@RequestBody LoginCheck lcheck) {
+	    return lservice.getLogin(lcheck.getEmail(), lcheck.getPassword());
+	  }
 	
 }

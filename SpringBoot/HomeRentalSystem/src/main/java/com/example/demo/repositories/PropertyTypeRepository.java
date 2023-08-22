@@ -3,9 +3,9 @@ package com.example.demo.repositories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.example.demo.entities.Area;
+import com.example.demo.entities.PropertyType;
 
 @Repository
-public interface AreaRepository extends JpaRepository<Area, Integer> {
+public interface PropertyTypeRepository extends JpaRepository<PropertyType, Integer> {
 
 }

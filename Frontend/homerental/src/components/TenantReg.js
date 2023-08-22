@@ -1,67 +1,96 @@
-import { useEffect, useReducer, useState } from "react"
+import React, { useEffect, useReducer, useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function TenantReg() {
-   // const cont=new AbortController();
-    const[cities,setCities]=useState([]);
-    const CITYURL="http://localhost:8080/getallcity";
+        const [cities, setCities] = useState([]);
+        const [areas, setAreas] = useState([]);
+      
+        const CITY_URL = "http://localhost:8080/getallcity";
+        const AREA_URL = "http://localhost:8080/getallarea/";
+      
+        useEffect(() => {
+          fetch(CITY_URL)
+            .then((res) => res.json())
+            .then((data) => {
+              setCities(data);
+            });
+        }, []);
+      
+        useEffect(() => {
+          fetch(AREA_URL)
+            .then((res) => res.json())
+            .then((data) => {
+              setAreas(data);
+            });
+        }, []);
 
-    const[areas,setAreas]=useState([]);
-    const[cityid,setCityid]=useState(1);
-    const AREAURL="http://localhost:8080/getallarea/"+cityid;//need to add areaid
-    
+  const init = {
+    email: { value: "", hasError: true, touched: false, error: "" },
+    pwd: { value: "", hasError: true, touched: false, error: "" },
+    fname: { value: "", hasError: true, touched: false, error: "" },
+    lname: { value: "", hasError: true, touched: false, error: "" },
+    contact_no: { value: "", hasError: true, touched: false, error: "" },
+    city: { value: "", hasError: true, touched: false, error: "" },
+    area: { value: "", hasError: true, touched: false, error: "" },
+    pincode: { value: "", hasError: true, touched: false, error: "" },
+    isFormValid: false,
+  };
 
-useEffect(()=>{
-    fetch(CITYURL)
-    .then(res => res.json())
-    .then(data => {setCities(data)})
-    //return()=>{cont.abort()};
-});
-// useEffect(()=>{
-//     fetch(AREAURL)
-//     .then(res => res.json())
-//     .then(data => {setAreas(data)})
-//    // return()=>{cont.abort()};
-// });
+  const onChange = (name, value, dispatch) => {
+    const { hasError, error } = validateData(name, value);
+    const isFormValid = validateForm(name, value);
+    dispatch({
+      type: "update",
+      data: { name, value, hasError, error, touched: true, isFormValid },
+    });
+  };
 
-    const init = 
-    {
-        email: { value: "", hasError: true, touched: false, error: "" },
-        password : { value: "", hasError: true, touched: false, error: "" },
-        fname: { value: "", hasError: true, touched: false, error: "" },
-        lname: { value: "", hasError: true, touched: false, error: "" },
-        contact_no: { value: "", hasError: true, touched: false, error: "" },
-        city: { value: "", hasError: true, touched: false, error: "" },
-        areaid: { value: "", hasError: true, touched: false, error: "" },
-       // pincode: { value: "", hasError: true, touched: false, error: "" },
-        address:{ value: "", hasError: true, touched: false, error: "" },
-        isFormValid:false
+  const validateForm = (info) => {
+    const fieldNames = Object.keys(info);
+    let isFormValid = true;
+  
+    for (const name of fieldNames) {
+      const { value } = info[name];
+      const { hasError, error } = validateData(name, value);
+  
+      if (hasError) {
+        isFormValid = false;
+        break; 
+      }
     }
-   
+  
+    return isFormValid;
+  };
+  
 
+  const validateData = (name, value) => 
+  {
+    let hasError = false, error = "";
+    switch (name) 
+    {
+        case "email":
+            let regex4 = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
-    const validateData = (name, value) => {
-        let hasError = false, error = "";
-        switch (name) {
-            case "email":
-                let regex4 = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+            if (!regex4.test(value)) 
+            {
+                hasError = true;
+                error = "Email should be valid"
+            }
+            break;
+        case "pwd":
+            let regex1 = /^(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&])[A-Za-z0-9!@#$%^&*]{5,}$/;
 
-                if (!regex4.test(value)) {
-                    hasError = true;
-                    error = "Email should be valid"
-                }
-                break;
-            case "password":
-                let regex1 = /^(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&])[A-Za-z0-9!@#$%^&*]{5,}$/;
-
-                if (!regex1.test(value)) {
-                    hasError = true;
-                    error = "Password Should be more than 5 characters and valid "
-                }
-                break;
+            if (!regex1.test(value)) 
+            {
+                hasError = true;
+                error = "Password Should be more than 5 characters and valid "
+            }
+            break;
             case "fname":
                 let regex2 = /^[A-Za-z]{1,15}$/;
 
-                if (!regex2.test(value)) {
+                if (!regex2.test(value)) 
+                {
                     hasError = true;
                     error = "First Name Should be valid and not more than 15 characters"
                 }
@@ -69,146 +98,135 @@ useEffect(()=>{
             case "lname":
                 let regex3 = /^[A-Za-z]{1,15}$/;
 
-                if (!regex3.test(value)) {
+                if (!regex3.test(value)) 
+                {
                     hasError = true;
                     error = "Last Name Should be valid and not more than 15 characters"
                 }
                 break;
-            case "contact_no":
+            case "contact":
                 let regex5 = /^[0-9]{10}$/;
 
-                if (!regex5.test(value)) {
+                if (!regex5.test(value)) 
+                {
                     hasError = true;
-                    error = "contact_no Should be of 10 digits Only"
+                    error = "Contact Should be of 10 digits Only"
                 }
                 break;
            
             
-            // case "city":
-            //     let regex8 = /^[A-Za-z]{1,}$/;
+                case "city":
+                    let regex8 = /^[A-Za-z]{1,}$/;
+    
+                    if (!regex8.test(value)) 
+                    {
+                        hasError = true;
+                        error = "Enter valid city"
+                    }
+                    break;
+                case "pincode":
+                    let regex9 = /^[0-9]{6}$/;
+    
+                    if (!regex9.test(value)) 
+                    {
+                        hasError = true;
+                        error = "Enter valid postalcode"
+                    }
+                    break;
+    }
+        return { hasError, error };
+    };
 
-            //     if (!regex8.test(value)) {
-            //         hasError = true;
-            //         error = "Enter valid city"
-            //     }
-            //     break;
-            // case "pincode":
-            //     let regex9 = /^[0-9]{6}$/;
+  const reducer = (state, action) => {
+    switch (action.type) {
+      case "update": {
+        const { name, value, hasError, error, touched, isFormValid } =
+          action.data;
+        return {
+          ...state,
+          [name]: { ...state[name], value, hasError, error, touched },
+          isFormValid,
+        };
+      }
+      case "reset":
+        return init;
+      default:
+        return state;
+    }
+  };
+  const sendData = async (e) => 
+  { // Added 'async'
+    e.preventDefault();
 
-            //     if (!regex9.test(value)) {
-            //         hasError = true;
-            //         error = "Enter valid postalcode"
-            //     }
-            //     break;
-                
-            case "address":
-                let regex10 = /^[A-Za-z]{1,}$/;
+    let isFormValid = true;
+    const updatedInfo = { ...info };
 
-                if (!regex10.test(value)) {
-                    hasError = true;
-                    error = "address Should be contain only Words"
-                }
-                break;
-               
+    for (const fieldName in updatedInfo) {
+      if (fieldName !== "isFormValid") {
+        const field = updatedInfo[fieldName];
+        const validation = validateData(fieldName, field.value);
 
-
-
+        if (validation.hasError) {
+          isFormValid = false;
+          field.hasError = true;
+          field.error = validation.error;
+        } else {
+          field.hasError = false;
+          field.error = "";
         }
-        return { hasError, error }
-
+      }
     }
 
+    updatedInfo.isFormValid = isFormValid;
 
+    if (isFormValid) {
+      try {
+        const reqOptions = {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({
+            email: updatedInfo.email.value,
+            pwd: updatedInfo.pwd.value,
+            fname: updatedInfo.fname.value,
+            lname: updatedInfo.lname.value,
+            city: updatedInfo.city.value,
+            area: updatedInfo.area.value,
+            contact: updatedInfo.contact.value,
+            pincode: updatedInfo.pincode.value,
+          }),
+        };
 
-    const reducer = (state, action) => {
-        switch(action.type)
-        {
-            case 'update': {
-                const { name, value, hasError, error, touched, isFormValid } = action.data;
-                return {
-                    ...state,
-                    [name]: { ...state[name], value, hasError, error, touched },
-                    isFormValid
-                }   //modifying and returning new object as state
-            }
-            case 'reset':
-                return init;
-        }
+        const response = await fetch("http://localhost:8080/regtenant", reqOptions);
+        const data = await response.json();
+        
+        // Handle response data if needed
+        
+      } catch (error) {
+        // Handle errors during submission
+      }
     }
+
+    dispatch({
+      type: "update",
+      data: updatedInfo,
+    });
+  };
+  
 
   
-    const [info, dispatch] = useReducer(reducer,init);
+  
 
+  const [info, dispatch] = useReducer(reducer, init);
 
-    const onInputChange = (name, value, dispatch) => {
-        //validation logic
-        const { hasError, error } = validateData(name, value); //form field, latest value
-        //which key to be modified - value, hasError, error, touched 
-        let isFormValid = true;
-        for (const key in info) {
-            let item = info[key];
-           
-            if (item.hasError) {
-                isFormValid = false;
-                break;
-            }
-        }
-        dispatch({ type: 'update', data: { name, value, hasError, error, touched: true, isFormValid } })
-    }
-
-    const onFocusOut = (name, value, dispatch) => {
-        const { hasError, error } = validateData(name, value)
-        let isFormValid = true
-        for (const key in info) {
-            const item = info[key]
-            if (key === name && hasError) {
-                isFormValid = false
-                break
-            } else if (key !== name && item.hasError) {
-                isFormValid = false
-                break
-            }
-        }
-        dispatch({
-            type: "update",
-            data: { name, value, hasError, error, touched: true, isFormValid },
-        })
-    }
-
-
-    const sendData= (e) => {
-            //json
-        e.preventDefault();
-        const reqOptions = {
-            method: 'POST',
-            headers: {'content-type':'application/json' },
-            body: JSON.stringify({
-                email: info.email.value,
-                password: info.password.value,
-                fname: info.fname.value,
-                lname: info.lname.value,
-               // city: info.city.value,
-                areaid: info.areaid.value,
-                contact_no: info.contact_no.value,
-                address:info.address.value
-               // pincode: info.pincode.value
-            })
-            
-        }
-        fetch("http://localhost:8080/regtenant", reqOptions)
-        .then(resp => resp.json())
-        
-    }
-
-    return (
-        <div>
-            <h1>Tenant SignUp Form</h1>
-            <form >
-            <div className="mb-3">
+  return (
+    <div>
+      <h1>Tenant SignUp Form</h1>
+      <form>
+      <div className="mb-3">
                     <label htmlFor="email" className="form-label">Enter Email id: </label>
                     <input type="text" className="form-control" id="email" name="email" value={info.email.value}
-                    onChange={(e) => { onInputChange("email", e.target.value, dispatch) }}
-                    onBlur={(e) => { onFocusOut("email", e.target.value, dispatch) }} />
+                    onChange={(e) => { onChange("email", e.target.value, dispatch) }}
+                     />
                     <div id="emailhelp" className="form-text">....</div>
                     <p style={{ display: info.email.touched && info.email.hasError ? "block" : "none", color: "red" }}> {info.email.error} </p>
                 </div>
@@ -216,102 +234,85 @@ useEffect(()=>{
                 <div className="mb-3">
                     <label htmlFor="password" className="form-label">Enter Password: </label>
                     <input type="password" className="form-control" id="password" name="password" value={info.password.value}
-                    onChange={(e) => { onInputChange("password", e.target.value, dispatch) }}
-                    onBlur={(e) => { onFocusOut("password", e.target.value, dispatch) }} />
+                    onChange={(e) => { onChange("pwd", e.target.value, dispatch) }}
+                   />
                     <div id="emailhelp" className="form-text">....</div>
-                    <p style={{ display: info.password.touched && info.password.hasError ? "block" : "none", color: "red" }}> {info.password.error} </p>
+                    <p style={{ display: info.pwd.touched && info.pwd.hasError ? "block" : "none", color: "red" }}> {info.password.error} </p>
                 </div>
-
-               <div className="mb-3">
+                <div className="mb-3">
                     <label htmlFor="fname" className="form-label">Enter First name: </label>
                     <input type="text" className="form-control" id="fname" name="fname" value={info.fname.value}
-                    onChange={(e) => { onInputChange("fname", e.target.value, dispatch) }}
-                    onBlur={(e) => { onFocusOut("fname", e.target.value, dispatch) }} />
+                    onChange={(e) => { onChange("fname", e.target.value, dispatch) }}
+              />
                     <div id="fnamehelp" className="form-text">....</div>
                     <p style={{ display: info.fname.touched && info.fname.hasError ? "block" : "none", color: "red" }}> {info.fname.error} </p>
                 </div>
-
-
                 <div className="mb-3">
                     <label htmlFor="lname" className="form-label">Enter Last Name: </label>
                     <input type="text" className="form-control" id="lname" name="lname" value={info.lname.value}
-                     onChange={(e) => { onInputChange("lname", e.target.value, dispatch) }}
-                     onBlur={(e) => { onFocusOut("lname", e.target.value, dispatch) }} />
+                     onChange={(e) => { onChange("lname", e.target.value, dispatch) }}
+                      />
                     <div id="lnamehelp" className="form-text">....</div>
                     <p style={{ display: info.lname.touched && info.lname.hasError ? "block" : "none", color: "red" }}> {info.lname.error} </p>
-                </div> 
+                </div>
 
                
 
-                 <div className="mb-3">
-                    <label htmlFor="contact_no" className="form-label">Enter contact_no No.: </label>
-                    <input type="number" className="form-control" id="contact_no" name="contact_no" value={info.contact_no.value}
-                  onChange={(e) => { onInputChange("contact_no", e.target.value, dispatch) }}
-                  onBlur={(e) => { onFocusOut("contact_no", e.target.value, dispatch) }} />
-                    <div id="contact_nohelp" className="form-text">....</div>
-                    <p style={{ display: info.contact_no.touched && info.contact_no.hasError ? "block" : "none", color: "red" }}> {info.contact_no.error} </p>
+                <div className="mb-3">
+                    <label htmlFor="contact_no" className="form-label">Enter Contact No.: </label>
+                    <input type="number" className="form-control" id="contact_no" name="contact_no" value={info.contact.value}
+                  onChange={(e) => { onChange("contact_no", e.target.value, dispatch) }}
+                  />
+                    <div id="contacthelp" className="form-text">....</div>
+                    <p style={{ display: info.contact.touched && info.contact.hasError ? "block" : "none", color: "red" }}> {info.contact.error} </p>
                 </div>
-
-
-                
-  
-                
-
-
-
                 <div className="mb-3">
                 <label htmlFor="city" className="form-label">Enter City Name: </label>
-                    <select id="city" name="city" value={info.city.value}  
-                    onChange={(e) => { onInputChange("city", e.target.value, dispatch) ;setCityid(info.city.value)}}
-                    onBlur={(e) => { onFocusOut("city", e.target.value, dispatch) }} >
-                       
-                        {cities.map((c)=>(
-                             <option key={c.id} value={c.id}>{c.name}</option>
-                        ))}             
-                    </select>
+                <select name="city" placeholder="Select city" required onChange={(e)=>{dispatch({type:'update', fld:'city', value: e.target.value})}}>
+                    {cities.map(v => <option value={v.id}>{v.city}</option>)}
+                </select>
                     <div id="cityhelp" className="form-text">....</div>
                 </div>
 
 
                 <div className="mb-3">
-                <label htmlFor="areaid" className="form-label">Enter area Name: </label>
-                    <select id="areaid" name="areaid" value={info.areaid.value}  
-                    onChange={(e) => { onInputChange("areaid", e.target.value, dispatch) }}
-                    onBlur={(e) => { onFocusOut("areaid", e.target.value, dispatch) }} >
-                      
-                        {areas.map((c)=>(
-                             <option key={c.id} value={c.name}>{c.name}</option>
-                        ))}             
-                    </select>
-                    <div id="areaidhelp" className="form-text">....</div>
+                <label htmlFor="area" className="form-label">Enter area Name: </label>
+                <select name="area" placeholder="Select area" required onChange={(e)=>{dispatch({type:'update', fld:'area', value: e.target.value})}}>
+                    {areas.map(v => <option value={v.id}>{v.area}</option>)}
+                </select>
+                    <div id="areahelp" className="form-text">....</div>
                 </div>
-            
-
                 <div className="mb-3">
-                    <label htmlFor="address" className="form-label">Enter Address line: </label>
-                    <input type="text" className="form-control" id="address" name="address" value={info.address.value}
-                     onChange={(e) => { onInputChange("address", e.target.value, dispatch) }}
-                     onBlur={(e) => { onFocusOut("address", e.target.value, dispatch) }} />
-                    <div id="addresshelp" className="form-text">....</div>
-                    <p style={{ display: info.address.touched && info.address.hasError ? "block" : "none", color: "red" }}> {info.address.error} </p>
+                    <label htmlFor="pincode" className="form-label">Enter Pincode.: </label>
+                    <input type="number" className="form-control" id="pincode" name="pincode" value={info.pincode.value}
+                    onChange={(e) => { onChange("pincode", e.target.value, dispatch) }}
+                    />
+                    <div id="pincodehelp" className="form-text">....</div>
+                    <p style={{ display: info.pincode.touched && info.pincode.hasError ? "block" : "none", color: "red" }}> {info.pincode.error} </p>
                 </div> 
+        <button
+          type="submit"
+          className="btn btn-primary mb-3"
+          onClick={(e) => {
+            sendData(e);
+          }}
+        >
+          Submit
+        </button>
+        <button
+          type="reset"
+          className="btn btn-primary mb-3"
+          onClick={() => {
+            dispatch({ type: "reset" });
+          }}
+        >
+          Reset
+        </button>
 
-
-            <button type="submit" className="btn bttn-primary mb-3" onClick={(e) => {sendData(e)}}>Submit</button>
-            <button type="reset" className="btn bttn-primary mb-3" onClick={() => {dispatch({type:'reset'})}}>Reset</button>
-                                            
-            <p>{JSON.stringify({
-                    email: info.email.value,
-                    password: info.password.value,
-                    fname: info.fname.value,
-                    lname: info.lname.value,
-                   // city: info.city.value,
-                    areaid: info.areaid.value,
-                    contact_no: info.contact_no.value,
-                    address:info.address.value
-                   // pincode: info.pincode.value
-                 })}</p>
-              </form>
-        </div>
-    )
+        <p>
+          {JSON.stringify(info)}
+        </p>
+      </form>
+    </div>
+  );
 }

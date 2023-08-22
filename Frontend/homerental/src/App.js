@@ -7,6 +7,7 @@ import TenantReg from './components/TenantReg';
 import ContactUs from './components/ContactUs';
 import AddProperty from './components/AddProperty';
 import OwnerReg from './components/OwnerReg';
+import AdminHome from './components/AdminHome';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
             <Route path='/ownerreg' element={<OwnerReg/>}/>
             <Route path='/addproperty' element={<AddProperty/>}/>
             <Route path='/contactus' element={<ContactUs/>}/>
+            <Route path='/adminhome' element={<AdminHome/>}/>
        </Routes>
     </div>
   );

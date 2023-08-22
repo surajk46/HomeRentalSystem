@@ -29,12 +29,5 @@ public class AreaService {
 	{
 		return arepo.findAll();
 	}
-<<<<<<< HEAD
-	public List<Area> getAreaByCityid(int id)
-	{
-		return arepo.getArea(id);
-	}
-=======
 
->>>>>>> 95c28a6aa645f9856f2a209366206d9f1c620f67
 }
