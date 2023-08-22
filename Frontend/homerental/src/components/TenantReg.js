@@ -181,7 +181,7 @@ useEffect(()=>{
             })
             
         }
-        fetch("http://localhost:8080/tenantreg", reqOptions)
+        fetch("http://localhost:8080/regtenant", reqOptions)
         .then(resp => resp.json())
         
     }
