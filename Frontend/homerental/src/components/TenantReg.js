@@ -2,6 +2,7 @@ import { useEffect, useReducer, useState } from "react"
 import { useNavigate } from "react-router-dom"; 
 
 
+
 export default function TenantReg() {
    // const cont=new AbortController();
     const[cities,setCities]=useState([]);
@@ -9,7 +10,7 @@ export default function TenantReg() {
 
     var[areas,setAreas]=useState([]);
     const[cityid,setCityid]=useState(1);
-    const AREAURL="http://localhost:8080/getallarea"//+cityid;//need to add areaid
+    var AREAURL="http://localhost:8080/getareabycity?city_id="+cityid;//need to add areaid
     const ci=()=>{
         setCityid(info.city.value);
     }
@@ -19,14 +20,23 @@ export default function TenantReg() {
         // areas=areas.filter(a=>{
         //     return a.city_id=cityid;
         // })
+      // var AREAURL="http://localhost:8080/getareabycity?city_id="+cityid;//need to add areaid
+
+        
         setFiltered(areas.filter(a=>{
             return a.city_id===2;
         }));
     }
     const navigate = useNavigate(); 
 
+    const getArea=(v)=>{
+        fetch("http://localhost:8080/getareabycity?city_id="+v)
+        .then(resp=>resp.json())
+        .then(data=>setAreas(data))
+   }
 
-
+   
+ 
 useEffect(()=>{
     fetch(CITYURL)
     .then(res => res.json())
@@ -191,10 +201,19 @@ useEffect(()=>{
             
         }
         fetch("http://localhost:8080/regtenant", reqOptions)
-        .then(resp => resp.json())
+        //.then(resp => resp.json())
+
+        .then(resp => {
+            if (resp.ok) {
+                navigate("/login");
+            } else {
+                alert("errr");
+            }
+        })
+};
         
         
-    }
+
 
     return (
         <div>
@@ -258,8 +277,8 @@ useEffect(()=>{
                 <div className="mb-3">
                 <label htmlFor="city" className="form-label">Enter City Name: </label>
                     <select id="city" name="city" value={info.city.value}  
-                    onChange={(e) => { onInputChange("city", e.target.value, dispatch) ;filt()}}
-                    onBlur={(e) => { onFocusOut("city", e.target.value, dispatch) }} >
+                    onChange={(e) => { onInputChange("city", e.target.value, dispatch) }}
+                    onBlur={(e) => { onFocusOut("city", e.target.value, dispatch);setCityid(info.city.value);getArea(cityid) }} >
                        
                         {cities.map((c)=>(
                              <option key={c.id} value={c.id}>{c.name}</option>

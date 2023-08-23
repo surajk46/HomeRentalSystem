@@ -1,16 +1,38 @@
 import { useEffect, useReducer, useState } from "react"
+import { useNavigate } from "react-router-dom"; 
+
 
 export default function TenantReg() {
    // const cont=new AbortController();
     const[cities,setCities]=useState([]);
     const CITYURL="http://localhost:8080/getallcity";
 
-    const[areas,setAreas]=useState([]);
+    var[areas,setAreas]=useState([]);
     const[cityid,setCityid]=useState(1);
-    const AREAURL="http://localhost:8080/getallarea"//+cityid;//need to add areaid
+    var AREAURL="http://localhost:8080/getareabycity?city_id="+cityid;//need to add areaid
+    const ci=()=>{
+        setCityid(info.city.value);
+    }
+    const[filtered,setFiltered]=useState(areas);
+    function filt()
+    {
+        // areas=areas.filter(a=>{
+        //     return a.city_id=cityid;
+        // })
+      // var AREAURL="http://localhost:8080/getareabycity?city_id="+cityid;//need to add areaid
 
-    
-  
+        
+        setFiltered(areas.filter(a=>{
+            return a.city_id===2;
+        }));
+    }
+    const navigate = useNavigate(); 
+
+    const getArea=(v)=>{
+        fetch("http://localhost:8080/getareabycity?city_id="+v)
+        .then(resp=>resp.json())
+        .then(data=>setAreas(data))
+   }
 
 
 useEffect(()=>{
@@ -86,24 +108,6 @@ useEffect(()=>{
                 }
                 break;
            
-            
-            // case "city":
-            //     let regex8 = /^[A-Za-z]{1,}$/;
-
-            //     if (!regex8.test(value)) {
-            //         hasError = true;
-            //         error = "Enter valid city"
-            //     }
-            //     break;
-            // case "pincode":
-            //     let regex9 = /^[0-9]{6}$/;
-
-            //     if (!regex9.test(value)) {
-            //         hasError = true;
-            //         error = "Enter valid postalcode"
-            //     }
-            //     break;
-                
             case "address":
                 let regex10 = /^[A-Za-z]{1,}$/;
 
@@ -112,10 +116,6 @@ useEffect(()=>{
                     error = "address Should be contain only Words"
                 }
                 break;
-               
-
-
-
         }
         return { hasError, error }
 
@@ -141,7 +141,7 @@ useEffect(()=>{
 
   
     const [info, dispatch] = useReducer(reducer,init);
-
+    
 
     const onInputChange = (name, value, dispatch) => {
         //validation logic
@@ -198,14 +198,22 @@ useEffect(()=>{
             })
             
         }
-        fetch("http://localhost:8080/regtenant", reqOptions)
-        .then(resp => resp.json())
+        fetch("http://localhost:8080/regowner", reqOptions)
+        //.then(resp => resp.json())
+        .then(resp => {
+            if (resp.ok) {
+                navigate("/login");
+            } else {
+                alert("errr");
+            }
+        })
+        
         
     }
 
     return (
         <div>
-            <h1>Owner SignUp Form</h1>
+            <h1>Tenant SignUp Form</h1>
             <form >
             <div className="mb-3">
                     <label htmlFor="email" className="form-label">Enter Email id: </label>
@@ -265,8 +273,8 @@ useEffect(()=>{
                 <div className="mb-3">
                 <label htmlFor="city" className="form-label">Enter City Name: </label>
                     <select id="city" name="city" value={info.city.value}  
-                    onChange={(e) => { onInputChange("city", e.target.value, dispatch) ;setCityid(info.city.value)}}
-                    onBlur={(e) => { onFocusOut("city", e.target.value, dispatch) }} >
+                    onChange={(e) => { onInputChange("city", e.target.value, dispatch) }}
+                    onBlur={(e) => { onFocusOut("city", e.target.value, dispatch);setCityid(info.city.value);getArea(cityid) }} >
                        
                         {cities.map((c)=>(
                              <option key={c.id} value={c.id}>{c.name}</option>
@@ -275,7 +283,9 @@ useEffect(()=>{
                     <div id="cityhelp" className="form-text">....</div>
                 </div>
 
-
+                
+            
+              
                 <div className="mb-3">
                 <label htmlFor="areaid" className="form-label">Enter area Name: </label>
                     <select id="areaid" name="areaid" value={info.areaid.value}  
@@ -310,10 +320,11 @@ useEffect(()=>{
                     password: info.password.value,
                     fname: info.fname.value,
                     lname: info.lname.value,
-                   // city: info.city.value,
+                    city: info.city.value,
                     areaid: info.areaid.value,
                     contact_no: info.contact_no.value,
-                    address:info.address.value
+                    address:info.address.value,
+                    cityid:cityid
                    // pincode: info.pincode.value
                  })}</p>
               </form>

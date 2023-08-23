@@ -36,12 +36,12 @@ useEffect(()=>{
    .then(data => {setPropertytype(data)})
   // return()=>{cont.abort()};
 },[]);
-// useEffect(()=>{
-//    fetch(FACILITYURL)
-//    .then(res => res.json())
-//    .then(data => {setHomeFacility(data)})
-//   // return()=>{cont.abort()};
-// },[]);
+useEffect(()=>{
+   fetch(FACILITYURL)
+   .then(res => res.json())
+   .then(data => {setHomeFacility(data)})
+  // return()=>{cont.abort()};
+},[]);
 
 
 
