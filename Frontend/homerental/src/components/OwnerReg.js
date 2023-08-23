@@ -213,7 +213,7 @@ useEffect(()=>{
 
     return (
         <div>
-            <h1>Tenant SignUp Form</h1>
+            <h1>Owner SignUp Form</h1>
             <form >
             <div className="mb-3">
                     <label htmlFor="email" className="form-label">Enter Email id: </label>
@@ -274,7 +274,7 @@ useEffect(()=>{
                 <label htmlFor="city" className="form-label">Enter City Name: </label>
                     <select id="city" name="city" value={info.city.value}  
                     onChange={(e) => { onInputChange("city", e.target.value, dispatch) }}
-                    onBlur={(e) => { onFocusOut("city", e.target.value, dispatch);setCityid(info.city.value);getArea(cityid) }} >
+                    onBlur={(e) => { onFocusOut("city", e.target.value, dispatch);setCityid(info.city.value);getArea(e.target.value) }} >
                        
                         {cities.map((c)=>(
                              <option key={c.id} value={c.id}>{c.name}</option>
