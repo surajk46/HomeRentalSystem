@@ -86,6 +86,19 @@ public class Property {
 		this.deposit = deposit;
 		this.facilities = facilities;
 	}
+	
+
+	public Property(Area area_id, PropertyType property_type_id, String property_name, String pdesc, float price,
+			float deposit, Set<Facility> facilities) {
+		super();
+		this.area_id = area_id;
+		this.property_type_id = property_type_id;
+		this.property_name = property_name;
+		this.pdesc = pdesc;
+		this.price = price;
+		this.deposit = deposit;
+		this.facilities = facilities;
+	}
 
 	public Property(int id) {
 		super();

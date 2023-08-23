@@ -29,5 +29,10 @@ public class AreaService {
 	{
 		return arepo.findAll();
 	}
+	
+	public List<Area> getareabycity(int id)
+	{
+		return arepo.getareabyid(id);
+	}
 
 }

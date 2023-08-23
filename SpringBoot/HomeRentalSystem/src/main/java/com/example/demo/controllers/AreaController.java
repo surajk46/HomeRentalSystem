@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.entities.Area;
@@ -20,5 +22,11 @@ public class AreaController {
 	public List<Area> getAll()
 	{
 		return aService.getAll();
+	}
+	
+	@GetMapping("/getareabycity")
+	public List<Area> getareabycity(@RequestParam("city_id") int id)
+	{
+		return aService.getareabycity(id);
 	}
 }

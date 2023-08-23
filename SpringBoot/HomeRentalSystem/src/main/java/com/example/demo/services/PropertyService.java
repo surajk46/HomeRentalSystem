@@ -15,9 +15,9 @@ public class PropertyService {
 	@Autowired
 	PropertyRepository prepo;
 	
-	public Property save(Property f)
+	public Property save(Property p)
 	{
-		return prepo.save(f);
+		return prepo.save(p);
 	}
 	public List<Property> getAll()
 	{
