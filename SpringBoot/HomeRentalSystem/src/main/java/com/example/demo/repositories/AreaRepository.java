@@ -12,6 +12,6 @@ import com.example.demo.entities.City;
 @Repository
 public interface AreaRepository extends JpaRepository<Area, Integer> {
 
-	@Query("select a from Area a where a.city_id=:id ")
+	@Query("select a from Area a where a.city_id.id = :id ")
 	public List<Area> getareabyid(int id);
 }
