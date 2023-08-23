@@ -9,27 +9,34 @@ import AddProperty from './components/AddProperty';
 import OwnerReg from './components/OwnerReg';
 import AdminHome from './components/AdminHome';
 import AddProperty1 from './components/AddProperty1';
+import OwnerHome from './components/OwnerHome';
+import { useSelector } from 'react-redux';
+import LogoutComp from './components/LogoutComp';
 
 function App() {
+
+    const mystate = useSelector((state)=>state.logged)
   return (
     <div className="App">
-       <ul class="nav navbar">
-            <li class="nav-item">
-                <Link to="/home" class="nav-link">Home</Link>
-            </li>
-            <li class="nav-item">
-                <Link to="/login" class="nav-link">Log In</Link>
-            </li>
-            <li class="nav-item">
-                <Link to="/tenantreg" class="nav-link">Tenant Registration</Link>
-            </li>
-            <li class="nav-item">
-                <Link to="/ownerreg" class="nav-link">Owner Registration</Link>
-            </li>
-            <li class="nav-item">
-                <Link to="/addproperty" class="nav-link">AddProperty</Link>
-            </li> 
-        </ul>
+       <div style={{display:mystate.loggedIn?"none":"block"}}>
+           <ul class="nav navbar">
+                <li class="nav-item">
+                    <Link to="/home" class="nav-link">Home</Link>
+                </li>
+                <li class="nav-item">
+                    <Link to="/login" class="nav-link">Log In</Link>
+                </li>
+                <li class="nav-item">
+                    <Link to="/tenantreg" class="nav-link">Tenant Registration</Link>
+                </li>
+                <li class="nav-item">
+                    <Link to="/ownerreg" class="nav-link">Owner Registration</Link>
+                </li>
+                <li class="nav-item">
+                    <Link to="/addproperty" class="nav-link">AddProperty</Link>
+                </li> 
+            </ul>
+       </div>
 
         <Routes>
             <Route path='/home' element={<HomeFunc/>}/>
@@ -38,7 +45,12 @@ function App() {
             <Route path='/ownerreg' element={<OwnerReg/>}/>
             <Route path='/addproperty' element={<AddProperty1/>}/>
             <Route path='/contactus' element={<ContactUs/>}/>
+
             <Route path='/adminhome' element={<AdminHome/>}/>
+            <Route path='/ownerhome' element={<OwnerHome/>}/>   
+            {/* <Route path='/tenanthome' element={<TenantHome/>}/> */}
+
+            <Route path='/logout' element={<LogoutComp/>}/>
        </Routes>
     </div>
   );

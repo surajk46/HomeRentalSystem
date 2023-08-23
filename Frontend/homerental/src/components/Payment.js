@@ -2,9 +2,8 @@ import { useEffect, useReducer, useState } from "react"
 import { useNavigate } from "react-router-dom"; 
 
 
-
 export default function TenantReg() {
-   // const cont=new AbortController();
+  
     const[cities,setCities]=useState([]);
     const CITYURL="http://localhost:8080/getallcity";
 
@@ -15,18 +14,7 @@ export default function TenantReg() {
         setCityid(info.city.value);
     }
     const[filtered,setFiltered]=useState(areas);
-    function filt()
-    {
-        // areas=areas.filter(a=>{
-        //     return a.city_id=cityid;
-        // })
-      // var AREAURL="http://localhost:8080/getareabycity?city_id="+cityid;//need to add areaid
-
-        
-        setFiltered(areas.filter(a=>{
-            return a.city_id===2;
-        }));
-    }
+   
     const navigate = useNavigate(); 
 
     const getArea=(v)=>{
@@ -35,8 +23,7 @@ export default function TenantReg() {
         .then(data=>setAreas(data))
    }
 
-   
- 
+
 useEffect(()=>{
     fetch(CITYURL)
     .then(res => res.json())
@@ -52,16 +39,7 @@ useEffect(()=>{
 
     const init = 
     {
-        email: { value: "", hasError: true, touched: false, error: "" },
-        password : { value: "", hasError: true, touched: false, error: "" },
-        fname: { value: "", hasError: true, touched: false, error: "" },
-        lname: { value: "", hasError: true, touched: false, error: "" },
-        contact_no: { value: "", hasError: true, touched: false, error: "" },
-        city: { value: "", hasError: true, touched: false, error: "" },
-        areaid: { value: "", hasError: true, touched: false, error: "" },
-       // pincode: { value: "", hasError: true, touched: false, error: "" },
-        address:{ value: "", hasError: true, touched: false, error: "" },
-        isFormValid:false
+        contact_no: { value: "", hasError: true, touched: false, error: "" }
     }
    
 
@@ -77,48 +55,7 @@ useEffect(()=>{
                     error = "Email should be valid"
                 }
                 break;
-            case "password":
-                let regex1 = /^(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&])[A-Za-z0-9!@#$%^&*]{5,}$/;
-
-                if (!regex1.test(value)) {
-                    hasError = true;
-                    error = "Password Should be more than 5 characters and valid "
-                }
-                break;
-            case "fname":
-                let regex2 = /^[A-Za-z]{1,15}$/;
-
-                if (!regex2.test(value)) {
-                    hasError = true;
-                    error = "First Name Should be valid and not more than 15 characters"
-                }
-                break;
-            case "lname":
-                let regex3 = /^[A-Za-z]{1,15}$/;
-
-                if (!regex3.test(value)) {
-                    hasError = true;
-                    error = "Last Name Should be valid and not more than 15 characters"
-                }
-                break;
-            case "contact_no":
-                let regex5 = /^[0-9]{10}$/;
-
-                if (!regex5.test(value)) {
-                    hasError = true;
-                    error = "contact_no Should be of 10 digits Only"
-                }
-                break;
-           
-            case "address":
-                let regex10 = /^[A-Za-z]{1,}$/;
-
-                if (!regex10.test(value)) {
-                    hasError = true;
-                    error = "address Should be contain only Words"
-                }
-                break;
-        }
+            
         return { hasError, error }
 
     }
@@ -146,9 +83,7 @@ useEffect(()=>{
     
 
     const onInputChange = (name, value, dispatch) => {
-        //validation logic
-        const { hasError, error } = validateData(name, value); //form field, latest value
-        //which key to be modified - value, hasError, error, touched 
+        const { hasError, error } = validateData(name, value);
         let isFormValid = true;
         for (const key in info) {
             let item = info[key];
@@ -188,21 +123,12 @@ useEffect(()=>{
             method: 'POST',
             headers: {'content-type':'application/json' },
             body: JSON.stringify({
-                email: info.email.value,
-                password: info.password.value,
-                fname: info.fname.value,
-                lname: info.lname.value,
-               // city: info.city.value,
-                areaid: info.areaid.value,
-                contact_no: info.contact_no.value,
-                address:info.address.value
-               // pincode: info.pincode.value
+                amount: info.areaid.value
             })
             
         }
-        fetch("http://localhost:8080/regtenant", reqOptions)
+        fetch("http://localhost:8080/regowner", reqOptions)
         //.then(resp => resp.json())
-
         .then(resp => {
             if (resp.ok) {
                 navigate("/login");
@@ -210,14 +136,13 @@ useEffect(()=>{
                 alert("errr");
             }
         })
-};
         
         
-
+    }
 
     return (
         <div>
-            <h1>Tenant SignUp Form</h1>
+            <h1>Owner SignUp Form</h1>
             <form >
             <div className="mb-3">
                     <label htmlFor="email" className="form-label">Enter Email id: </label>
@@ -318,7 +243,7 @@ useEffect(()=>{
 
             <button type="submit" className="btn bttn-primary mb-3" onClick={(e) => {sendData(e)}}>Submit</button>
             <button type="reset" className="btn bttn-primary mb-3" onClick={() => {dispatch({type:'reset'})}}>Reset</button>
-                                     
+                                            
             <p>{JSON.stringify({
                     email: info.email.value,
                     password: info.password.value,
@@ -334,4 +259,5 @@ useEffect(()=>{
               </form>
         </div>
     )
+}
 }

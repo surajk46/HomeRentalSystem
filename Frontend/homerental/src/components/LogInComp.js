@@ -1,5 +1,7 @@
 import React, { useState, useReducer } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom"; 
+import { login } from "./slice";
 
 export default function LoginComp() { 
 
@@ -22,7 +24,7 @@ export default function LoginComp() {
     const [info, dispatch] = useReducer(reducer, init);
     const [msg, setMsg] = useState("");
     const navigate = useNavigate(); 
-
+    const reducAction = useDispatch();
 
     const sendData = (e) => {
         e.preventDefault();
@@ -47,12 +49,15 @@ export default function LoginComp() {
                 } 
                 else 
                 {
+                    reducAction(login());
+                    localStorage.setItem("loggedUser",JSON.stringify(obj));
                     if (obj.status === false) 
                     {
                         alert("Request has not been approved.");
                     } 
                     else 
                     {
+                       
                         if (obj.role_id.id === 1) 
                         {
                             navigate("/adminhome");
