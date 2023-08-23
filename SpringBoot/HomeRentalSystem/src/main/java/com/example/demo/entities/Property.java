@@ -15,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "property")
 public class Property {
@@ -35,7 +37,7 @@ public class Property {
 	float price;
 	@Column
 	float deposit;
-	
+	@JsonIgnoreProperties("properties")
 	@ManyToMany(cascade = {CascadeType.MERGE,CascadeType.PERSIST})
 	@JoinTable(name = "facility_property",
 					   joinColumns = @JoinColumn(name="property_id"),

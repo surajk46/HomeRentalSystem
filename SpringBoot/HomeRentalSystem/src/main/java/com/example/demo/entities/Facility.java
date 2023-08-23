@@ -13,6 +13,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "facility")
 public class Facility {
@@ -22,6 +24,7 @@ public class Facility {
 	@Column
 	String name;
 	
+	@JsonIgnoreProperties("facilities")
 	@ManyToMany(cascade = {CascadeType.MERGE,CascadeType.PERSIST})
 	@JoinTable(name = "facility_property",
 					   joinColumns = @JoinColumn(name="facility_id"),

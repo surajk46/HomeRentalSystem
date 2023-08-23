@@ -7,7 +7,7 @@ export default function AddProperty() {
 
    const[areas,setAreas]=useState([]);
    const[cityid,setCityid]=useState(1);
-   const AREAURL="http://localhost:8080/getallarea"//+cityid;//need to add areaid
+  // const AREAURL="http://localhost:8080/getallarea"//+cityid;//need to add areaid
 
    const[propertytype,setPropertytype]=useState([]);
    const PROPERTYTYPEURL="http://localhost:8080/getallpropertytype";
@@ -16,7 +16,14 @@ export default function AddProperty() {
    const FACILITYURL="http://localhost:8080/getallfacility";
    
  
+   
+   var AREAURL="http://localhost:8080/getareabycity?city_id="+cityid;//need to add areaid
 
+   const getArea=(v)=>{
+    fetch("http://localhost:8080/getareabycity?city_id="+v)
+    .then(resp=>resp.json())
+    .then(data=>setAreas(data))
+}
 
 useEffect(()=>{
    fetch(CITYURL)
@@ -148,18 +155,18 @@ useEffect(()=>{
             method: 'POST',
             headers: {'content-type':'application/json' },
             body: JSON.stringify({
-                areaid: info.areaid.value,
-                propertytype_id: info.propertytype_id.value,
-                propertyname: info.propertyname.value,
+                area_id: info.areaid.value,
+                property_type_id: info.propertytype_id.value,
+                property_name: info.propertyname.value,
                 pdesc: info.pdesc.value,
                 price: info.price.value,
                 deposit: info.deposit.value,
-                facility:info.facility.value
+                facilities:[info.deposit.value]
 
             })
             
         }
-        fetch("http://localhost:8080/addproperty", reqOptions)
+        fetch("http://localhost:8080/regproperty", reqOptions)
         .then(resp => resp.json())
         
     }
@@ -171,8 +178,8 @@ useEffect(()=>{
            <div className="mb-3">
                 <label htmlFor="city" className="form-label">Enter City Name: </label>
                     <select id="city" name="city" value={info.city.value}  
-                    onChange={(e) => { onInputChange("city", e.target.value, dispatch) ;setCityid(info.city.value)}}
-                    onBlur={(e) => { onFocusOut("city", e.target.value, dispatch) }} >
+                    onChange={(e) => { onInputChange("city", e.target.value, dispatch)}}
+                    onBlur={(e) => { onFocusOut("city", e.target.value, dispatch);setCityid(info.city.value);getArea(cityid) }} >
                        
                         {cities.map((c)=>(
                              <option key={c.id} value={c.id}>{c.name}</option>
@@ -278,9 +285,9 @@ useEffect(()=>{
                 <p>
                     {
                         JSON.stringify({
-                        areaid: info.areaid.value,
-                        propertytype_id: info.propertytype_id.value,
-                        propertyname: info.propertyname.value,
+                        area_id: info.areaid.value,
+                        property_type_id: info.propertytype_id.value,
+                        property_name: info.propertyname.value,
                         pdesc: info.pdesc.value,
                         price: info.price.value,
                         deposit: info.deposit.value,
