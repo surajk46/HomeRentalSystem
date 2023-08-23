@@ -6,9 +6,11 @@ import org.apache.tomcat.util.net.jsse.PEMFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.entities.Area;
 import com.example.demo.entities.Property;
@@ -57,6 +59,21 @@ public class PropertyController {
 		/*Tenant t=new Tenant(tr.getFname(), tr.getLname(), 0, tr.getContact_no(),tr.getAddress(), area, l);
 		Tenant saved2=tservice.save(t);
 		return saved2;*/
+	}
+	
+	@PostMapping(value = "uploadimage/{did}",consumes = "multipart/form-data")
+	public boolean uploadImage(@PathVariable("did") int did,@RequestBody MultipartFile file)
+	{
+		boolean flag=true;
+		try 
+		{
+			flag=pservice.upload(did, file.getBytes());
+		}
+		catch(Exception e)
+		{
+			flag=false;
+		}
+		return flag;
 	}
 
 }

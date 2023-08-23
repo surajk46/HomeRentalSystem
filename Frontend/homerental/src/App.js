@@ -8,6 +8,7 @@ import ContactUs from './components/ContactUs';
 import AddProperty from './components/AddProperty';
 import OwnerReg from './components/OwnerReg';
 import AdminHome from './components/AdminHome';
+import AddProperty1 from './components/AddProperty1';
 
 function App() {
   return (
@@ -35,7 +36,7 @@ function App() {
             <Route path='/login' element={<LogInComp/>}/>
             <Route path='/tenantreg' element={<TenantReg/>}/>
             <Route path='/ownerreg' element={<OwnerReg/>}/>
-            <Route path='/addproperty' element={<AddProperty/>}/>
+            <Route path='/addproperty' element={<AddProperty1/>}/>
             <Route path='/contactus' element={<ContactUs/>}/>
             <Route path='/adminhome' element={<AdminHome/>}/>
        </Routes>

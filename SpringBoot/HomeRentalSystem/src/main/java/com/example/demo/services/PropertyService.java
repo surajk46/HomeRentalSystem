@@ -23,4 +23,13 @@ public class PropertyService {
 	{
 		return prepo.findAll();
 	}
+	
+	public boolean upload(int id,byte[] photo)
+	{
+		if(prepo.uploadPhoto(id, photo)==1)
+			return true;
+		else {
+			return false;
+		}
+	}
 }

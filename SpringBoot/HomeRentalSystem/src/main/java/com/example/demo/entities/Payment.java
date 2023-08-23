@@ -25,6 +25,7 @@ public class Payment {
 	@Column
 	String transcation;
 	
+	byte [] image;
 	@ManyToOne
 	@JoinColumn(name = "login_id")
 	Login login_id;
@@ -41,6 +42,16 @@ public class Payment {
 		this.date = date;
 		this.amount = amount;
 		this.transcation = transcation;
+		this.login_id = login_id;
+		this.subscription_id = subscription_id;
+	}
+	public Payment(Date date, float amount, String transcation, byte[] image, Login login_id,
+			Subscription subscription_id) {
+		super();
+		this.date = date;
+		this.amount = amount;
+		this.transcation = transcation;
+		this.image = image;
 		this.login_id = login_id;
 		this.subscription_id = subscription_id;
 	}

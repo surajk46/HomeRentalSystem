@@ -27,6 +27,6 @@ public class AreaController {
 	@GetMapping("/getareabycity")
 	public List<Area> getareabycity(@RequestParam("city_id") int id)
 	{
-		return aService.getareabycity(id);
+		return aService.getareabycity(id);////
 	}
 }

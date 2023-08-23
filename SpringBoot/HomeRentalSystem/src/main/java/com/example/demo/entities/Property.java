@@ -23,11 +23,15 @@ public class Property {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	int id;
+	
 	@ManyToOne
+	@JoinColumn(name = "owner_id")
 	Owner owner_id;
 	@OneToOne
+	@JoinColumn(name = "area_id")
 	Area area_id;
 	@ManyToOne
+	@JoinColumn(name = "property_type_id")
 	PropertyType property_type_id;
 	@Column
 	String property_name;
