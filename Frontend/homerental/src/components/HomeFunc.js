@@ -70,7 +70,7 @@ export default function HomeFunc(){
 
             <div className="mb-3">
                 <label htmlFor="area" className="form-label">Enter area Name: </label>
-                    <select id="area" name="area" value={area} onChange={(e) => { setArea(e.target.value);getPropertyByArea(e.target.value)}}>
+                    <select id="area" name="area"  onChange={(e) => {setCityid(e.target.value); getPropertyByArea(e.target.value)}}>
                         {area && area.map((c)=>(
                              <option key={c.id} value={c.id} >{c.name}</option>
                         ))}     

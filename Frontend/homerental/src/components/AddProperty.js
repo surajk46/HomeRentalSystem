@@ -155,6 +155,7 @@ useEffect(()=>{
             method: 'POST',
             headers: {'content-type':'application/json' },
             body: JSON.stringify({
+                owner_id:JSON.parse(localStorage.getItem("loggedOwner")).id,
                 area_id: info.areaid.value,
                 property_type_id: info.propertytype_id.value,
                 property_name: info.propertyname.value,
@@ -178,8 +179,8 @@ useEffect(()=>{
            <div className="mb-3">
                 <label htmlFor="city" className="form-label">Enter City Name: </label>
                     <select id="city" name="city" value={info.city.value}  
-                    onChange={(e) => { onInputChange("city", e.target.value, dispatch)}}
-                    onBlur={(e) => { onFocusOut("city", e.target.value, dispatch);setCityid(info.city.value);getArea(e.target.value) }} >
+                    onChange={(e) => { onInputChange("city", e.target.value, dispatch);getArea(e.target.value)}}
+                    onBlur={(e) => { onFocusOut("city", e.target.value, dispatch);setCityid(info.city.value) }} >
                        
                         {cities.map((c)=>(
                              <option key={c.id} value={c.id}>{c.name}</option>
@@ -285,6 +286,7 @@ useEffect(()=>{
                 <p>
                     {
                         JSON.stringify({
+                        owner_id:JSON.parse(localStorage.getItem("loggedOwner")).id,
                         area_id: info.areaid.value,
                         property_type_id: info.propertytype_id.value,
                         property_name: info.propertyname.value,

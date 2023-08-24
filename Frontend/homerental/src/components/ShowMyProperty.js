@@ -1,6 +1,6 @@
-import { Link, Route, Routes } from 'react-router-dom';
-import { Button, Form,Col, Container, Row} from "react-bootstrap";
-import { useEffect, useReducer, useState } from "react"
+import { Link } from 'react-router-dom';
+
+import { useEffect, useState } from "react"
 
 export default function ShowMyProperty(){
     const[cityid,setCityid]=useState();
@@ -99,7 +99,7 @@ export default function ShowMyProperty(){
 
             <div className="mb-3">
                 <label htmlFor="area" className="form-label">Enter area Name: </label>
-                    <select id="area" name="area" value={area} onChange={(e) => { setArea(e.target.value);getPropertyByArea(e.target.value)}}>
+                <select id="area" name="area" onChange={(e) => {setCityid(e.target.value); getPropertyByArea(e.target.value)}}>
                         {area && area.map((c)=>(
                              <option key={c.id} value={c.id} >{c.name}</option>
                         ))}     

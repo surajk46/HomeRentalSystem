@@ -1,10 +1,29 @@
 import React, { Component } from 'react';
 import { Link, Route, Routes } from 'react-router-dom';
 import bootstrap from 'bootstrap';
-import AddProperty from './AddProperty';
+import { useEffect, useReducer, useState } from "react"
 
-class OwnerHome extends Component {
-    render() {
+
+export default function OwnerHome() {
+    const[owner,setOwner]=useState();
+
+    useEffect(()=>{
+        fetch("http://localhost:8080/getownerbyloginid/"+JSON.parse(localStorage.getItem("loggedUser")).id)
+        .then(res => res.json())
+        .then(data => {setOwner(data)})
+       // return()=>{cont.abort()};
+     },[]);
+
+     localStorage.setItem("loggedOwner",JSON.stringify(owner));
+
+     const handleAddProperty = () => {
+        
+     };
+ 
+     const handleShowProperty = () => {
+         // Handle the action when the "Show Property" button is clicked
+         // For example, you can navigate to a page that displays the properties
+     };
         return (
             <div>
                 <h1>Welcome, Property Owner!</h1>
@@ -40,14 +59,6 @@ class OwnerHome extends Component {
     }
 
 
-    handleAddProperty = () => {
-        
-    };
+   
 
-    handleShowProperty = () => {
-        // Handle the action when the "Show Property" button is clicked
-        // For example, you can navigate to a page that displays the properties
-    };
-}
 
-export default OwnerHome;

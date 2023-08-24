@@ -1,6 +1,6 @@
-import { Link, Route, Routes } from 'react-router-dom';
-import { Button, Form,Col, Container, Row} from "react-bootstrap";
-import { useEffect, useReducer, useState } from "react"
+import { Link } from 'react-router-dom';
+
+import { useEffect, useState } from "react"
 
 export default function TenantHome(){
     const[cityid,setCityid]=useState();
@@ -42,7 +42,16 @@ export default function TenantHome(){
     }
 
     
+    const[tenant,setTenant]=useState();
 
+    useEffect(()=>{
+        fetch("http://localhost:8080/gettenantbyloginid/"+JSON.parse(localStorage.getItem("loggedUser")).id)
+        .then(res => res.json())
+        .then(data => {setTenant(data)})
+       // return()=>{cont.abort()};
+     },[]);
+     
+     localStorage.setItem("loggedTenant",JSON.stringify(tenant));
 
     return(
         <div>
@@ -70,7 +79,7 @@ export default function TenantHome(){
 
             <div className="mb-3">
                 <label htmlFor="area" className="form-label">Enter area Name: </label>
-                    <select id="area" name="area" value={area} onChange={(e) => { setArea(e.target.value);getPropertyByArea(e.target.value)}}>
+                   <select id="area" name="area" onChange={(e) => {setCityid(e.target.value); getPropertyByArea(e.target.value)}}>
                         {area && area.map((c)=>(
                              <option key={c.id} value={c.id} >{c.name}</option>
                         ))}     
@@ -91,8 +100,8 @@ export default function TenantHome(){
                             {/* <li className="list-group-item">Vestibulum at eros</li> */}
                         </ul>
                         <div className="card-body">
-                            <a href="#" className="card-link">ViewMore</a>
-                            <a href="#" className="card-link">like</a>
+                            <Link to="#" className="card-link">ViewMore</Link>
+                            <Link to="#" className="card-link">like</Link>
                         </div>
                     </div>
                 ))}
