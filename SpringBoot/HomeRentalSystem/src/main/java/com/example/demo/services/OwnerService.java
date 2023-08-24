@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entities.Area;
+import com.example.demo.entities.Login;
 import com.example.demo.entities.Owner;
 import com.example.demo.repositories.OwnerRepository;
 
@@ -26,5 +27,9 @@ public class OwnerService
 	
 	public String getContactNoByOwnerId(int ownerId) {
         return orepo.findContactNoByOwnerId(ownerId);
+    }
+	
+	public Owner findOwnerByLogin(int id) {
+        return orepo.findByLogin(id);
     }
 }

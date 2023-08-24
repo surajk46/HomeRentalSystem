@@ -1,5 +1,7 @@
 package com.example.demo.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -54,6 +56,12 @@ public class OwnerController {
 	 {
 	    String contactNo = oservice.getContactNoByOwnerId(ownerId);
 	    return ResponseEntity.ok(contactNo);
+	 }
+	 
+	 @GetMapping("/getownerbyloginid/{id}")
+	  public Owner getOwnerByLogin(@PathVariable("id") int id) 
+	 {
+		 return oservice.findOwnerByLogin(id);
 	 }
 
 }

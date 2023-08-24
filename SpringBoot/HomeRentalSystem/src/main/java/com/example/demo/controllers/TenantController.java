@@ -2,6 +2,8 @@ package com.example.demo.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.entities.Area;
 import com.example.demo.entities.City;
 import com.example.demo.entities.Login;
+import com.example.demo.entities.Owner;
 import com.example.demo.entities.Role;
 import com.example.demo.entities.Tenant;
 import com.example.demo.entities.TenantReg;
@@ -53,5 +56,11 @@ public class TenantController
 		Tenant saved2=tservice.save(t);
 		return saved2;
 	}
+	
+	@GetMapping("/gettenantbyloginid/{id}")
+	  public Tenant getTenantByLogin(@PathVariable("id") int id) 
+	 {
+		 return tservice.findTenantByLogin(id);
+	 }
 
 }

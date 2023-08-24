@@ -126,7 +126,6 @@ public class PropertyController {
 	 }
 	 
 
-	 
 	 @GetMapping("/getpropertybycityid /{cid}")
 	 public List<Property> getPropertiesByOwnerId(@PathVariable("cid") int id)
 	{
