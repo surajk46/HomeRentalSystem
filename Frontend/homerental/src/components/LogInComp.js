@@ -49,15 +49,15 @@ export default function LoginComp() {
                 } 
                 else 
                 {
-                    reducAction(login());
-                    localStorage.setItem("loggedUser",JSON.stringify(obj));
+                    
                     if (obj.status === false) 
                     {
                         alert("Request has not been approved.");
                     } 
                     else 
                     {
-                       
+                        reducAction(login());
+                        localStorage.setItem("loggedUser",JSON.stringify(obj));
                         if (obj.role_id.id === 1) 
                         {
                             navigate("/adminhome");
