@@ -6,15 +6,18 @@ import java.util.stream.Collectors;
 
 import org.apache.tomcat.util.net.jsse.PEMFile;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.demo.entities.Area;
+import com.example.demo.entities.*;
 import com.example.demo.entities.Facility;
 import com.example.demo.entities.Property;
 import com.example.demo.entities.PropertyReg;
@@ -95,6 +98,39 @@ public class PropertyController {
 			flag=false;
 		}
 		return flag;
+	}
+	
+	@GetMapping("getpropertybyareaid/{aid}")
+	public List<Property> getByAreaId(@PathVariable("aid") int id)
+	{
+		return pservice.getbyAreaId(id);
+	}
+	
+	@GetMapping("getpropertybycityid/{cid}")
+	public List<Property> getByCityId(@PathVariable("cid") int id)
+	{
+		return pservice.getbyCityId(id);
+	}
+	
+	@GetMapping("/propertyTypeName/{propertyId}")
+    public ResponseEntity<String> getPropertyTypeNameByPropertyId(@PathVariable int propertyId) {
+        String propertyTypeName = pservice.getPropertyTypeNameByPropertyId(propertyId);
+        return ResponseEntity.ok(propertyTypeName);
+    }
+	
+	 @DeleteMapping("deleteproperty/{propertyId}")
+	 public ResponseEntity<Void> deletePropertyById(@PathVariable int propertyId) 
+	 {
+	     pservice.deletePropertyById(propertyId);
+	     return ResponseEntity.noContent().build();
+	 }
+	 
+
+	 
+	 @GetMapping("/getpropertybycityid /{cid}")
+	 public List<Property> getPropertiesByOwnerId(@PathVariable("cid") int id)
+	{
+		return pservice.getPropertiesByOwnerId(id);
 	}
 
 }

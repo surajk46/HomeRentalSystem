@@ -28,4 +28,9 @@ public class FacilityService
 		return frepo.findById(id).get();
 	}
 	
+	public List<Facility> getFacilitiesByPropertyId(int propertyId) {
+        return frepo.findFacilitiesByPropertyId(propertyId);
+    }
+	
+	
 }

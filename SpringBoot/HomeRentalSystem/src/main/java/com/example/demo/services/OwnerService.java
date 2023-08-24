@@ -23,4 +23,8 @@ public class OwnerService
 	{
 		return orepo.findById(id).get();
 	}
+	
+	public String getContactNoByOwnerId(int ownerId) {
+        return orepo.findContactNoByOwnerId(ownerId);
+    }
 }

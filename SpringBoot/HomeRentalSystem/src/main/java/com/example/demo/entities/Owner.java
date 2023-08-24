@@ -42,6 +42,11 @@ public class Owner {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	public Owner(int id) {
+		super();
+		this.id = id;
+	}
 
 	public Owner(String fname, String lname, int add_property_request_rem, String contact_no, String address,
 			Area area_id, Login login_id, Payment payment_id) {
