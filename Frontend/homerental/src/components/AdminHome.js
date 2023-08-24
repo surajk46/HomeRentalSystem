@@ -11,13 +11,13 @@ export default function AdminHome() {
       <h1>Welcome To AdminHome</h1>
       <ul className="nav navbar">
         <li className="nav-item">
-          <Link to="/ShowAllTenant" className="nav-link">ShowAllTenant</Link>
+          <Link to="/getalltenants" className="nav-link">ShowAllTenant</Link>
         </li>
         <li className="nav-item">
-          <Link to="/showallpropreties" className="nav-link">ShowAllOwner</Link>
+          <Link to="/getallowners" className="nav-link">ShowAllOwner</Link>
         </li>
         <li className="nav-item">
-          <Link to="/showallproperties" className="nav-link">ShowAllproperties</Link></li>
+          <Link to="/getallproperties" className="nav-link">ShowAllproperties</Link></li>
         
         <li className="nav-item">
           <Link to="/logout" className="nav-link">Log Out</Link></li>

@@ -16,14 +16,9 @@ export default function OwnerHome() {
 
      localStorage.setItem("loggedOwner",JSON.stringify(owner));
 
-     const handleAddProperty = () => {
-        
-     };
+    
  
-     const handleShowProperty = () => {
-         // Handle the action when the "Show Property" button is clicked
-         // For example, you can navigate to a page that displays the properties
-     };
+   
         return (
             <div>
                 <h1>Welcome, Property Owner!</h1>

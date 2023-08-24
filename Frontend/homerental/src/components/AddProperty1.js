@@ -160,6 +160,7 @@ useEffect(()=>{
             headers: {'content-type':'application/json' },
             body: JSON.stringify({
                 //owner_id:
+                owner_id:JSON.parse(localStorage.getItem("loggedOwner")).id,
                 area_id: info.areaid.value,
                 property_type_id: info.propertytype_id.value,
                 property_name: info.propertyname.value,
@@ -337,6 +338,7 @@ useEffect(()=>{
                 <p>
                     {
                         JSON.stringify({
+                        owner_id:JSON.parse(localStorage.getItem("loggedOwner")).id,
                         area_id: info.areaid.value,
                         property_type_id: info.propertytype_id.value,
                         property_name: info.propertyname.value,

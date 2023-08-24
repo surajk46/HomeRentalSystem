@@ -14,6 +14,7 @@ import OwnerHome from './components/OwnerHome';
 import { useSelector } from 'react-redux';
 import LogoutComp from './components/LogoutComp';
 import ShowMyProperty from './components/ShowMyProperty';
+import ShowAllTenant from './components/ShowAllTenant';
 
 function App() {
 
@@ -50,6 +51,9 @@ function App() {
             <Route path='/contactus' element={<ContactUs/>}/>
 
             <Route path='/adminhome' element={<AdminHome/>}/>
+            <Route path='/getalltenants' element={<ShowAllTenant/>}/>
+
+
             <Route path='/tenanthome' element={<TenantHome/>}/> 
 
             <Route path='/ownerhome' element={<OwnerHome/>}/> 
