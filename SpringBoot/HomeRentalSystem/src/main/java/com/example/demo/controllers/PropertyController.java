@@ -1,6 +1,8 @@
 package com.example.demo.controllers;
 
-import java.util.List;
+import java.util.*;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.apache.tomcat.util.net.jsse.PEMFile;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.entities.Area;
+import com.example.demo.entities.Facility;
 import com.example.demo.entities.Property;
 import com.example.demo.entities.PropertyReg;
 import com.example.demo.entities.PropertyType;
 import com.example.demo.services.AreaService;
+import com.example.demo.services.FacilityService;
 import com.example.demo.services.OwnerService;
 import com.example.demo.services.PropertyService;
 import com.example.demo.services.PropertyTypeService;
@@ -33,6 +37,8 @@ public class PropertyController {
 	OwnerService oservice;
 	@Autowired
 	PropertyTypeService ptservice;
+	@Autowired
+	FacilityService fservice;
 	
 	@PostMapping("/saveproperty")
 	public Property savFacility(@RequestBody Property f)
@@ -52,13 +58,28 @@ public class PropertyController {
 		Area area = aservice.getById(pr.getArea_id());
 		PropertyType pt=ptservice.getById(pr.getProperty_type_id());
 		
-		Property p=new Property( area, pt, pr.getProperty_name(), pr.getPdesc(), pr.getPrice(), pr.getDeposit(), pr.getFacilities());
+		Set<Integer> fids = pr.getFacilities();
+		
+		Set<Facility> facilities = new HashSet<>();
+		for(int n : fids)
+		{
+			Facility facility = fservice.getById(n);
+			facilities.add(facility);
+		}
+		
+		Property p=new Property( area, pt, pr.getProperty_name(), pr.getPdesc(), pr.getPrice(), pr.getDeposit(), facilities);
 		Property saved=pservice.save(p);
 		return saved;
+		//new Pr
 		
-		/*Tenant t=new Tenant(tr.getFname(), tr.getLname(), 0, tr.getContact_no(),tr.getAddress(), area, l);
-		Tenant saved2=tservice.save(t);
-		return saved2;*/
+		
+		/*Area area = aservice.getById(pr.getArea_id());
+        PropertyType pt = ptservice.getById(pr.getProperty_type_id());
+        List<Facility> facilities = pr.getFacilities().stream().map(facility_id -> fservice.getById(facility_id))
+                .collect(Collectors.toList());
+        Property p = new Property(area, pt, pr.getProperty_name(), pr.getPdesc(), pr.getPrice(), pr.getDeposit(), facilities);
+        Property saved = pservice.save(p);
+        return saved;*/
 	}
 	
 	@PostMapping(value = "uploadimage/{did}",consumes = "multipart/form-data")

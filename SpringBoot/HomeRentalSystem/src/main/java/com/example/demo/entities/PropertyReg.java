@@ -10,7 +10,7 @@ public class PropertyReg
 	int area_id,property_type_id;
 	String property_name,pdesc;
 	float price,deposit;
-	Set<Facility> facilities;
+	Set<Integer> facilities;
 	public int getArea_id() {
 		return area_id;
 	}
@@ -47,12 +47,13 @@ public class PropertyReg
 	public void setDeposit(float deposit) {
 		this.deposit = deposit;
 	}
-	public Set<Facility> getFacilities() {
+	public Set<Integer> getFacilities() {
 		return facilities;
 	}
-	public void setFacilities(Set<Facility> facilities) {
+	public void setFacilities(Set<Integer> facilities) {
 		this.facilities = facilities;
 	}
+	
 	
 	
 }

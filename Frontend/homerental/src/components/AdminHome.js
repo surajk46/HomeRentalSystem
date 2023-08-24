@@ -18,7 +18,12 @@ export default function AdminHome() {
         </li>
         <li className="nav-item">
           <Link to="/showallproperties" className="nav-link">ShowAllproperties</Link></li>
+        
+        <li className="nav-item">
+          <Link to="/logout" className="nav-link">Log Out</Link></li>
       </ul>
+      
+     
     </div>
   );
 }

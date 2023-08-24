@@ -3,7 +3,7 @@ export default function HomeFunc(){
     return(
         <div>
             <h1>Welcome To Home Page</h1>
-            <p>Welcome {JSON.parse(localStorage.getItem("loggedUser")).email}</p>      
+            {/* <p>Welcome {JSON.parse(localStorage.getItem("loggedUser")).email}</p>       */}
 
 
            

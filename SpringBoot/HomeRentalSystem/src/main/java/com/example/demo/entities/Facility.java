@@ -24,13 +24,13 @@ public class Facility {
 	@Column
 	String name;
 	
-	@JsonIgnoreProperties("facilities")
-	@ManyToMany(cascade = {CascadeType.MERGE,CascadeType.PERSIST})
+	/*@JsonIgnoreProperties("facilities")
+	@ManyToMany
 	@JoinTable(name = "facility_property",
 					   joinColumns = @JoinColumn(name="facility_id"),
 					   inverseJoinColumns = @JoinColumn(name="property_id")
 					   )
-	Set<Property> properties;
+	Set<Property> properties;*/
 
 	public Facility() {
 		super();
@@ -41,7 +41,7 @@ public class Facility {
 		super();
 		this.id = id;
 		this.name = name;
-		this.properties = properties;
+		//this.properties = properties;
 	}
 
 	public Facility(String name) {
@@ -76,13 +76,13 @@ public class Facility {
 		this.name = name;
 	}
 
-	public Set<Property> getProperties() {
+	/*public Set<Property> getProperties() {
 		return properties;
 	}
 
 	public void setProperties(Set<Property> properties) {
 		this.properties = properties;
-	}
+	}*/
 	
 	
 

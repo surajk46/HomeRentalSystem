@@ -23,7 +23,7 @@ public class FacilityController {
 	{
 		return fservice.save(f);
 	}
-	
+//	
 	@GetMapping("/getallfacility")
 	public List<Facility> getAll()
 	{

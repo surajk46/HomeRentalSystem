@@ -61,8 +61,9 @@ useEffect(()=>{
         price:  { value: "", hasError: true, touched: false, error: "" },
         deposit:  { value: "", hasError: true, touched: false, error: "" },
         city: { value: "", hasError: true, touched: false, error: "" },
-        facility: { value: "", hasError: true, touched: false, error: "" },
-        image: { value: "", hasError: true, touched: false, error: "" }
+        //facility: { value: "", hasError: true, touched: false, error: "" },
+        image: { value: "", hasError: true, touched: false, error: "" },
+        facility: { value: [], hasError: true, touched: false, error: "" }
         
     }
 
@@ -158,35 +159,38 @@ useEffect(()=>{
             method: 'POST',
             headers: {'content-type':'application/json' },
             body: JSON.stringify({
+                //owner_id:
                 area_id: info.areaid.value,
                 property_type_id: info.propertytype_id.value,
                 property_name: info.propertyname.value,
                 pdesc: info.pdesc.value,
                 price: info.price.value,
                 deposit: info.deposit.value,
-                facilities:[info.deposit.value]
-
+                //facilities:[info.facility.value],
+                facilities: info.facility.value
+              //  image:info.image.value
             })
             
         }
         fetch("http://localhost:8080/regproperty", reqOptions)
         .then(resp => {
             if(resp.ok)
-                return resp.json;
+                return resp.json();
             else 
                 throw new Error("server error");
         })
         .then(obj =>{
             const fd=new FormData();
-            fd.append("file",file);
+            fd.append('file',file);
             const reqOptions1={
                 method:'POST',
-                headers:{'content-type':'multipart/form-data'},
+              //  headers:{'content-type':'multipart/form-data'},
                 body:fd
             }
             fetch("http://localhost:8080/uploadimage/"+obj.id,reqOptions1)
             .then(resq=>resq.json())
             .then(obj=>{
+                console.log(obj)
                 if(obj)
                 {
                     alert("Reg suuccesfull.Try Login");
@@ -298,9 +302,14 @@ useEffect(()=>{
 
                 <div className="mb-3">
                 <label htmlFor="facility" className="form-label">Enter facility Name: </label>
-                    <select id="facility" name="facility" value={info.facility.value}  
-                    onChange={(e) => { onInputChange("facility", e.target.value, dispatch) }}
-                    onBlur={(e) => { onFocusOut("facility", e.target.value, dispatch) }}  >
+                    <select id="facility" name="facility" multiple value={info.facility.value}  
+                    onChange={(e) => 
+                        { 
+                            //onInputChange("facility", e.target.value, dispatch);
+                        const selectedFacilities = Array.from(e.target.selectedOptions, option => option.value);
+                        onInputChange("facility", selectedFacilities, dispatch); }}
+                    //onBlur={(e) => { onFocusOut("facility", e.target.value, dispatch) }} 
+                     >
                        
                         {homeFacility.map((c)=>(
                              <option key={c.id} value={c.id}>{c.name}</option>
@@ -311,7 +320,7 @@ useEffect(()=>{
 
                 <div className="mb-3">
                     <label htmlFor="image" className="form-label">Upload Image : </label>
-                    <input type="file" className="form-control" id="image" name="image" value={info.image.value}
+                    <input type="file" className="form-control" id="image" name="image" 
                    onChange={(e) => { setFile(e.target.files[0]) }}
                 //    onBlur={(e) => { onFocusOut("image", e.target.value, dispatch) }} 
                 />
@@ -334,7 +343,7 @@ useEffect(()=>{
                         pdesc: info.pdesc.value,
                         price: info.price.value,
                         deposit: info.deposit.value,
-                        facility:info.facility.value
+                        facilities: info.facility.value
                     })}
                 </p>
                 <p>{file && file.name}</p>
