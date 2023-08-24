@@ -2,7 +2,7 @@ import { Link, Route, Routes } from 'react-router-dom';
 import { Button, Form,Col, Container, Row} from "react-bootstrap";
 import { useEffect, useReducer, useState } from "react"
 
-export default function HomeFunc(){
+export default function TenantHome(){
     const[cityid,setCityid]=useState();
     const[areaid,setAreaid]=useState();
 

@@ -21,7 +21,7 @@ class OwnerHome extends Component {
                     <div class="border 1px bg-primary mb-2 col-lg-2">
                         <li class="mt-5">
                             <p class="text-light">Show Your dream property, Where you want to live</p>
-                                <Link to="/showproperty" class="nav-link"><button class="mb-2" onClick={this.handleShowProperty}>Show Property</button></Link>
+                                <Link to="/showmyproperty" class="nav-link"><button class="mb-2" onClick={this.handleShowProperty}>Show Property</button></Link>
                         </li>
                     </div>
 
@@ -33,10 +33,7 @@ class OwnerHome extends Component {
                     </div>
 
                 </ul>
-                <Routes>
-
-                    <Route path='/addproperty' element={<AddProperty />} />
-                </Routes>
+               
 
             </div>
         );

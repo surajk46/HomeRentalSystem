@@ -210,7 +210,7 @@ useEffect(()=>{
 
     return (
         <div>
-            <h1>Tenant SignUp Form</h1>
+            <h1>Add Property</h1>
            <form >
            <div className="mb-3">
                 <label htmlFor="city" className="form-label">Enter City Name: </label>

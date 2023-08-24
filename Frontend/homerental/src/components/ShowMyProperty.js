@@ -2,7 +2,7 @@ import { Link, Route, Routes } from 'react-router-dom';
 import { Button, Form,Col, Container, Row} from "react-bootstrap";
 import { useEffect, useReducer, useState } from "react"
 
-export default function HomeFunc(){
+export default function ShowMyProperty(){
     const[cityid,setCityid]=useState();
     const[areaid,setAreaid]=useState();
 
@@ -30,6 +30,7 @@ export default function HomeFunc(){
         //return()=>{cont.abort()};
      },[]);
 
+    
      const getPropertyByCity=(v)=>{
         fetch("http://localhost:8080/getpropertybycityid/"+v)
         .then(resp=>resp.json())
@@ -41,21 +42,49 @@ export default function HomeFunc(){
         .then(data=>setProperty(data))
     }
 
-    
 
+    
+    const deleteProperty =(id) =>
+    {
+       fetch("http://localhost:8080/deleteproperty/"+id)
+       .then(resp => {
+           if(resp.ok)
+           { 
+               console.log(resp)
+               return resp.text();
+           }
+         else
+           {
+              console.log("server error")
+             throw  new Error("server error")  
+           }
+         })
+         .then(text => text.length ? JSON.parse(text):{})
+       .then(obj => {
+               // console.log(obj);           
+               // if(obj==null)
+               // {
+               //      alert("Property deleted successfully");
+               // }
+               // {
+               //     alert("Propery can not deleted");
+               // }
+               if(Object.keys(obj).length===0)
+               {
+
+                   alert("Property deleted successfully");
+               }
+               else{
+                   alert("Propery can not deleted");
+               }
+       })
+    }
 
     return(
         <div>
-            <h1>Welcome To Home Page</h1>
+            <h1>Welcome {JSON.parse(localStorage.getItem("loggedUser")).email} </h1>
+            <h3>Below listed are your Properties</h3>
             {/* <p>Welcome {JSON.parse(localStorage.getItem("loggedUser")).email}</p>       */}
-
-
-           
-                <Link to="/ownerhome" className="link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover ">Owner home</Link>
-                <br/>
-                <Link to="/adminhome" className="link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover">Admin Home</Link>
-                <br/>
-                <Link to="/tenanthome" className="link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover">Tenant home</Link>
            
                < div className="mb-3">
                 <label htmlFor="city" className="form-label">Enter City Name: </label>
@@ -79,7 +108,8 @@ export default function HomeFunc(){
 
 
                 {property && property.map((property)=>(
-                    <div className="card" style={{width: 18 +'rem',float:'left'}}>
+                    // <div className="card" style={{width: 18 +'rem',float:'left'}}>
+                    <div className="card" >
                         <img src={`data:image/jpeg;base64,${property && property.image}`} className="card-img-top" alt="..."/>
                         <div className="card-body">
                             <h5 className="card-title">{property && property.property_name}</h5>
@@ -91,8 +121,11 @@ export default function HomeFunc(){
                             {/* <li className="list-group-item">Vestibulum at eros</li> */}
                         </ul>
                         <div className="card-body">
-                            <a href="#" className="card-link">ViewMore</a>
-                            <a href="#" className="card-link">like</a>
+                            <Link to="#" className="card-link">ViewMore</Link>
+                           <Link>
+                                <button className="btn  btn-block" id="c-displanbtn" onClick={() => deleteProperty(property && property.id)}>Delete</button>
+                           </Link>
+
                         </div>
                     </div>
                 ))}

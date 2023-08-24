@@ -8,10 +8,12 @@ import ContactUs from './components/ContactUs';
 import AddProperty from './components/AddProperty';
 import OwnerReg from './components/OwnerReg';
 import AdminHome from './components/AdminHome';
+import TenantHome from './components/TenantHome';
 import AddProperty1 from './components/AddProperty1';
 import OwnerHome from './components/OwnerHome';
 import { useSelector } from 'react-redux';
 import LogoutComp from './components/LogoutComp';
+import ShowMyProperty from './components/ShowMyProperty';
 
 function App() {
 
@@ -21,7 +23,7 @@ function App() {
        <div style={{display:mystate.loggedIn?"none":"block"}}>
            <ul class="nav navbar">
                 <li class="nav-item">
-                    <Link to="/home" class="nav-link">Home</Link>
+                    <Link to="/" class="nav-link">Home</Link>
                 </li>
                 <li class="nav-item">
                     <Link to="/login" class="nav-link">Log In</Link>
@@ -38,17 +40,21 @@ function App() {
             </ul>
        </div>
 
+   
+
         <Routes>
-            <Route path='/home' element={<HomeFunc/>}/>
+            <Route path='/' element={<HomeFunc/>}/>
             <Route path='/login' element={<LogInComp/>}/>
             <Route path='/tenantreg' element={<TenantReg/>}/>
             <Route path='/ownerreg' element={<OwnerReg/>}/>
-            <Route path='/addproperty' element={<AddProperty1/>}/>
             <Route path='/contactus' element={<ContactUs/>}/>
 
             <Route path='/adminhome' element={<AdminHome/>}/>
-            <Route path='/ownerhome' element={<OwnerHome/>}/>   
-            {/* <Route path='/tenanthome' element={<TenantHome/>}/> */}
+            <Route path='/tenanthome' element={<TenantHome/>}/> 
+
+            <Route path='/ownerhome' element={<OwnerHome/>}/> 
+            <Route path='/addproperty' element={<AddProperty1/>}/>
+            <Route path='/showmyproperty' element={<ShowMyProperty/>}/>
 
             <Route path='/logout' element={<LogoutComp/>}/>
        </Routes>
