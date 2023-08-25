@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,7 @@ import com.example.demo.entities.Login;
 import com.example.demo.entities.Owner;
 import com.example.demo.entities.OwnerReg;
 import com.example.demo.entities.Role;
+import com.example.demo.entities.Tenant;
 import com.example.demo.services.AreaService;
 import com.example.demo.services.CityService;
 import com.example.demo.services.LoginService;
@@ -59,9 +61,28 @@ public class OwnerController {
 	 }
 	 
 	 @GetMapping("/getownerbyloginid/{id}")
-	  public Owner getOwnerByLogin(@PathVariable("id") int id) 
+	 public Owner getOwnerByLogin(@PathVariable("id") int id) 
 	 {
 		 return oservice.findOwnerByLogin(id);
+	 }
+	 
+	 @GetMapping("/getallowners")
+	 public List<Owner> getAllOwners()
+	{
+		return oservice.getAll();
+	}
+	 
+	 @DeleteMapping("deleteowner/{owner_id}")
+	 public ResponseEntity<Void> deleteOwnerById(@PathVariable int owner_id) 
+	 {
+	     oservice.deleteOwnerById(owner_id);
+	     return ResponseEntity.noContent().build();
+	 }
+	 
+	 @DeleteMapping("deleteownerbyloginid/{lid}")
+	 public void deleteOwnerByLoginId(@PathVariable("lid") int id)
+	 {
+		  oservice.deleteOwnerByLoginId(id);
 	 }
 
 }

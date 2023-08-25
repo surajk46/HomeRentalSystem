@@ -7,7 +7,7 @@ import java.util.Set;
 
 public class PropertyReg 
 {
-	int area_id,property_type_id;
+	int area_id,property_type_id,owner_id;
 	String property_name,pdesc;
 	float price,deposit;
 	Set<Integer> facilities;
@@ -53,6 +53,13 @@ public class PropertyReg
 	public void setFacilities(Set<Integer> facilities) {
 		this.facilities = facilities;
 	}
+	public int getOwner_id() {
+		return owner_id;
+	}
+	public void setOwner_id(int owner_id) {
+		this.owner_id = owner_id;
+	}
+	
 	
 	
 	

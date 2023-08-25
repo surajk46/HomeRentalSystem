@@ -1,7 +1,11 @@
 package com.example.demo.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -58,9 +62,28 @@ public class TenantController
 	}
 	
 	@GetMapping("/gettenantbyloginid/{id}")
-	  public Tenant getTenantByLogin(@PathVariable("id") int id) 
+	 public Tenant getTenantByLogin(@PathVariable("id") int id) 
 	 {
 		 return tservice.findTenantByLogin(id);
+	 }
+	
+	@GetMapping("/getalltenants")
+	public List<Tenant> getAllTenants()
+	{
+		return tservice.getAll();
+	}
+	
+	 @DeleteMapping("deletetenant/{tenant_id}")
+	 public ResponseEntity<Void> deleteTenantById(@PathVariable int tenant_id) 
+	 {
+	     tservice.deleteTenantById(tenant_id);
+	     return ResponseEntity.noContent().build();
+	 }
+	 
+	 @DeleteMapping("deletetenantbyloginid/{lid}")
+	 public void deleteTenantByLoginId(@PathVariable("lid") int id)
+	 {
+		  tservice.deleteTenantByLoginId(id);
 	 }
 
 }

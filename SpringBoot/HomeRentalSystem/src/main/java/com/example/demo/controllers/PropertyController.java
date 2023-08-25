@@ -60,7 +60,7 @@ public class PropertyController {
 	{
 		Area area = aservice.getById(pr.getArea_id());
 		PropertyType pt=ptservice.getById(pr.getProperty_type_id());
-		
+		Owner owner=oservice.getById(pr.getOwner_id());
 		Set<Integer> fids = pr.getFacilities();
 		
 		Set<Facility> facilities = new HashSet<>();
@@ -70,7 +70,7 @@ public class PropertyController {
 			facilities.add(facility);
 		}
 		
-		Property p=new Property( area, pt, pr.getProperty_name(), pr.getPdesc(), pr.getPrice(), pr.getDeposit(), facilities);
+		Property p=new Property(owner, area, pt, pr.getProperty_name(), pr.getPdesc(), pr.getPrice(), pr.getDeposit(), facilities);
 		Property saved=pservice.save(p);
 		return saved;
 		//new Pr
