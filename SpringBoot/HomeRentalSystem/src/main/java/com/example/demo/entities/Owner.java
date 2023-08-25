@@ -146,6 +146,8 @@ public class Owner {
 	public void setPayment_id(Payment payment_id) {
 		this.payment_id = payment_id;
 	}
+
+	
 	
 	
 

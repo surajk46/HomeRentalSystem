@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entities.Login;
+import com.example.demo.entities.Role;
 import com.example.demo.repositories.LoginRepository;
 
 @Service
@@ -33,5 +34,10 @@ public class LoginService {
 		return lrepo.save(l);
 	}
 	
+	
+	public Login getLogin(int id)
+	{
+		return lrepo.findById(id).get();
+	}
 
 }

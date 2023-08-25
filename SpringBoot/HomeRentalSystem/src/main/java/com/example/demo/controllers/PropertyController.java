@@ -73,16 +73,7 @@ public class PropertyController {
 		Property p=new Property(owner, area, pt, pr.getProperty_name(), pr.getPdesc(), pr.getPrice(), pr.getDeposit(), facilities);
 		Property saved=pservice.save(p);
 		return saved;
-		//new Pr
 		
-		
-		/*Area area = aservice.getById(pr.getArea_id());
-        PropertyType pt = ptservice.getById(pr.getProperty_type_id());
-        List<Facility> facilities = pr.getFacilities().stream().map(facility_id -> fservice.getById(facility_id))
-                .collect(Collectors.toList());
-        Property p = new Property(area, pt, pr.getProperty_name(), pr.getPdesc(), pr.getPrice(), pr.getDeposit(), facilities);
-        Property saved = pservice.save(p);
-        return saved;*/
 	}
 	
 	@PostMapping(value = "uploadimage/{did}",consumes = "multipart/form-data")
@@ -126,7 +117,7 @@ public class PropertyController {
 	 }
 	 
 
-	 @GetMapping("/getpropertybycityid /{cid}")
+	 @GetMapping("/getpropertybyownerid /{cid}")
 	 public List<Property> getPropertiesByOwnerId(@PathVariable("cid") int id)
 	{
 		return pservice.getPropertiesByOwnerId(id);

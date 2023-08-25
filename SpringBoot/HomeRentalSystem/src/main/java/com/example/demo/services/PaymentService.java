@@ -27,5 +27,10 @@ public class PaymentService {
             lrepo.save(login);
         }
     }
+	
+	public Payment save(Payment l)
+	{
+		return prepo.save(l);
+	}
 
 }
