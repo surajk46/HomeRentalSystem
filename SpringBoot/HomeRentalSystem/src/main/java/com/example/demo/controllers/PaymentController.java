@@ -5,6 +5,7 @@ import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,7 +24,9 @@ import com.example.demo.services.LoginService;
 import com.example.demo.services.OwnerService;
 import com.example.demo.services.PaymentService;
 import com.example.demo.services.SubscriptionService;
+import com.example.demo.services.TenantService;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class PaymentController {
 	
@@ -35,6 +38,8 @@ public class PaymentController {
 	SubscriptionService sservice;
 	@Autowired
 	OwnerService oservice;
+	@Autowired
+	TenantService tservice;
 	 @GetMapping("/updateloginstatus")
 	 public ResponseEntity<String> updateLoginStatusBasedOnPayments() 
 	 {
@@ -46,14 +51,24 @@ public class PaymentController {
 		public Payment regPayment(@RequestBody PaymentReg pr)
 		{
 			
-			Login l=lservice.getLogin(pr.getLogin_id());
+			Login l=lservice.getLoginByEmail(pr.getEmail());
 			Subscription subscription=sservice.getSub(pr.getSubscription_id());
+			l.setStatus(true);
 			
 			
 			Payment payment=new Payment(new Date(0), pr.getAmount(), null, l, subscription);
 			Payment saved=pservice.save(payment);
-			//Owner o=pay
-			
+		//	Owner owner=oservice.getById(0) payment.getId();
+			if(l.getRole_id().getId()==2)
+			{
+				Owner owner=oservice.findOwnerByLogin(l.getId());
+				owner.setPayment_id(payment);
+			}
+			else if(l.getRole_id().getId()==3)
+			{
+				Tenant tenant=tservice.findTenantByLogin(l.getId());
+				tenant.setPayment_id(payment);
+			}
 			
 			return saved;
 		}

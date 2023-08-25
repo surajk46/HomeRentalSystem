@@ -39,5 +39,10 @@ public class TenantService {
 	{
 	     trepo.deleteTenantByLoginId(id);
 	}
+	
+	public Tenant getTenantByid(int id)
+	{
+		return trepo.getTenantById(id);
+	}
 
 }
