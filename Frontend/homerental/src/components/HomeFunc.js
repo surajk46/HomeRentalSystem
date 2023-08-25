@@ -51,12 +51,7 @@ export default function HomeFunc(){
 
 
            
-                <Link to="/ownerhome" className="link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover ">Owner home</Link>
-                <br/>
-                <Link to="/adminhome" className="link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover">Admin Home</Link>
-                <br/>
-                <Link to="/tenanthome" className="link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover">Tenant home</Link>
-           
+               
                < div className="mb-3">
                 <label htmlFor="city" className="form-label">Enter City Name: </label>
                     <select id="city" name="city" 

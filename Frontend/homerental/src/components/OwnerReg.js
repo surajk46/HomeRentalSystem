@@ -315,7 +315,7 @@ useEffect(()=>{
             <button type="submit" className="btn bttn-primary mb-3" onClick={(e) => {sendData(e)}}>Submit</button>
             <button type="reset" className="btn bttn-primary mb-3" onClick={() => {dispatch({type:'reset'})}}>Reset</button>
                                             
-            <p>{JSON.stringify({
+            {/* <p>{JSON.stringify({
                     email: info.email.value,
                     password: info.password.value,
                     fname: info.fname.value,
@@ -326,7 +326,7 @@ useEffect(()=>{
                     address:info.address.value,
                     cityid:cityid
                    // pincode: info.pincode.value
-                 })}</p>
+                 })}</p> */}
               </form>
         </div>
     )

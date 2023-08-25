@@ -5,7 +5,6 @@ import LogInComp from './components/LogInComp';
 import HomeFunc from './components/HomeFunc';
 import TenantReg from './components/TenantReg';
 import ContactUs from './components/ContactUs';
-import AddProperty from './components/AddProperty';
 import OwnerReg from './components/OwnerReg';
 import AdminHome from './components/AdminHome';
 import TenantHome from './components/TenantHome';
@@ -16,6 +15,7 @@ import LogoutComp from './components/LogoutComp';
 import ShowMyProperty from './components/ShowMyProperty';
 import ShowAllTenant from './components/ShowAllTenant';
 import ShowAllOwners from './components/ShowAllOwners';
+import ShowAllProperties from './components/ShowAllProperties';
 
 function App() {
 
@@ -36,9 +36,7 @@ function App() {
                 <li class="nav-item">
                     <Link to="/ownerreg" class="nav-link">Owner Registration</Link>
                 </li>
-                <li class="nav-item">
-                    <Link to="/addproperty" class="nav-link">AddProperty</Link>
-                </li> 
+               
             </ul>
        </div>
 
@@ -54,7 +52,8 @@ function App() {
             <Route path='/adminhome' element={<AdminHome/>}/>
             <Route path='/getalltenants' element={<ShowAllTenant/>}/>
             <Route path='/getallowners' element={<ShowAllOwners/>}/>
-            <Route path='/getallproperties' element={<ShowMyProperty/>}/>
+            <Route path='/getallproperties' element={<ShowAllProperties/>}/>
+
 
 
             <Route path='/tenanthome' element={<TenantHome/>}/> 

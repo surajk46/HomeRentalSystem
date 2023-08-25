@@ -14,24 +14,17 @@ export default function AdminHome() {
       <h1>Welcome To AdminHome</h1>
       <ul className="nav navbar">
         <li className="nav-item">
-          <Link to="getalltenants" className="nav-link">ShowAllTenant</Link>
+          <Link to="/getalltenants" className="nav-link">ShowAllTenant</Link>
         </li>
         <li className="nav-item">
-          <Link to="getallowners" className="nav-link">ShowAllOwner</Link>
+          <Link to="/getallowners" className="nav-link">ShowAllOwner</Link>
         </li>
         <li className="nav-item">
-          <Link to="getallproperties" className="nav-link">ShowAllproperties</Link></li>
+          <Link to="/getallproperties" className="nav-link">ShowAllproperties</Link></li>
         
         <li className="nav-item">
           <Link to="/logout" className="nav-link">Log Out</Link></li>
       </ul>
-      
-      <Routes>
-            <Route path='getalltenants' element={<ShowAllTenant/>}/>
-            <Route path='getallowners' element={<ShowAllOwners/>}/>
-            <Route path='getallproperties' element={<ShowAllProperties/>}/>
-      </Routes>
-     
     </div>
   );
 }

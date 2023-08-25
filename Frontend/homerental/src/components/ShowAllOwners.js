@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { Link, Route, Routes } from 'react-router-dom';
 import bootstrap from 'bootstrap';
 import { useEffect, useReducer, useState } from "react"
+import AdminHome from './AdminHome';
 
 
 export default function ShowAllOwners() {
@@ -18,7 +19,7 @@ export default function ShowAllOwners() {
 
      const deleteOwner =(id) =>
     {
-       fetch("http://localhost:8080/deleteownerbyid/"+id)
+       fetch("http://localhost:8080/deleteownerbyid/"+id,{method:"DELETE"})
        .then(resp => {
            if(resp.ok)
            { 
@@ -35,52 +36,60 @@ export default function ShowAllOwners() {
        .then(obj => {
                if(Object.keys(obj).length===0)
                {
-
-                   alert("Owner deleted successfully");
+                    window.location.reload();
+                  // alert("Owner deleted successfully");
                }
                else{
-                   alert("Owner can not deleted");
+                  // alert("Owner can not deleted");
+                  window.location.reload();
                }
        })
     }
 
         return (
             <div>
-                <h1>Welcome, Admin!</h1>
+      <div className='nav-item'>
+        <ul className="nav navbar">
+          {/* Links... */}
+        </ul>
+      </div>
+      <h1>Welcome, Admin!</h1>
 
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col">{owner && Object.keys(owner)[0]}</th>
-                            <th scope="col">{owner && Object.keys(owner)[1]}</th>
-                            <th scope="col">{owner && Object.keys(owner)[2]}</th>
-                            <th scope="col">{owner && Object.keys(owner)[3]}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {
-                        owner && owner.map((t)=>{
-                            <tr>
-                                <th scope="row">{t.id}</th>
-                                <td>{t.fname}</td>
-                                <td>{t.lname}</td>
-                                <td>{t.address}</td>
-                                <td>{t.no_of_req_rem}</td>
-                                <td>{t.contact_no}</td>
-                                <td> 
-                                    <Link>
-                                        <button className="btn  btn-block" id="c-displanbtn" onClick={() => deleteOwner(owner && t.id)}>Delete</button>
-                                    </Link>
-                                </td>
-                            </tr>
-                        })
-                    } 
-                    </tbody>
-                    </table>
-                
-               
-
-            </div>
+      <table className="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Address</th>
+            <th scope="col">Requests Remaining</th>
+            <th scope="col">Contact Number</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {owner && owner.map(owner => (
+            <tr key={owner.id}>
+              <th scope="row">{owner.id}</th>
+              <td>{owner.fname}</td>
+              <td>{owner.lname}</td>
+              <td>{owner.address}</td>
+              <td>{owner.no_of_req_rem}</td>
+              <td>{owner.contact_no}</td>
+              <td>
+                <button
+                  className="btn btn-block"
+                  id="c-displanbtn"
+                  onClick={() => deleteOwner(owner.id)}
+                >
+                  Delete
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
         );
     }
 

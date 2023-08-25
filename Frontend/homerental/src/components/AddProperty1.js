@@ -203,12 +203,12 @@ const [item, setItem] = useState(1);
                 console.log(obj)
                 if(obj)
                 {
-                    alert("Reg suuccesfull.Try Login");
+                   // alert("Reg suuccesfull.Try Login");
                     navigate('/');
                 }
                 else
                 {
-                    alert("Reg suuccesfull.Photo Upload Failed.Try Later");
+                    //alert("Reg suuccesfull.Photo Upload Failed.Try Later");
                     navigate('/');
                 }
             })
@@ -345,7 +345,7 @@ const [item, setItem] = useState(1);
                 <button type="submit" className="btn btn-primary mb-3" onClick={(e) => {sendData(e)}}>Submit</button>
                 <button type="reset" className="btn btn-primary mb-3" onClick={() => {dispatch({type:'reset'})}}>Reset</button>
                                                 
-                <p>
+                {/* <p>
                     {
                         JSON.stringify({
                         owner_id:item,
@@ -358,7 +358,7 @@ const [item, setItem] = useState(1);
                         facilities: info.facility.value
                     })}
                 </p>
-                <p>{file && file.name}</p>
+                <p>{file && file.name}</p> */}
 
                 <a href="/ownerhome"><button type="button" className="btn btn-primary mb-3" >back To OwnerHome</button></a>
             </form>

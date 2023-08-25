@@ -74,11 +74,13 @@ export default function ShowMyProperty(){
                if(Object.keys(obj).length===0)
                {
 
-                   alert("Property deleted successfully");
+                   //alert("Property deleted successfully");
                   window.location.reload();
                }
                else{
-                   alert("Propery can not deleted");
+                   //alert("Propery can not deleted");
+                   window.location.reload();
+
                }
        })
     }
@@ -86,6 +88,7 @@ export default function ShowMyProperty(){
     return(
         
         <div>
+            
             <h1>Welcome {JSON.parse(localStorage.getItem("loggedUser")).email} </h1>
             <h3>Below listed are your Properties</h3>
             {/* <p>Welcome {JSON.parse(localStorage.getItem("loggedUser")).email}</p>       */}

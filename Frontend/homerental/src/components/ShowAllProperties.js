@@ -65,10 +65,13 @@ export default function ShowAllProperties() {
                if(Object.keys(obj).length===0)
                {
 
-                   alert("Owner deleted successfully");
+                   //alert("Owner deleted successfully");
+                   window.location.reload();
                }
                else{
-                   alert("Owner can not deleted");
+                  // alert("Owner can not deleted");
+                  window.location.reload();
+
                }
        })
     }
@@ -77,6 +80,21 @@ export default function ShowAllProperties() {
 
         return (
             <div>
+                <div className='nav-item'>
+                <ul className="nav navbar">
+                    <li className="nav-item">
+                    <Link to="/getalltenants" className="nav-link">ShowAllTenant</Link>
+                    </li>
+                    <li className="nav-item">
+                    <Link to="/getallowners" className="nav-link">ShowAllOwner</Link>
+                    </li>
+                    <li className="nav-item">
+                    <Link to="/getallproperties" className="nav-link">ShowAllproperties</Link></li>
+                    
+                    <li className="nav-item">
+                    <Link to="/logout" className="nav-link">Log Out</Link></li>
+                </ul>
+                </div>
             <h1>Welcome Admin</h1>
             {/* <p>Welcome {JSON.parse(localStorage.getItem("loggedUser")).email}</p>       */}
 

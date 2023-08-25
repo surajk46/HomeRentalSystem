@@ -52,7 +52,7 @@ export default function LoginComp() {
                     
                     if (obj.status === false) 
                     {
-                        alert("Request has not been approved.");
+                       // alert("Request has not been approved.");
                     } 
                     else 
                     {
@@ -95,8 +95,8 @@ export default function LoginComp() {
                 <button type="submit" className="btn btn-primary mb-3" onClick={(e) => { sendData(e) }}>Submit</button> 
                 <button type="reset" className="btn btn-primary mb-3" onClick={() => { dispatch({ type: 'reset' }) }}>Reset</button>
             </form>
-            <p>{JSON.stringify(info)}</p>
-            <p>{msg}</p>
+            {/* <p>{JSON.stringify(info)}</p>
+            <p>{msg}</p> */}
         </div>
     )
 }

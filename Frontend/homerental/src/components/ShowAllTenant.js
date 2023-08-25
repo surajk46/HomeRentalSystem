@@ -38,17 +38,34 @@ export default function ShowAllTenant() {
                if(Object.keys(obj).length===0)
                {
 
-                   alert("Tenant deleted successfully");
+                  // alert("Tenant deleted successfully");
                    window.location.reload();
                }
                else{
-                   alert("Tenant can not deleted");
+                   //alert("Tenant can not deleted");
+                   window.location.reload();
+
                }
        })
     }
 
         return (
             <div>
+              <div className='nav-item'>
+                <ul className="nav navbar">
+                    <li className="nav-item">
+                    <Link to="/getalltenants" className="nav-link">ShowAllTenant</Link>
+                    </li>
+                    <li className="nav-item">
+                    <Link to="/getallowners" className="nav-link">ShowAllOwner</Link>
+                    </li>
+                    <li className="nav-item">
+                    <Link to="/getallproperties" className="nav-link">ShowAllproperties</Link></li>
+                    
+                    <li className="nav-item">
+                    <Link to="/logout" className="nav-link">Log Out</Link></li>
+                </ul>
+                </div>
             <h1>Welcome, Admin!</h1>
             <table className="table table-hover">
               <thead>
