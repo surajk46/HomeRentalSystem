@@ -204,12 +204,12 @@ const [item, setItem] = useState(1);
                 if(obj)
                 {
                    // alert("Reg suuccesfull.Try Login");
-                    navigate('/');
+                    navigate('/ownerhome');
                 }
                 else
                 {
                     //alert("Reg suuccesfull.Photo Upload Failed.Try Later");
-                    navigate('/');
+                    window.location.reload();
                 }
             })
             

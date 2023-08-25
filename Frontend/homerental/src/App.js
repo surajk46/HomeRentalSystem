@@ -16,6 +16,7 @@ import ShowMyProperty from './components/ShowMyProperty';
 import ShowAllTenant from './components/ShowAllTenant';
 import ShowAllOwners from './components/ShowAllOwners';
 import ShowAllProperties from './components/ShowAllProperties';
+import OwnerInfo from './components/OwnerInfo';
 
 function App() {
 
@@ -57,6 +58,8 @@ function App() {
 
 
             <Route path='/tenanthome' element={<TenantHome/>}/> 
+            <Route path='/ownerinfo' element={<OwnerInfo/>} /> 
+
 
             <Route path='/ownerhome' element={<OwnerHome/>}/> 
             <Route path='/addproperty' element={<AddProperty1/>}/>

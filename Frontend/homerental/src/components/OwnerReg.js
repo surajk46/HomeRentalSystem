@@ -109,7 +109,7 @@ useEffect(()=>{
                 break;
            
             case "address":
-                let regex10 = /^[A-Za-z]{1,}$/;
+                let regex10 = /^[A-Za-z\s\d{1,}]{1,}$/;
 
                 if (!regex10.test(value)) {
                     hasError = true;

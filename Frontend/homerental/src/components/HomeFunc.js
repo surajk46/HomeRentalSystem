@@ -1,6 +1,7 @@
 import { Link, Route, Routes } from 'react-router-dom';
 import { Button, Form,Col, Container, Row} from "react-bootstrap";
 import { useEffect, useReducer, useState } from "react"
+import TenantReg from './TenantReg';
 
 export default function HomeFunc(){
     const[cityid,setCityid]=useState();
@@ -72,26 +73,38 @@ export default function HomeFunc(){
                     </select>
             </div>
 
-
-                {property && property.map((property)=>(
-                    <div className="card" style={{width: 18 +'rem',float:'left'}}>
-                        <img src={`data:image/jpeg;base64,${property && property.image}`} className="card-img-top" alt="..."/>
+                <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+                    {property && property.map((property) => (
+                        <div className="card" style={{ width: '18rem', margin: '10px', boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2)' }} key={property.id}>
+                        <img src={`data:image/jpeg;base64,${property.image}`} className="card-img-top" alt="..." style={{ height: '200px', objectFit: 'cover' }} />
                         <div className="card-body">
-                            <h5 className="card-title">{property && property.property_name}</h5>
-                            <p className="card-text">pdesc</p>
+                            <h5 className="card-title">{property.property_name}</h5>
+                            <p className="card-text">{property.pdesc}</p>
                         </div>
                         <ul className="list-group list-group-flush">
-                            <li className="list-group-item">{property && property.price}</li>
-                            <li className="list-group-item">{property && property.deposit}</li>
-                            {/* <li className="list-group-item">Vestibulum at eros</li> */}
+                            <li className="list-group-item">Price: {property.price}</li>
+                            <li className="list-group-item">Deposit: {property.deposit}</li>
                         </ul>
                         <div className="card-body">
-                            <a href="#" className="card-link">ViewMore</a>
-                            <a href="#" className="card-link">like</a>
+                            
+                            <Link
+                                to={{
+                                pathname: `/ownerinfo`,
+                                 state: property.id, // Pass property as a prop
+                                }}
+                                className="card-link"
+                                onClick={(e)=>{localStorage.setItem("property",JSON.stringify(property))}}
+                            >
+                                View More
+                            </Link>
+
+                            {/* <button value={property.id} onClick={(e)=>{ localStorage.setItem("property",JSON.stringify(property));}}>click</button> */}
+                            {/* <a href="#" className="card-link">Like</a> */}
                         </div>
-                    </div>
-                ))}
-                    
+                        </div>
+                    ))}
+                </div>
+           
 
         </div>
     )

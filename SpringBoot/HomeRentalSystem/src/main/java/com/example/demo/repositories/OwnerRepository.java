@@ -26,4 +26,8 @@ public interface OwnerRepository extends JpaRepository<Owner, Integer>
 	@Query("delete from Owner o where o.login_id.id = :id")
 	public void deleteOwnerByLoginId(int id);
 	
+	@Query("SELECT o FROM Owner o WHERE o.id = :id")
+    public Owner getOwnerById(int id);
+	
+	
 }

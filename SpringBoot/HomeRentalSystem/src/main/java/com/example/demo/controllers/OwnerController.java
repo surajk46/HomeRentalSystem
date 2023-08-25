@@ -84,5 +84,10 @@ public class OwnerController {
 	 {
 		  oservice.deleteOwnerByLoginId(id);
 	 }
+	 @GetMapping("getownerbyid/{id}")
+	 public Owner getOwnerById(@PathVariable("id") int id)
+	 {
+		 return oservice.getOwnerByid(id);
+	 }
 
 }

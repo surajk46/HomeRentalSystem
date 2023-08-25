@@ -1,9 +1,10 @@
 import { Link, useNavigate } from 'react-router-dom';
-
+import { useDispatch } from "react-redux";
+import { login } from "./slice";
 import { useEffect, useState } from "react"
 
 export default function ShowMyProperty(){
-
+    const reducAction = useDispatch();
     // const navigate=useNavigate();
     // const[cityid,setCityid]=useState();
     // const[areaid,setAreaid]=useState();
@@ -68,10 +69,12 @@ export default function ShowMyProperty(){
 
                    //alert("Property deleted successfully");
                   window.location.reload();
+                  reducAction(login());
                }
                else{
                    //alert("Propery can not deleted");
                    window.location.reload();
+                   reducAction(login());
 
                }
        })
@@ -118,36 +121,42 @@ export default function ShowMyProperty(){
                     </select>
             </div> */}
 
-
-                {property && property.map((property)=>(
-                    // <div className="card" style={{width: 18 +'rem',float:'left'}}>
-                    <div className="card" >
-                        <img src={`data:image/jpeg;base64,${property && property.image}`} className="card-img-top" alt="..."/>
+                <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+                    {property && property.map((property) => (
+                        <div className="card" style={{ width: '18rem', margin: '10px', boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2)' }} key={property.id}>
+                        <img src={`data:image/jpeg;base64,${property.image}`} className="card-img-top" alt="..." style={{ height: '200px', objectFit: 'cover' }} />
                         <div className="card-body">
-                            <h5 className="card-title">{property && property.property_name}</h5>
-                            <p className="card-text">pdesc</p>
+                            <h5 className="card-title">{property.property_name}</h5>
+                            <p className="card-text">{property.pdesc}</p>
                         </div>
                         <ul className="list-group list-group-flush">
-                            <li className="list-group-item">{property && property.price}</li>
-                            <li className="list-group-item">{property && property.deposit}</li>
-                            {/* <li className="list-group-item">Vestibulum at eros</li> */}
+                            <li className="list-group-item">Price: {property.price}</li>
+                            <li className="list-group-item">Deposit: {property.deposit}</li>
                         </ul>
                         <div className="card-body">
-                            <Link to="#" className="card-link">ViewMore</Link>
-                           <Link>
+                            
+                            <Link
+                                to={{
+                                pathname: `/ownerinfo`,
+                                 state: property.id, // Pass property as a prop
+                                }}
+                                className="card-link"
+                                onClick={(e)=>{localStorage.setItem("property",JSON.stringify(property))}}
+                            >
+                                View More
+                            </Link>
+                            <Link>
                                 <button className="btn  btn-block" id="c-displanbtn" onClick={() => deleteProperty(property && property.id)}>Delete</button>
                            </Link>
-
+                            {/* <button value={property.id} onClick={(e)=>{ localStorage.setItem("property",JSON.stringify(property));}}>click</button> */}
+                            {/* <a href="#" className="card-link">Like</a> */}
                         </div>
-                       
-
-                    </div>
-                    
-
-                    
-                ))}
-                    
-              <p>  <a href="/ownerhome"><button type="button" className="btn btn-primary mb-3" >back To OwnerHome</button></a></p>
+                        </div>
+                    ))}
+                </div>
+                
+               
+            {/*  <p>  <a href="/ownerhome"><button type="button" className="btn btn-primary mb-3" >back To OwnerHome</button></a></p> */}
                    
         </div>
     )

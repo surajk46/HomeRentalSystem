@@ -51,4 +51,8 @@ public class OwnerService
 	{
 	     orepo.deleteOwnerByLoginId(id);
 	}
+	public Owner getOwnerByid(int id)
+	{
+		return orepo.getOwnerById(id);
+	}
 }

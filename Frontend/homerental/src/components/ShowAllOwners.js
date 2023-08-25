@@ -19,7 +19,7 @@ export default function ShowAllOwners() {
 
      const deleteOwner =(id) =>
     {
-       fetch("http://localhost:8080/deleteownerbyid/"+id,{method:"DELETE"})
+       fetch("http://localhost:8080/deleteowner/"+id,{method:"DELETE"})
        .then(resp => {
            if(resp.ok)
            { 
@@ -28,8 +28,10 @@ export default function ShowAllOwners() {
            }
          else
            {
+            //alert("Deletion not possible");
               console.log("server error")
-             throw  new Error("server error")  
+             throw Error("Cannot delete as this owner has listed properties")  
+
            }
          })
          .then(text => text.length ? JSON.parse(text):{})
@@ -41,7 +43,8 @@ export default function ShowAllOwners() {
                }
                else{
                   // alert("Owner can not deleted");
-                  window.location.reload();
+                  //window.location.reload();
+                  alert("Deletion not possible");
                }
        })
     }
