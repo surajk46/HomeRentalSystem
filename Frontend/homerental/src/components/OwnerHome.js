@@ -33,6 +33,7 @@ export default function OwnerHome() {
    
         return (
             <div >
+                
                 <h1>Welcome, Property Owner!</h1>
 
                

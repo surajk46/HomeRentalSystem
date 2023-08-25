@@ -4,45 +4,44 @@ import { useEffect, useState } from "react"
 
 export default function ShowMyProperty(){
 
-    const navigate=useNavigate();
-    const[cityid,setCityid]=useState();
-    const[areaid,setAreaid]=useState();
+    // const navigate=useNavigate();
+    // const[cityid,setCityid]=useState();
+    // const[areaid,setAreaid]=useState();
 
-    const[city,setCity]=useState();
-    const[area,setArea]=useState();
-    useEffect(()=>{
-        fetch("http://localhost:8080/getallcity")
-        .then(res => res.json())
-        .then(data => {setCity(data)})
-        //return()=>{cont.abort()};
-     },[]);
+    // const[city,setCity]=useState();
+    // const[area,setArea]=useState();
+    // useEffect(()=>{
+    //     fetch("http://localhost:8080/getallcity")
+    //     .then(res => res.json())
+    //     .then(data => {setCity(data)})
+    //     //return()=>{cont.abort()};
+    //  },[]);
     
-    const getAreaByCity=(v)=>{
-        fetch("http://localhost:8080/getareabycity?city_id="+v)
-        .then(resp=>resp.json())
-        .then(data=>setArea(data))
-    }
+    // const getAreaByCity=(v)=>{
+    //     fetch("http://localhost:8080/getareabycity?city_id="+v)
+    //     .then(resp=>resp.json())
+    //     .then(data=>setArea(data))
+    // }
 
 
     const[property,setProperty]=useState();
     useEffect(()=>{
-        fetch("http://localhost:8080/getallproperty")
+        fetch("http://localhost:8080/getpropertybyownerid/"+JSON.parse(localStorage.getItem("loggedOwner")).id)
         .then(res => res.json())
         .then(data => {setProperty(data)})
-        //return()=>{cont.abort()};
      },[]);
 
     
-     const getPropertyByCity=(v)=>{
-        fetch("http://localhost:8080/getpropertybycityid/"+v)
-        .then(resp=>resp.json())
-        .then(data=>setProperty(data))
-    }
-    const getPropertyByArea=(v)=>{
-        fetch("http://localhost:8080/getpropertybyareaid/"+v)
-        .then(resp=>resp.json())
-        .then(data=>setProperty(data))
-    }
+    //  const getPropertyByCity=(v)=>{
+    //     fetch("http://localhost:8080/getpropertybycityid/"+v)
+    //     .then(resp=>resp.json())
+    //     .then(data=>setProperty(data))
+    // }
+    // const getPropertyByArea=(v)=>{
+    //     fetch("http://localhost:8080/getpropertybyareaid/"+v)
+    //     .then(resp=>resp.json())
+    //     .then(data=>setProperty(data))
+    // }
 
 
     
@@ -63,14 +62,7 @@ export default function ShowMyProperty(){
          })
          .then(text => text.length ? JSON.parse(text):{})
        .then(obj => {
-               // console.log(obj);           
-               // if(obj==null)
-               // {
-               //      alert("Property deleted successfully");
-               // }
-               // {
-               //     alert("Propery can not deleted");
-               // }
+               
                if(Object.keys(obj).length===0)
                {
 
@@ -88,12 +80,25 @@ export default function ShowMyProperty(){
     return(
         
         <div>
-            
+
+<               div className='nav-item'>
+                <ul className="nav navbar">
+                    <li className="nav-item">
+                    <Link to="/addproperty" className="nav-link">Add Property</Link>
+                    </li>
+                    <li className="nav-item">
+                    <Link to="/showmyproperty" className="nav-link">Show My Property</Link>
+                    </li>
+                    <li className="nav-item">
+                    <Link to="/logout" className="nav-link">Log Out</Link></li>
+                </ul>
+                </div>
+
             <h1>Welcome {JSON.parse(localStorage.getItem("loggedUser")).email} </h1>
             <h3>Below listed are your Properties</h3>
             {/* <p>Welcome {JSON.parse(localStorage.getItem("loggedUser")).email}</p>       */}
            
-               < div className="mb-3">
+               {/* < div className="mb-3">
                 <label htmlFor="city" className="form-label">Enter City Name: </label>
                     <select id="city" name="city" 
                     onChange={(e) => { setCityid(e.target.value);getAreaByCity(e.target.value);getPropertyByCity(e.target.value)}}>
@@ -111,7 +116,7 @@ export default function ShowMyProperty(){
                              <option key={c.id} value={c.id} >{c.name}</option>
                         ))}     
                     </select>
-            </div>
+            </div> */}
 
 
                 {property && property.map((property)=>(

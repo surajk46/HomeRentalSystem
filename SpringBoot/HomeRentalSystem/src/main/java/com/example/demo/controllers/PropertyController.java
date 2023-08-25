@@ -117,7 +117,7 @@ public class PropertyController {
 	 }
 	 
 
-	 @GetMapping("/getpropertybyownerid /{cid}")
+	 @GetMapping("/getpropertybyownerid/{cid}")
 	 public List<Property> getPropertiesByOwnerId(@PathVariable("cid") int id)
 	{
 		return pservice.getPropertiesByOwnerId(id);

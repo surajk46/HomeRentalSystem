@@ -1,5 +1,5 @@
 import { useEffect, useReducer, useState } from "react"
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function AddProperty1() {
    // const cont=new AbortController();
@@ -220,6 +220,18 @@ const [item, setItem] = useState(1);
 
     return (
         <div>
+             <div className='nav-item'>
+                <ul className="nav navbar">
+                    <li className="nav-item">
+                    <Link to="/addproperty" className="nav-link">Add Property</Link>
+                    </li>
+                    <li className="nav-item">
+                    <Link to="/showmyproperty" className="nav-link">Show My Property</Link>
+                    </li>
+                    <li className="nav-item">
+                    <Link to="/logout" className="nav-link">Log Out</Link></li>
+                </ul>
+                </div>
             <h1>Add Property</h1>
             <h1> Welcome {JSON.parse(localStorage.getItem('loggedOwner')).fname}</h1>
            <form >
