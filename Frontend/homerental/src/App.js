@@ -18,6 +18,7 @@ import ShowAllOwners from './components/ShowAllOwners';
 import ShowAllProperties from './components/ShowAllProperties';
 import OwnerInfo from './components/OwnerInfo';
 import FooterComponent from './components/Footer';
+import Payment from './components/Payment';
 
 function App() {
 
@@ -43,7 +44,7 @@ function App() {
            
        </div>
 
-   
+
 
         <Routes>
             <Route path='/' element={<HomeFunc/>}/>
@@ -68,6 +69,7 @@ function App() {
             <Route path='/showmyproperty' element={<ShowMyProperty/>}/>
 
             <Route path='/logout' element={<LogoutComp/>}/>
+            <Route path='/payment' element={<Payment/>}/>
        </Routes>
        <FooterComponent/>
     </div>

@@ -1,15 +1,14 @@
 import React, { useState, useReducer } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 import { login } from "./slice";
 
-export default function LoginComp() { 
-
+export default function LoginComp() {
     const init = {
         email: "",
         password: ""
     };
-    
+
     const reducer = (state, action) => {
         switch (action.type) {
             case 'update':
@@ -17,13 +16,13 @@ export default function LoginComp() {
             case 'reset':
                 return init;
             default:
-                return state; 
+                return state;
         }
     };
 
     const [info, dispatch] = useReducer(reducer, init);
     const [msg, setMsg] = useState("");
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
     const reducAction = useDispatch();
 
     const sendData = (e) => {
@@ -77,26 +76,63 @@ export default function LoginComp() {
     };
 
     return (
-        <div>
-            <h1> Login page</h1>
-            <form>
-                <div className="mb-3">
-                    <label htmlFor="email" className="form-label">Enter email :</label>
-                    <input type="text" className="form-control" id="email" name="email" value={info.email}
-                        onChange={(e) => { dispatch({ type: 'update', fld: 'email', val: e.target.value }) }} /> 
-                    <div id="emailHelp" className="form-text"></div>
+        <div className="container">
+            <div className="row justify-content-center align-items-center min-vh-100">
+                <div className="col-md-6">
+                    <div className="card p-4">
+                        <h1 className="text-center mb-4">Login Page</h1>
+                        <form>
+                            <div className="mb-3">
+                                <label htmlFor="email" className="form-label">Enter Email:</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="email"
+                                    name="email"
+                                    value={info.email}
+                                    onChange={(e) => {
+                                        dispatch({ type: 'update', fld: 'email', val: e.target.value });
+                                    }}
+                                />
+                            </div>
+                            <div className="mb-3">
+                                <label htmlFor="password" className="form-label">Enter Password:</label>
+                                <input
+                                    type="password"
+                                    className="form-control"
+                                    id="password"
+                                    name="password"
+                                    value={info.password}
+                                    onChange={(e) => {
+                                        dispatch({ type: 'update', fld: 'password', val: e.target.value });
+                                    }}
+                                />
+                            </div>
+                            <div className="d-grid gap-2">
+                                <button
+                                    type="submit"
+                                    className="btn btn-primary"
+                                    onClick={(e) => {
+                                        sendData(e);
+                                    }}
+                                >
+                                    Submit
+                                </button>
+                                <button
+                                    type="reset"
+                                    className="btn btn-secondary"
+                                    onClick={() => {
+                                        dispatch({ type: 'reset' });
+                                    }}
+                                >
+                                    Reset
+                                </button>
+                            </div>
+                        </form>
+                        <p className="mt-3 text-danger">{msg}</p>
+                    </div>
                 </div>
-                <div className="mb-3">
-                    <label htmlFor="password" className="form-label">Enter Password :</label>
-                    <input type="password" className="form-control" id="password" name="password" value={info.password}
-                        onChange={(e) => { dispatch({ type: 'update', fld: 'password', val: e.target.value }) }} /> 
-                    <div id="passwordHelp" className="form-text"></div>
-                </div>
-                <button type="submit" className="btn btn-primary mb-3" onClick={(e) => { sendData(e) }}>Submit</button> 
-                <button type="reset" className="btn btn-primary mb-3" onClick={() => { dispatch({ type: 'reset' }) }}>Reset</button>
-            </form>
-            {/* <p>{JSON.stringify(info)}</p>
-            <p>{msg}</p> */}
+            </div>
         </div>
-    )
+    );
 }

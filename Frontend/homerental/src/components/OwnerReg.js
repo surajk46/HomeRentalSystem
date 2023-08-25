@@ -269,37 +269,46 @@ useEffect(()=>{
                 
 
 
-
-                <div className="mb-3">
-                <label htmlFor="city" className="form-label">Enter City Name: </label>
-                    <select id="city" name="city" value={info.city.value}  
-                    onChange={(e) => { onInputChange("city", e.target.value, dispatch) }}
-                    onBlur={(e) => { onFocusOut("city", e.target.value, dispatch);setCityid(info.city.value);getArea(e.target.value) }} >
-                       
-                        {cities.map((c)=>(
-                             <option key={c.id} value={c.id}>{c.name}</option>
-                        ))}             
-                    </select>
-                    <div id="cityhelp" className="form-text">....</div>
-                </div>
-
                 
-            
-              
-                <div className="mb-3">
-                <label htmlFor="areaid" className="form-label">Enter area Name: </label>
-                    <select id="areaid" name="areaid" value={info.areaid.value}  
-                    onChange={(e) => { onInputChange("areaid", e.target.value, dispatch) }}
-                    onBlur={(e) => { onFocusOut("areaid", e.target.value, dispatch) }} >
-                      
-                        {areas.map((c)=>(
-                             <option key={c.id} value={c.id}>{c.name}</option>
-                        ))}     
-                    
+    <div className="row">
+        <div className="col-md-6">
+            <div className="mb-3">
+                <label htmlFor="city" className="form-label">Enter City Name: </label>
+                <select
+                    id="city"
+                    name="city"
+                    value={info.city.value}
+                    onChange={(e) => { onInputChange("city", e.target.value, dispatch) }}
+                    onBlur={(e) => { onFocusOut("city", e.target.value, dispatch); setCityid(info.city.value); getArea(e.target.value) }}
+                    className="form-select"
+                >
+                    {cities.map((c) => (
+                        <option key={c.id} value={c.id}>{c.name}</option>
+                    ))}
+                </select>
+                <div id="cityhelp" className="form-text">....</div>
+            </div>
+        </div>
 
-                    </select>
-                    <div id="areaidhelp" className="form-text">....</div>
-                </div>
+        <div className="col-md-6">
+            <div className="mb-3">
+                <label htmlFor="areaid" className="form-label">Enter Area Name: </label>
+                <select
+                    id="areaid"
+                    name="areaid"
+                    value={info.areaid.value}
+                    onChange={(e) => { onInputChange("areaid", e.target.value, dispatch) }}
+                    onBlur={(e) => { onFocusOut("areaid", e.target.value, dispatch) }}
+                    className="form-select"
+                >
+                    {areas.map((c) => (
+                        <option key={c.id} value={c.id}>{c.name}</option>
+                    ))}
+                </select>
+                <div id="areaidhelp" className="form-text">....</div>
+            </div>
+        </div>
+    </div>
             
 
                 <div className="mb-3">

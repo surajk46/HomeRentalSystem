@@ -5,6 +5,10 @@ export default function Payment() {
 
     const[amount,setAmount]=useState(100);
     const[subId,setSubId]=useState(1);
+    const[no_of_requests,setNo_of_requests]=useState(1);
+    const[no_of_properties,setNo_of_properties]=useState(1);
+    const[data,setData]=useState(1);
+
 
     const[sub,setSub]=useState([]);
     useEffect(()=>{
@@ -15,19 +19,7 @@ export default function Payment() {
     },[]);
     const navigate = useNavigate(); 
 
-    const validateData = (name, value) => {
-        let hasError = false, error = "";
-        switch (name) {
-            case "email":
-                let regex4 = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-
-                if (!regex4.test(value)) {
-                    hasError = true;
-                    error = "Email should be valid"
-                }
-                break;
-        return { hasError, error }
-    }
+    
 
     const sendData= (e) => {
             //json
@@ -36,10 +28,14 @@ export default function Payment() {
             method: 'POST',
             headers: {'content-type':'application/json' },
             body: JSON.stringify({
-               
+               no_of_requests:data.no_of_requests,
+               no_of_properties:data.no_of_properties,
+               amount:data.amount,
+               subscription_id:data.id,
+               email:JSON.parse(localStorage.getItem("newReg"))
             })
         }
-        fetch("http://localhost:8080/regpayment/"+JSON.parse(localStorage.getItem("newReg")), reqOptions)
+        fetch("http://localhost:8080/regpayment", reqOptions)
 
         //.then(resp => resp.json())
         .then(resp => {
@@ -50,50 +46,76 @@ export default function Payment() {
             }
         })
     }
+
+    const populate=(id)=>{
+        fetch("http://localhost:8080/getsubbyid/"+id)
+        .then(res => res.json())
+        .then(data => {setData(data)})
+    }
     return (
-        <div>
-
-            <h1>{JSON.parse(localStorage.getItem("newReg"))}</h1>
-            <h1>Payment</h1>
-            <h1>Welcome </h1>
-            <form >
-            <div className="mb-3">
-                    <label htmlFor="email" className="form-label">Enter Email id: </label>
-                    <input type="text" className="form-control" id="email" name="email" value={JSON.parse(localStorage.getItem("newReg"))} readOnly />
+        <div className="container mt-5">
+        <div className="row">
+            <div className="col-md-6 offset-md-3">
+                <div className="card">
+                    <div className="card-body">
+                        <h1 className="card-title">{JSON.parse(localStorage.getItem("newReg"))}</h1>
+                        <h2 className="card-title">Payment</h2>
+                        <h3 className="card-title">Welcome</h3>
+                        <form>
+                            <div className="mb-3">
+                                <label htmlFor="email" className="form-label">Enter Email ID:</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="email"
+                                    name="email"
+                                    value={JSON.parse(localStorage.getItem("newReg"))}
+                                    readOnly
+                                />
+                            </div>
+    
+                            <div className="mb-3">
+                                <label htmlFor="noOfReq" className="form-label">Enter No of Requests:</label>
+                                <select
+                                    id="noOfReq"
+                                    name="noOfReq"
+                                    onChange={(e) => {
+                                        setSubId(e.target.value);
+                                        populate(e.target.value);
+                                    }}
+                                    onBlur={(e) => {}}
+                                    className="form-select"
+                                >
+                                    {sub.map((c) => (
+                                        <option key={c.id} value={c.id}>
+                                            {c.no_of_requests}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+    
+                            <div className="mb-3">
+                                <p>Amount for No of Request is {data.amount}</p>
+                                <p>Amount for Subscription is 100</p>
+                                <label className="form-label">Amount to Pay:</label>
+                                <div className="input-group">
+                                    <span className="input-group-text">$</span>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        value={data.amount + 100}
+                                        readOnly
+                                    />
+                                </div>
+                            </div>
+    
+                            <button type="submit" className="btn btn-primary me-2" onClick={(e)=>{sendData(e)}}>Pay</button>
+                            <button type="reset" className="btn btn-secondary">Reset</button>
+                        </form>
+                    </div>
                 </div>
-
-               {/* <div className="mb-3">
-                    <label htmlFor="fname" className="form-label">Enter First name: </label>
-                    <input type="text" className="form-control" id="fname" name="fname"  />
-                </div>
-
-
-                <div className="mb-3">
-                    <label htmlFor="lname" className="form-label">Enter Last Name: </label>
-                    <input type="text" className="form-control" id="lname" name="lname"  />
-                    <div id="lnamehelp" className="form-text">....</div>
-                </div>  */}
-
-                <div className="mb-3">
-                <label htmlFor="noOfReq" className="form-label">Enter No of Request: </label>
-                    <select id="noOfReq" name="noOfReq"
-                    onChange={(e) => { setAmount(e.target.value)}} >
-                       
-                        {sub.map((c)=>(
-                             <option key={c.id} value={c.amount} onChange={setSubId(c.id)}>{c.no_of_req}</option>
-                        ))}             
-                    </select>            
-                </div>
-         
-               <h3>{amount}</h3>
-               <h3>{subId}</h3>
-
-            <button type="submit" className="btn bttn-primary mb-3" onClick={(e) => {sendData(e)}}>Submit</button>
-            <button type="reset" className="btn bttn-primary mb-3" >Reset</button>
-                                            
-            
-              </form>
-        </div>
-    )
-}
+            </div>
+        </div>
+    </div>
+      )
 }

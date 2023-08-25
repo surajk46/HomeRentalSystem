@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 
 
+
 export default function TenantReg() {
    // const cont=new AbortController();
     const[cities,setCities]=useState([]);
@@ -52,6 +53,7 @@ useEffect(()=>{
 
     const init = 
     {
+    
         email: { value: "", hasError: true, touched: false, error: "" },
         password : { value: "", hasError: true, touched: false, error: "" },
         fname: { value: "", hasError: true, touched: false, error: "" },
@@ -59,7 +61,7 @@ useEffect(()=>{
         contact_no: { value: "", hasError: true, touched: false, error: "" },
         city: { value: "", hasError: true, touched: false, error: "" },
         areaid: { value: "", hasError: true, touched: false, error: "" },
-       // pincode: { value: "", hasError: true, touched: false, error: "" },
+       //pincode: { value: "", hasError: true, touched: false, error: "" },
         address:{ value: "", hasError: true, touched: false, error: "" },
         isFormValid:false
     }
@@ -206,7 +208,7 @@ useEffect(()=>{
         .then(resp => {
             if (resp.ok) {
                 
-                navigate("/login");
+                navigate("/payment");
             } else {
                 alert("errr");
             }
@@ -219,7 +221,11 @@ useEffect(()=>{
     return (
         <div>
             <h1>Tenant SignUp Form</h1>
+   
             <form >
+
+
+                
             <div className="mb-3">
                     <label htmlFor="email" className="form-label">Enter Email id: </label>
                     <input type="text" className="form-control" id="email" name="email" value={info.email.value}
@@ -275,37 +281,47 @@ useEffect(()=>{
 
 
 
-                <div className="mb-3">
+                <div className="row">
+        <div className="col-md-6">
+            <div className="mb-3">
                 <label htmlFor="city" className="form-label">Enter City Name: </label>
-                    <select id="city" name="city" value={info.city.value}  
-                    onChange={(e) => { onInputChange("city", e.target.value, dispatch) ;getArea(e.target.value)}}
-                    onBlur={(e) => { onFocusOut("city", e.target.value, dispatch);setCityid(info.city.value); }} >
-                       
-                        {cities.map((c)=>(
-                             <option key={c.id} value={c.id}>{c.name}</option>
-                        ))}             
-                    </select>
-                    <div id="cityhelp" className="form-text">....</div>
-                </div>
+                <select
+                    id="city"
+                    name="city"
+                    value={info.city.value}
+                    onChange={(e) => { onInputChange("city", e.target.value, dispatch); getArea(e.target.value) }}
+                    onBlur={(e) => { onFocusOut("city", e.target.value, dispatch); setCityid(info.city.value); }}
+                    className="form-select"
+                >
+                    <option value="">Select City</option>
+                    {cities.map((c) => (
+                        <option key={c.id} value={c.id}>{c.name}</option>
+                    ))}
+                </select>
+                <div id="cityhelp" className="form-text">....</div>
+            </div>
+        </div>
 
-                
-            
-              
-                <div className="mb-3">
-                <label htmlFor="areaid" className="form-label">Enter area Name: </label>
-                    <select id="areaid" name="areaid" value={info.areaid.value}  
+        <div className="col-md-6">
+            <div className="mb-3">
+                <label htmlFor="areaid" className="form-label">Enter Area Name: </label>
+                <select
+                    id="areaid"
+                    name="areaid"
+                    value={info.areaid.value}
                     onChange={(e) => { onInputChange("areaid", e.target.value, dispatch) }}
-                    onBlur={(e) => { onFocusOut("areaid", e.target.value, dispatch) }} >
-                      
-                        {areas.map((c)=>(
-                             <option key={c.id} value={c.id}>{c.name}</option>
-                        ))}     
-                    
-
-                    </select>
-                    <div id="areaidhelp" className="form-text">....</div>
-                </div>
-            
+                    onBlur={(e) => { onFocusOut("areaid", e.target.value, dispatch) }}
+                    className="form-select"
+                >
+                    <option value="">Select Area</option>
+                    {areas.map((c) => (
+                        <option key={c.id} value={c.id}>{c.name}</option>
+                    ))}
+                </select>
+                <div id="areaidhelp" className="form-text">....</div>
+            </div>
+        </div>
+    </div>
 
                 <div className="mb-3">
                     <label htmlFor="address" className="form-label">Enter Address line: </label>

@@ -14,16 +14,16 @@ const OwnerInfo = () => {
   }, [ownerId]);
 
   return (
-    <div className="owner-info">
-      {/* <h2>{JSON.parse(localStorage.getItem("property")).owner_id.id} hi</h2> */}
-      <h2>Owner Information</h2>
-      <p>Name: {`${owner.fname} ${owner.lname}`}</p>
-      <p>Contact No: {owner.contact_no}</p>
-      <p>Address: {owner.address}</p>
-      {/* Add more owner information fields here */}
+    <div className="owner-info container mt-5">
+    <h2 className="text-center mb-4">Owner Information</h2>
+    <p className="mb-2">Name: {`${owner.fname} ${owner.lname}`}</p>
+    <p className="mb-2">Contact No: {owner.contact_no}</p>
+    <p className="mb-2">Address: {owner.address}</p>
+    {/* Add more owner information fields here */}
 
-     <p> <button className="btn-success" onClick={(e)=>{window.history.back()}}>Go Back </button></p>
-    </div>
+    <button className="btn btn-success" onClick={(e) => { window.history.back() }}>Go Back</button>
+</div>
+
 
   );
 };

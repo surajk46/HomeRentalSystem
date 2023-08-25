@@ -55,47 +55,49 @@ export default function TenantHome(){
 
     return(
         <div>
-            <div>
-           <ul class="nav navbar" style={{float:"right"}}>
-                
-                <li class="nav-item">
-                    <Link to="/logout" class="nav-link">Logout</Link>
-                </li> 
+        <div>
+            <ul className="nav navbar" style={{ float: "right" }}>
+                <li className="nav-item">
+                    <Link to="/logout" className="nav-link">Logout</Link>
+                </li>
             </ul>
-       </div>
-
-
-            <h1><p>Welcome {JSON.parse(localStorage.getItem("loggedUser")).email}</p></h1>
-          
-
-
-           
-                
-           
-               < div className="mb-3">
-                <label htmlFor="city" className="form-label">Enter City Name: </label>
-                    <select id="city" name="city" 
-                    onChange={(e) => { setCityid(e.target.value);getAreaByCity(e.target.value);getPropertyByCity(e.target.value)}}>
-                        {city && city.map((c)=>(
-                             <option key={c.id} value={c.id} >{c.name}</option>
-                        ))}             
-                    </select>
-                </div>
-
-
+        </div>
+    
+        <h1><p className="text-center">Welcome {JSON.parse(localStorage.getItem("loggedUser")).email}</p></h1>
+    
+        <div className="container">
+    <div className="row justify-content-center">
+        <div className="col-md-6">
             <div className="mb-3">
-                <label htmlFor="area" className="form-label">Enter area Name: </label>
-                   <select id="area" name="area" onChange={(e) => {setCityid(e.target.value); getPropertyByArea(e.target.value)}}>
-                        {area && area.map((c)=>(
-                             <option key={c.id} value={c.id} >{c.name}</option>
-                        ))}     
-                    </select>
+                <label htmlFor="city" className="form-label">Enter City Name: </label>
+                <select id="city" name="city"
+                    className="form-select"
+                    onChange={(e) => { setCityid(e.target.value); getAreaByCity(e.target.value); getPropertyByCity(e.target.value) }}>
+                    {city && city.map((c) => (
+                        <option key={c.id} value={c.id}>{c.name}</option>
+                    ))}
+                </select>
             </div>
+        </div>
+        <div className="col-md-6">
+            <div className="mb-3">
+                <label htmlFor="area" className="form-label">Enter Area Name: </label>
+                <select id="area" name="area"
+                    className="form-select"
+                    onChange={(e) => { setCityid(e.target.value); getPropertyByArea(e.target.value) }}>
+                    {area && area.map((c) => (
+                        <option key={c.id} value={c.id}>{c.name}</option>
+                    ))}
+                </select>
+            </div>
+        </div>
+    </div>
 
-
-            <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-                    {property && property.map((property) => (
-                        <div className="card" style={{ width: '18rem', margin: '10px', boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2)' }} key={property.id}>
+    <div className="row">
+        <div className="col-12">
+            <div className="d-flex flex-wrap justify-content-center">
+                {property && property.map((property) => (
+                    <div className="card" style={{ width: '18rem', margin: '10px', boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2)' }} key={property.id}>
                         <img src={`data:image/jpeg;base64,${property.image}`} className="card-img-top" alt="..." style={{ height: '200px', objectFit: 'cover' }} />
                         <div className="card-body">
                             <h5 className="card-title">{property.property_name}</h5>
@@ -106,27 +108,27 @@ export default function TenantHome(){
                             <li className="list-group-item">Deposit: {property.deposit}</li>
                         </ul>
                         <div className="card-body">
-                            
                             <Link
                                 to={{
-                                pathname: `/ownerinfo`,
-                                 state: property.id, // Pass property as a prop
+                                    pathname: `/ownerinfo`,
+                                    state: property.id, // Pass property as a prop
                                 }}
-                                className="card-link"
-                                onClick={(e)=>{localStorage.setItem("property",JSON.stringify(property))}}
+                                className="btn btn-primary"
+                                onClick={(e) => { localStorage.setItem("property", JSON.stringify(property)) }}
                             >
                                 View More
                             </Link>
-
-                            {/* <button value={property.id} onClick={(e)=>{ localStorage.setItem("property",JSON.stringify(property));}}>click</button> */}
-                            {/* <a href="#" className="card-link">Like</a> */}
                         </div>
-                        </div>
-                    ))}
-                </div>
-                    
-
+                    </div>
+                ))}
+            </div>
         </div>
+    </div>
+</div>
+
+    
+        </div>
+    
     )
      
 }

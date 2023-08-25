@@ -32,37 +32,38 @@ export default function OwnerHome() {
  
    
         return (
-            <div >
-                
-                <h1>Welcome, Property Owner!</h1>
-
-               
-                <ul class="ml-5 pl-5">
-                    <div class="border 1px bg-primary mb-2 col-lg-2 bg-opacity-50">
-                    <li class="nav-item pt-5; ">
-                        <p class="text-light">Add to your Dream Property</p>
-                            <Link to="/addproperty" class="nav-link;"><button class="mb-2" onClick={getId}>Add Property</button></Link>
-                    </li>
+            <div className="container mt-5">
+            <h1 className="text-center mb-4">Welcome, Property Owner!</h1>
+            <div className="row justify-content-center align-items-center">
+                <div className="col-lg-4">
+                    <div className="border bg-primary bg-opacity-50 p-3 mb-3">
+                        <p className="text-light text-center mb-0">Add to your Dream Property</p>
+                        <Link to="/addproperty" className="d-block text-center">
+                            <button className="btn btn-light mt-2" onClick={getId}>Add Property</button>
+                        </Link>
                     </div>
-
-                    <div class="border 1px bg-primary mb-2 col-lg-2">
-                        <li class="mt-5">
-                            <p class="text-light">Show Your dream property, Where you want to live</p>
-                                <Link to="/showmyproperty" class="nav-link"><button class="mb-2" >Show Property</button></Link>
-                        </li>
+                </div>
+        
+                <div className="col-lg-4">
+                    <div className="border bg-primary bg-opacity-50 p-3 mb-3">
+                        <p className="text-light text-center mb-0">Show Your Dream Property</p>
+                        <Link to="/showmyproperty" className="d-block text-center">
+                            <button className="btn btn-light mt-2">Show Property</button>
+                        </Link>
                     </div>
-
-                    <div class="border 1px bg-primary mb-2 col-lg-2">
-                        <li class="mt-5">
-                            <p class="text-light"></p>
-                                <Link to="/logout" class="nav-link"><button class="mb-2" >logout</button></Link>
-                        </li>
+                </div>
+        
+                <div className="col-lg-4">
+                    <div className="border bg-primary bg-opacity-50 p-3 mb-3">
+                        <p className="text-light text-center mb-0"></p>
+                        <Link to="/logout" className="d-block text-center">
+                            <button className="btn btn-light mt-2">Logout</button>
+                        </Link>
                     </div>
-
-                </ul>
-               
-
+                </div>
             </div>
+        </div>
+        
         );
     }
 

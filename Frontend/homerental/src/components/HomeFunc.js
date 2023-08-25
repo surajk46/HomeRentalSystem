@@ -1,6 +1,5 @@
 import { Link} from 'react-router-dom';
 import { useEffect,  useState } from "react";
-import Payment from './Payment';
 
 
 export default function HomeFunc(){
@@ -46,67 +45,83 @@ export default function HomeFunc(){
 
 
     return(
-        <div >
-            <h1>Welcome To Home Page</h1>
-            {/* <p>Welcome {JSON.parse(localStorage.getItem("loggedUser")).email}</p>       */}
+        <div className="container mt-5">
+    <h1 className="text-center mb-4">Welcome To Home Page</h1>
 
-        <Payment/>
-           
-               
-               < div className="mb-3">
-                <label htmlFor="city" className="form-label">Enter City Name: </label>
-                    <select id="city" name="city" 
-                    onChange={(e) => { setCityid(e.target.value);getAreaByCity(e.target.value);getPropertyByCity(e.target.value)}}>
-                        {city && city.map((c)=>(
-                             <option key={c.id} value={c.id} >{c.name}</option>
-                        ))}             
-                    </select>
-                </div>
+    <div className="mb-3">
+        <label htmlFor="city" className="form-label">Select City:</label>
+        <select
+            className="form-select"
+            id="city"
+            name="city"
+            onChange={(e) => {
+                setCityid(e.target.value);
+                getAreaByCity(e.target.value);
+                getPropertyByCity(e.target.value);
+            }}
+        >
+            {city &&
+                city.map((c) => (
+                    <option key={c.id} value={c.id}>{c.name}</option>
+                ))}
+        </select>
+    </div>
 
+    <div className="mb-3">
+        <label htmlFor="area" className="form-label">Select Area:</label>
+        <select
+            className="form-select"
+            id="area"
+            name="area"
+            onChange={(e) => {
+                setCityid(e.target.value);
+                getPropertyByArea(e.target.value);
+            }}
+        >
+            {area &&
+                area.map((c) => (
+                    <option key={c.id} value={c.id}>{c.name}</option>
+                ))}
+        </select>
+    </div>
 
-            <div className="mb-3">
-                <label htmlFor="area" className="form-label">Enter area Name: </label>
-                    <select id="area" name="area"  onChange={(e) => {setCityid(e.target.value); getPropertyByArea(e.target.value)}}>
-                        {area && area.map((c)=>(
-                             <option key={c.id} value={c.id} >{c.name}</option>
-                        ))}     
-                    </select>
-            </div>
-
-                <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-                    {property && property.map((property) => (
-                        <div className="card" style={{ width: '18rem', margin: '10px', boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2)' }} key={property.id}>
-                        <img src={`data:image/jpeg;base64,${property.image}`} className="card-img-top" alt="..." style={{ height: '200px', objectFit: 'cover' }} />
-                        <div className="card-body">
-                            <h5 className="card-title">{property.property_name}</h5>
-                            <p className="card-text">{property.pdesc}</p>
-                        </div>
-                        <ul className="list-group list-group-flush">
-                            <li className="list-group-item">Price: {property.price}</li>
-                            <li className="list-group-item">Deposit: {property.deposit}</li>
-                        </ul>
-                        <div className="card-body">
-                            
-                            <Link
-                                to={{
+    <div className="d-flex flex-wrap">
+        {property &&
+            property.map((property) => (
+                <div className="card" style={{ width: '18rem', margin: '10px', boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2)' }} key={property.id}>
+                    <img
+                        src={`data:image/jpeg;base64,${property.image}`}
+                        className="card-img-top"
+                        alt="..."
+                        style={{ height: '200px', objectFit: 'cover' }}
+                    />
+                    <div className="card-body">
+                        <h5 className="card-title">{property.property_name}</h5>
+                        <p className="card-text">{property.pdesc}</p>
+                    </div>
+                    <ul className="list-group list-group-flush">
+                        <li className="list-group-item">Price: {property.price}</li>
+                        <li className="list-group-item">Deposit: {property.deposit}</li>
+                    </ul>
+                    <div className="card-body">
+                        <Link
+                            to={{
                                 pathname: `/ownerinfo`,
-                                 state: property.id, // Pass property as a prop
-                                }}
-                                className="card-link"
-                                onClick={(e)=>{localStorage.setItem("property",JSON.stringify(property))}}
-                            >
-                                View More
-                            </Link>
-
-                            {/* <button value={property.id} onClick={(e)=>{ localStorage.setItem("property",JSON.stringify(property));}}>click</button> */}
-                            {/* <a href="#" className="card-link">Like</a> */}
-                        </div>
-                        </div>
-                    ))}
+                                state: property.id,
+                            }}
+                            className="btn btn-primary"
+                            onClick={(e) => {
+                                localStorage.setItem("property", JSON.stringify(property));
+                            }}
+                        >
+                            View More
+                        </Link>
+                    </div>
                 </div>
-           
+            ))}
+    </div>
+</div>
 
-        </div>
     )
      
 }
