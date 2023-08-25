@@ -39,5 +39,10 @@ public class LoginService {
 	{
 		return lrepo.findById(id).get();
 	}
+	
+	public Login getLoginByEmail(String id)
+	{
+		return lrepo.findByEmail(id);
+	}
 
 }

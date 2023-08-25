@@ -5,6 +5,13 @@ public class PaymentReg {
 	int no_of_requests,no_of_properties;
 	float amount;
 	int login_id,subscription_id;
+	String email;
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	public int getNo_of_requests() {
 		return no_of_requests;
 	}

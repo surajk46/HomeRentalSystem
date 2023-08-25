@@ -20,5 +20,8 @@ public interface TenantRepository extends JpaRepository<Tenant, Integer> {
 	@Modifying
 	@Query("delete from Tenant t where t.login_id.id = :id")
 	public void deleteTenantByLoginId(int id);
+	
+	@Query("SELECT t FROM Tenant t WHERE t.id = :id")
+    public Tenant getTenantById(int id);
 
 }
