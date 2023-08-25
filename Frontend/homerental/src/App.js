@@ -17,6 +17,7 @@ import ShowAllTenant from './components/ShowAllTenant';
 import ShowAllOwners from './components/ShowAllOwners';
 import ShowAllProperties from './components/ShowAllProperties';
 import OwnerInfo from './components/OwnerInfo';
+import FooterComponent from './components/Footer';
 
 function App() {
 
@@ -39,6 +40,7 @@ function App() {
                 </li>
                
             </ul>
+           
        </div>
 
    
@@ -67,6 +69,7 @@ function App() {
 
             <Route path='/logout' element={<LogoutComp/>}/>
        </Routes>
+       <FooterComponent/>
     </div>
   );
 }

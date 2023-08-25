@@ -1,7 +1,7 @@
-import { Link, Route, Routes } from 'react-router-dom';
-import { Button, Form,Col, Container, Row} from "react-bootstrap";
-import { useEffect, useReducer, useState } from "react"
-import TenantReg from './TenantReg';
+import { Link} from 'react-router-dom';
+import { useEffect,  useState } from "react";
+import Payment from './Payment';
+
 
 export default function HomeFunc(){
     const[cityid,setCityid]=useState();
@@ -46,11 +46,11 @@ export default function HomeFunc(){
 
 
     return(
-        <div>
+        <div >
             <h1>Welcome To Home Page</h1>
             {/* <p>Welcome {JSON.parse(localStorage.getItem("loggedUser")).email}</p>       */}
 
-
+        <Payment/>
            
                
                < div className="mb-3">

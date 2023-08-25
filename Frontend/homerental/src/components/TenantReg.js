@@ -201,10 +201,11 @@ useEffect(()=>{
             
         }
         fetch("http://localhost:8080/regtenant", reqOptions)
-        //.then(resp => resp.json())
-
+       // .then(data =>{ localStorage.setItem("loggedOwner",JSON.stringify(data))})
+        .then(localStorage.setItem("newReg",JSON.stringify(info.email.value)))
         .then(resp => {
             if (resp.ok) {
+                
                 navigate("/login");
             } else {
                 alert("errr");
