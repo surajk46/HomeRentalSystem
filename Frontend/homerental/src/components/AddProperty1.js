@@ -32,12 +32,12 @@ useEffect(()=>{
    .then(data => {setCities(data)})
    //return()=>{cont.abort()};
 },[]);
-useEffect(()=>{
-   fetch(AREAURL)
-   .then(res => res.json())
-   .then(data => {setAreas(data)})
-  // return()=>{cont.abort()};
-},[]);
+// useEffect(()=>{
+//    fetch(AREAURL)
+//    .then(res => res.json())
+//    .then(data => {setAreas(data)})
+//   // return()=>{cont.abort()};
+// },[]);
 useEffect(()=>{
    fetch(PROPERTYTYPEURL)
    .then(res => res.json())
@@ -51,9 +51,18 @@ useEffect(()=>{
   // return()=>{cont.abort()};
 },[]);
 
+const [item, setItem] = useState(1);
+
+// useEffect(() => {
+// const items = JSON.parse(localStorage.getItem('loggedOwner')).id;
+// if (items) {
+// setItem(items);
+// }
+// }, []);
 
 
     const init = {
+        owner_id:{value: "", hasError: true, touched: false, error: ""},
         areaid:  { value: "", hasError: true, touched: false, error: "" },             
         propertytype_id:  { value: "", hasError: true, touched: false, error: "" },
         propertyname:  { value: "", hasError: true, touched: false, error: "" },
@@ -160,7 +169,7 @@ useEffect(()=>{
             headers: {'content-type':'application/json' },
             body: JSON.stringify({
                 //owner_id:
-                owner_id:JSON.parse(localStorage.getItem("loggedOwner")).id,
+                owner_id:JSON.parse(localStorage.getItem('loggedOwner')).id,
                 area_id: info.areaid.value,
                 property_type_id: info.propertytype_id.value,
                 property_name: info.propertyname.value,
@@ -212,6 +221,7 @@ useEffect(()=>{
     return (
         <div>
             <h1>Add Property</h1>
+            <h1> Welcome {JSON.parse(localStorage.getItem('loggedOwner')).fname}</h1>
            <form >
            <div className="mb-3">
                 <label htmlFor="city" className="form-label">Enter City Name: </label>
@@ -338,7 +348,7 @@ useEffect(()=>{
                 <p>
                     {
                         JSON.stringify({
-                        owner_id:JSON.parse(localStorage.getItem("loggedOwner")).id,
+                        owner_id:item,
                         area_id: info.areaid.value,
                         property_type_id: info.propertytype_id.value,
                         property_name: info.propertyname.value,
@@ -349,6 +359,8 @@ useEffect(()=>{
                     })}
                 </p>
                 <p>{file && file.name}</p>
+
+                <a href="/ownerhome"><button type="button" className="btn btn-primary mb-3" >back To OwnerHome</button></a>
             </form>
         </div>
     )

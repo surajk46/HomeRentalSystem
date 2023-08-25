@@ -15,6 +15,7 @@ import { useSelector } from 'react-redux';
 import LogoutComp from './components/LogoutComp';
 import ShowMyProperty from './components/ShowMyProperty';
 import ShowAllTenant from './components/ShowAllTenant';
+import ShowAllOwners from './components/ShowAllOwners';
 
 function App() {
 
@@ -52,6 +53,8 @@ function App() {
 
             <Route path='/adminhome' element={<AdminHome/>}/>
             <Route path='/getalltenants' element={<ShowAllTenant/>}/>
+            <Route path='/getallowners' element={<ShowAllOwners/>}/>
+            <Route path='/getallproperties' element={<ShowMyProperty/>}/>
 
 
             <Route path='/tenanthome' element={<TenantHome/>}/> 

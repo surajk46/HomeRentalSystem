@@ -47,16 +47,26 @@ export default function TenantHome(){
     useEffect(()=>{
         fetch("http://localhost:8080/gettenantbyloginid/"+JSON.parse(localStorage.getItem("loggedUser")).id)
         .then(res => res.json())
-        .then(data => {setTenant(data)})
+        .then(data => {setTenant(data);localStorage.setItem("loggedTenant",JSON.stringify(data));})
        // return()=>{cont.abort()};
      },[]);
      
-     localStorage.setItem("loggedTenant",JSON.stringify(tenant));
+     
 
     return(
         <div>
-            <h1>Welcome To Home Page</h1>
-            {/* <p>Welcome {JSON.parse(localStorage.getItem("loggedUser")).email}</p>       */}
+            <div>
+           <ul class="nav navbar" style={{float:"right"}}>
+                
+                <li class="nav-item">
+                    <Link to="/logout" class="nav-link">Logout</Link>
+                </li> 
+            </ul>
+       </div>
+
+
+            <h1><p>Welcome {JSON.parse(localStorage.getItem("loggedUser")).email}</p></h1>
+          
 
 
            
