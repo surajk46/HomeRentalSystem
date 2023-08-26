@@ -63,9 +63,9 @@ export default function FooterComponent() {
           <ul class="list-inline">
           <div className="c-footericon">
                             <BsFacebook size="20px"/> &nbsp;
-                            <BsInstagram size="20px"/> 
-                              <BsLinkedin size="20px"/> 
-                             <BsTwitter size="20px"/>  
+                            <BsInstagram size="20px"/> &nbsp;
+                              <BsLinkedin size="20px"/> &nbsp;
+                             <BsTwitter size="20px"/>  &nbsp;
                             </div>
         </ul>
         </div>
