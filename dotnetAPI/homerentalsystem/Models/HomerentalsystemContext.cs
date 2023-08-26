@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using homerentalsystem.Models;
 
 namespace homerentalsystem.Models;
 
@@ -348,4 +349,6 @@ public partial class HomerentalsystemContext : DbContext
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+    public DbSet<homerentalsystem.Models.PaymentDto>? PaymentDto { get; set; }
 }

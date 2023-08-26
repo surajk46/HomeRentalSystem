@@ -84,13 +84,19 @@ export default function ShowMyProperty(){
         
         <div>
 
-<               div className='nav-item'>
+               <div className='nav-item'>
                 <ul className="nav navbar">
                     <li className="nav-item">
                     <Link to="/addproperty" className="nav-link">Add Property</Link>
                     </li>
                     <li className="nav-item">
                     <Link to="/showmyproperty" className="nav-link">Show My Property</Link>
+                    </li>
+                    <li className="nav-item">
+                    <Link to="/propreq" className="nav-link">Property Request</Link>
+                    </li>
+                    <li className="nav-item">
+                    <Link to="/ownerhome" className="nav-link">Owner Home</Link>
                     </li>
                     <li className="nav-item">
                     <Link to="/logout" className="nav-link">Log Out</Link></li>

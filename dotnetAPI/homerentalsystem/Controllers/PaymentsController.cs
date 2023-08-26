@@ -31,7 +31,9 @@ namespace homerentalsystem.Controllers
             return await _context.Payments.ToListAsync();
         }
 
-        // GET: api/Payments/5
+
+
+     /*   // GET: api/Payments/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Payment>> GetPayment(int id)
         {
@@ -78,9 +80,9 @@ namespace homerentalsystem.Controllers
             }
 
             return NoContent();
-        }
+        } 
 
- /*       // POST: api/Payments
+       // POST: api/Payments
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Payment>> PostPayment(Payment payment)
@@ -115,6 +117,8 @@ namespace homerentalsystem.Controllers
             return NoContent();
         }
  */
+
+
         private bool PaymentExists(int id)
         {
             return (_context.Payments?.Any(e => e.Id == id)).GetValueOrDefault();

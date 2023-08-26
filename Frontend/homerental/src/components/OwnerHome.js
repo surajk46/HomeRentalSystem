@@ -61,6 +61,14 @@ export default function OwnerHome() {
                         </Link>
                     </div>
                 </div>
+                <div className="col-lg-4">
+                    <div className="border bg-primary bg-opacity-50 p-3 mb-3">
+                        <p className="text-light text-center mb-0"></p>
+                        <Link to="/propreq" className="d-block text-center">
+                            <button className="btn btn-light mt-2">Property requests</button>
+                        </Link>
+                    </div>
+                </div>
             </div>
         </div>
         

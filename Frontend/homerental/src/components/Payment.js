@@ -30,7 +30,7 @@ export default function Payment() {
             body: JSON.stringify({
                no_of_requests:data.no_of_requests,
                no_of_properties:data.no_of_properties,
-               amount:data.amount,
+               amount:data.amount+100,
                subscription_id:data.id,
                email:JSON.parse(localStorage.getItem("newReg"))
             })

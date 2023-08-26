@@ -20,6 +20,7 @@ import OwnerInfo from './components/OwnerInfo';
 import FooterComponent from './components/Footer';
 import Payment from './components/Payment';
 import ShowAllTransaction from './components/ShowAllTransaction';
+import PropertyRequestedTenant from './components/PropertyRequestedTenant';
 
 function App() {
 
@@ -69,6 +70,7 @@ function App() {
             <Route path='/ownerhome' element={<OwnerHome/>}/> 
             <Route path='/addproperty' element={<AddProperty1/>}/>
             <Route path='/showmyproperty' element={<ShowMyProperty/>}/>
+            <Route path='/propreq' element={<PropertyRequestedTenant/>}/>
 
             <Route path='/logout' element={<LogoutComp/>}/>
             <Route path='/payment' element={<Payment/>}/>

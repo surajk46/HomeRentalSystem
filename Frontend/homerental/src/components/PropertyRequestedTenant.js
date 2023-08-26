@@ -1,70 +1,72 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const PropertyRequestedTenant = () => {
-  
-  
- 
-  
-const [tenants, setTenants] = useState([]);
-
-const[tenantIds,setTenantIds]=useState([]); 
-useEffect(()=>{
-    fetch("http://localhost:8080/getallproperty")
-    .then(res => res.json())
-    .then(data => {setProperty(data)})
-    //return()=>{cont.abort()};
- },[]);
-
+  const [tenants, setTenants] = useState([]);
+  const [obj, setObj] = useState([]);
 
   useEffect(() => {
-    const fetchTenants = async () => {
-      const fetchedTenants = [];
+    fetch("http://localhost:8080/getallrequests")
+      .then(res => res.json())
+      .then(data => {
+        setObj(data);
 
-      for (const tenantId of tenantIds) {
-        try {
-          const response = await fetch(`YOUR_API_URL_HERE/${tenantId}`);
-          const tenantData = await response.json();
-          fetchedTenants.push(tenantData);
-        } catch (error) {
-          console.error(`Error fetching data for tenant ${tenantId}:`, error);
-        }
-      }
-
-      setTenants(fetchedTenants);
-    };
-
-    fetchTenants();
-  }, [tenantIds]);
+        // Assuming data structure: { fname, lname, email, contact_no, tenant_id, property_id, owner_id }
+        const extractedTenantData = data.filter(item => item.owner_id === JSON.parse(localStorage.getItem('loggedOwner')).id);
+        setTenants(extractedTenantData);
+      });
+  }, []);
 
   return (
     <div>
-      <h1>Tenant Information</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Area ID</th>
-            <th>Login ID</th>
-            <th>Address</th>
-            <th>Contact No</th>
-          </tr>
-        </thead>
-        <tbody>
-          {tenants.map(tenant => (
-            <tr key={tenant.id}>
-              <td>{tenant.id}</td>
-              <td>{tenant.fname}</td>
-              <td>{tenant.lname}</td>
-              <td>{tenant.area_id}</td>
-              <td>{tenant.login_id}</td>
-              <td>{tenant.address}</td>
-              <td>{tenant.contact_no}</td>
+      <div className='nav-item'>
+                <ul className="nav navbar">
+                    <li className="nav-item">
+                    <Link to="/addproperty" className="nav-link">Add Property</Link>
+                    </li>
+                    <li className="nav-item">
+                    <Link to="/showmyproperty" className="nav-link">Show My Property</Link>
+                    </li>
+                    <li className="nav-item">
+                    <Link to="/propreq" className="nav-link">Property Request</Link>
+                    </li>
+                    <li className="nav-item">
+                    <Link to="/ownerhome" className="nav-link">Owner Home</Link>
+                    </li>
+                    <li className="nav-item">
+                    <Link to="/logout" className="nav-link">Log Out</Link></li>
+                </ul>
+                </div>
+      <div>
+        <h1 class="mb-4">Tenant Information</h1>
+        <div class="mb-3">
+          <h2>Tenant IDs</h2>
+        </div>
+        <table class="table table-striped table-bordered">
+          <thead class="thead-dark">
+            <tr>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Email</th>
+              <th>Contact No</th>
+              <th>Tenant Id</th>
+              <th>Property Id</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {tenants.map(tenant => (
+              <tr key={tenant.tenant_id}>
+                <td>{tenant.fname}</td>
+                <td>{tenant.lname}</td>
+                <td>{tenant.email}</td>
+                <td>{tenant.contact_no}</td>
+                <td>{tenant.tenant_id}</td>
+                <td>{tenant.property_id}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

@@ -1,5 +1,7 @@
 package com.example.demo.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +31,7 @@ public class TenantOwnerInfoController {
 	@PostMapping("/saverequest")
 	public TenantOwnerInfo saveInfo(@RequestBody RequestInfo rf)
 	{
-		TenantOwnerInfo t=new TenantOwnerInfo(rf.getOwner_id(), rf.getTenant_id(), rf.getProperty_id());
+		TenantOwnerInfo t=new TenantOwnerInfo(rf.getOwner_id(), rf.getTenant_id(), rf.getProperty_id(),rf.getFname(),rf.getLname(),rf.getEmail(),rf.getContact_no());
 		TenantOwnerInfo saved=toiservice.save(t);
 		return saved;
 	}
@@ -38,6 +40,11 @@ public class TenantOwnerInfoController {
 	public TenantOwnerInfo getTenantId(@PathVariable("id") int id)
 	{
 		return toiservice.getTenantId(id);
+	}
+	@GetMapping("getallrequests")
+	public List<TenantOwnerInfo> getAllReq()
+	{
+		return toiservice.getAllReq();
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.example.demo.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,9 @@ public class TenantOwnerInfoService {
 	public TenantOwnerInfo getTenantId(int id)
 	{
 	    return toirepo.getTenantId(id);
+	}
+	public List<TenantOwnerInfo> getAllReq() {
+		return toirepo.findAll();
 	}
 
 }

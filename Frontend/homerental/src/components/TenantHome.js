@@ -71,12 +71,16 @@ export default function TenantHome(){
             body: JSON.stringify({
                 owner_id: JSON.parse(localStorage.getItem('property')).owner_id.id,
                 tenant_id: JSON.parse(localStorage.getItem('loggedTenant')).id,
-                property_id: JSON.parse(localStorage.getItem('property')).id
+                property_id: JSON.parse(localStorage.getItem('property')).id,
+                lname:JSON.parse(localStorage.getItem('loggedTenant')).lname,
+                fname:JSON.parse(localStorage.getItem('loggedTenant')).fname,
+                email:JSON.parse(localStorage.getItem('loggedTenant')).login_id?.id,
+                contact_no:JSON.parse(localStorage.getItem('loggedTenant')).contact_no
                 
             })
             
         }
-        fetch("http://localhost:8080/regtenant", reqOptions)
+        fetch("http://localhost:8080/saverequest", reqOptions)
     }
 
     return(

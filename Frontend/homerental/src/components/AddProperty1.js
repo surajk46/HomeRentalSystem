@@ -229,6 +229,12 @@ const [item, setItem] = useState(1);
                     <Link to="/showmyproperty" className="nav-link">Show My Property</Link>
                     </li>
                     <li className="nav-item">
+                    <Link to="/propreq" className="nav-link">Property Request</Link>
+                    </li>
+                    <li className="nav-item">
+                    <Link to="/ownerhome" className="nav-link">Owner Home</Link>
+                    </li>
+                    <li className="nav-item">
                     <Link to="/logout" className="nav-link">Log Out</Link></li>
                 </ul>
                 </div>

@@ -53,22 +53,23 @@ export default function ShowAllOwners() {
           <div className="container">
           <div className="row">
               <div className="col-md-12">
-                  <div className="nav-item">
-                      <ul className="nav navbar">
-                          <li className="nav-item">
-                              <Link to="/getalltenants" className="nav-link">Show All Tenants</Link>
-                          </li>
-                          <li className="nav-item">
-                              <Link to="/getallowners" className="nav-link">Show All Owners</Link>
-                          </li>
-                          <li className="nav-item">
-                              <Link to="/getallproperties" className="nav-link">Show All Properties</Link>
-                          </li>
-                          <li className="nav-item">
-                              <Link to="/logout" className="nav-link">Log Out</Link>
-                          </li>
-                      </ul>
-                  </div>
+                <div className='nav-item'>
+                    <ul className="nav navbar">
+                        <li className="nav-item">
+                        <Link to="/getalltenants" className="nav-link">ShowAllTenant</Link>
+                        </li>
+                        <li className="nav-item">
+                        <Link to="/getallowners" className="nav-link">ShowAllOwner</Link>
+                        </li>
+                        <li className="nav-item">
+                        <Link to="/getallproperties" className="nav-link">ShowAllProperties</Link></li>
+                        <li className="nav-item">
+                        <Link to="/getalltransactions" className="nav-link">ShowAllTransaction</Link></li>
+                        
+                        <li className="nav-item">
+                        <Link to="/logout" className="nav-link">Log Out</Link></li>
+                    </ul>
+                </div>
                   <h1>Welcome, Admin!</h1>
       
                   <table className="table table-hover">
