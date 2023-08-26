@@ -200,6 +200,7 @@ useEffect(()=>{
         }
         fetch("http://localhost:8080/regowner", reqOptions)
         //.then(resp => resp.json())
+        .then(localStorage.setItem("newReg",JSON.stringify(info.email.value)))
         .then(resp => {
             if (resp.ok) {
                 navigate("/payment");

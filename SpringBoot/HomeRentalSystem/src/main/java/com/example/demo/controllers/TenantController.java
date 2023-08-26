@@ -85,5 +85,9 @@ public class TenantController
 	 {
 		  tservice.deleteTenantByLoginId(id);
 	 }
+	 @GetMapping("gettenantbyid/{id}")
+	 public Tenant getTenantById(@PathVariable("id") int id) {
+		return tservice.getTenantByid(id);
+	}
 
 }

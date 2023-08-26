@@ -4,9 +4,10 @@ import { Button, Container } from "react-bootstrap"
 import { Col, Row } from "react-bootstrap"
 import Form from 'react-bootstrap/Form';
 import {BsFacebook,BsInstagram,BsLinkedin,BsTwitter,BsFillTelephoneFill} from "react-icons/bs";
-import {BiCopyright} from "react-icons/bi"
+import {BiColor, BiCopyright} from "react-icons/bi"
 import {SiGmail} from "react-icons/si"
 import { icons } from "react-icons";
+import { Link } from "react-router-dom";
 
 
 export default function FooterComponent() {
@@ -27,8 +28,8 @@ export default function FooterComponent() {
                     <h3>Quick Links</h3>
                     <hr></hr>
                     <ul class="list-unstyled">
-            <li class="mb-2"><a class="text-color" href="#">About Us</a></li>
-            <li class="mb-2"><a class="text-color" href="#">Contact us</a></li>
+            <li class="mb-2"><a class="text-color" href="/aboutus">About Us</a></li>
+            <li class="mb-2"><a class="text-color" href="/contactus">Contact us</a></li>
           </ul>
                     </Col>
 
@@ -62,10 +63,10 @@ export default function FooterComponent() {
         <div class="col-sm-5 text-sm-right text-center">
           <ul class="list-inline">
           <div className="c-footericon">
-                            <BsFacebook size="20px"/> &nbsp;
-                            <BsInstagram size="20px"/> 
-                              <BsLinkedin size="20px"/> 
-                             <BsTwitter size="20px"/>  
+                            <Link to=""><BsFacebook size="20px"/></Link> &nbsp;
+                            <Link to="https://www.instagram.com/"style={{color:"red"}} ><BsInstagram size="20px"/></Link> &nbsp;
+                              <Link to="" style={{color:"skyblue"}}><BsLinkedin size="20px" /></Link> &nbsp;
+                             <Link to="" style={{color:"blue"}}><BsTwitter size="20px"/>  </Link>
                             </div>
         </ul>
         </div>

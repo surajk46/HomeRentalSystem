@@ -42,7 +42,7 @@ export default function TenantHome(){
     }
 
     
-    const[tenant,setTenant]=useState();
+
 
     // useEffect(()=>{
     //     fetch("http://localhost:8080/gettenantbyloginid/"+JSON.parse(localStorage.getItem("loggedUser")).id)
@@ -50,8 +50,34 @@ export default function TenantHome(){
     //     .then(data => {setTenant(data);localStorage.setItem("loggedTenant",JSON.stringify(data));})
     //    // return()=>{cont.abort()};
     //  },[]);
+    const[tenant,setTenant]=useState();
+    const [id, setId] = useState([]);
+            useEffect(() => {
+            const items = JSON.parse(localStorage.getItem('loggedUser')).id;
+            if (items) {
+            setId(items);
+            fetch("http://localhost:8080/gettenantbyloginid/"+items)
+            .then(res => res.json())
+            .then(data => {setTenant(data);localStorage.setItem("loggedTenant",JSON.stringify(data))})
+            }
+            }, []);
      
-     
+    const getReqInfo=()=>{
+        
+  
+        const reqOptions = {
+            method: 'POST',
+            headers: {'content-type':'application/json' },
+            body: JSON.stringify({
+                owner_id: JSON.parse(localStorage.getItem('property')).owner_id.id,
+                tenant_id: JSON.parse(localStorage.getItem('loggedTenant')).id,
+                property_id: JSON.parse(localStorage.getItem('property')).id
+                
+            })
+            
+        }
+        fetch("http://localhost:8080/regtenant", reqOptions)
+    }
 
     return(
         <div>
@@ -114,7 +140,7 @@ export default function TenantHome(){
                                     state: property.id, // Pass property as a prop
                                 }}
                                 className="btn btn-primary"
-                                onClick={(e) => { localStorage.setItem("property", JSON.stringify(property)) }}
+                                onClick={(e) => { localStorage.setItem("property", JSON.stringify(property));getReqInfo() }}
                             >
                                 View More
                             </Link>

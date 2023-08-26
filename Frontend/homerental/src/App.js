@@ -19,6 +19,7 @@ import ShowAllProperties from './components/ShowAllProperties';
 import OwnerInfo from './components/OwnerInfo';
 import FooterComponent from './components/Footer';
 import Payment from './components/Payment';
+import ShowAllTransaction from './components/ShowAllTransaction';
 
 function App() {
 
@@ -57,6 +58,7 @@ function App() {
             <Route path='/getalltenants' element={<ShowAllTenant/>}/>
             <Route path='/getallowners' element={<ShowAllOwners/>}/>
             <Route path='/getallproperties' element={<ShowAllProperties/>}/>
+            <Route path='/getalltransactions' element={<ShowAllTransaction/>}/>
 
 
 
@@ -75,5 +77,6 @@ function App() {
     </div>
   );
 }
+
 
 export default App;
