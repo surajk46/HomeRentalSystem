@@ -32,5 +32,11 @@ public class PaymentService {
 	{
 		return prepo.save(l);
 	}
+	
+	public List<Payment> getAll()
+	{
+		return prepo.findAll();
+	}
+	
 
 }

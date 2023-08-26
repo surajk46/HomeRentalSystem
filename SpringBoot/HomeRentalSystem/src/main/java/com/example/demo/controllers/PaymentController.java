@@ -2,6 +2,7 @@ package com.example.demo.controllers;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -76,6 +77,12 @@ public class PaymentController {
 			}
 			
 			return saved;
+		}
+	    
+	    @GetMapping("/getalltransaction")
+		public List<Payment> getAll()
+		{
+			return pservice.getAll();
 		}
 	
 
