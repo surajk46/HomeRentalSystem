@@ -55,19 +55,24 @@ public class PaymentController {
 			Subscription subscription=sservice.getSub(pr.getSubscription_id());
 			l.setStatus(true);
 			
-			
-			Payment payment=new Payment(new Date(0), pr.getAmount(), null, l, subscription);
+			LocalDate curdate=LocalDate.now();
+			String dateString=curdate.toString();
+			Payment payment=new Payment(dateString, pr.getAmount(), null, l, subscription);
 			Payment saved=pservice.save(payment);
 		//	Owner owner=oservice.getById(0) payment.getId();
 			if(l.getRole_id().getId()==2)
 			{
 				Owner owner=oservice.findOwnerByLogin(l.getId());
-				owner.setPayment_id(payment);
+				owner.setPayment_id(saved);
+				owner.setAdd_property_request_rem(pr.getNo_of_properties());
+				oservice.save(owner);
 			}
 			else if(l.getRole_id().getId()==3)
 			{
 				Tenant tenant=tservice.findTenantByLogin(l.getId());
-				tenant.setPayment_id(payment);
+				tenant.setPayment_id(saved);
+				tenant.setNo_of_req_rem(pr.getNo_of_requests());
+				tservice.save(tenant);
 			}
 			
 			return saved;

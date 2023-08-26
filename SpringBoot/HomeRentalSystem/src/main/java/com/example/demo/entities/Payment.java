@@ -19,7 +19,7 @@ public class Payment {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	int id;
 	@Column
-	Date date;
+	String date;
 	@Column
 	float amount;
 	@Column
@@ -37,7 +37,7 @@ public class Payment {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Payment(Date date, float amount, String transcation, Login login_id, Subscription subscription_id) {
+	public Payment(String date, float amount, String transcation, Login login_id, Subscription subscription_id) {
 		super();
 		this.date = date;
 		this.amount = amount;
@@ -52,10 +52,10 @@ public class Payment {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 	public float getAmount() {

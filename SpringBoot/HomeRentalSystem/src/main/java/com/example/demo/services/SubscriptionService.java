@@ -32,8 +32,10 @@ public class SubscriptionService {
 	{
 		return srepo.findAll();
 	}
+	
 	public Subscription getSubById(int id) {
 		return srepo.getSubById(id);
 	}
+	
 
 }
