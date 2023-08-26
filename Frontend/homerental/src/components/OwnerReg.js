@@ -202,7 +202,7 @@ useEffect(()=>{
         //.then(resp => resp.json())
         .then(resp => {
             if (resp.ok) {
-                navigate("/login");
+                navigate("/payment");
             } else {
                 alert("errr");
             }
