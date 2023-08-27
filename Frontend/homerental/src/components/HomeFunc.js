@@ -9,12 +9,26 @@ export default function HomeFunc(){
     const[city,setCity]=useState();
     const[area,setArea]=useState();
     useEffect(()=>{
-        fetch("http://localhost:8080/getallcity")
-        .then(res => res.json())
+       
+        //fetch("https://localhost:7236/api/Cities")
+        fetch("http://localhost:8080/getallcity")  
+        .then(resp => {if(resp.ok)
+            { 
+                return resp.json()
+            }
+          else
+            {
+              alert("Server error")
+            }
+          })
+        
         .then(data => {setCity(data)})
         //return()=>{cont.abort()};
      },[]);
     
+
+
+     
     const getAreaByCity=(v)=>{
         fetch("http://localhost:8080/getareabycity?city_id="+v)
         .then(resp=>resp.json())
@@ -105,12 +119,15 @@ export default function HomeFunc(){
                     </ul>
                     <div className="card-body">
                         <Link
+                        
                             to={{
-                                pathname: `/ownerinfo`,
+                                
+                                pathname: `/login`,
                                 state: property.id,
                             }}
                             className="btn btn-primary"
                             onClick={(e) => {
+                               alert("For more Information about Owner Please login as a tenant");
                                 localStorage.setItem("property", JSON.stringify(property));
                             }}
                         >

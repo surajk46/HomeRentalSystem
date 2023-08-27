@@ -14,6 +14,9 @@ const OwnerInfo = () => {
       .then((data) => setOwner(data));
   }, [ownerId]);
 
+ 
+
+
   return (
     <div class="container mt-5">
     <h2 class="text-center mb-4">Owner Information</h2>
@@ -84,9 +87,25 @@ const OwnerInfo = () => {
           <th>Deposit</th>
           <td colspan="3">{property.deposit}</td>
         </tr>
-      </tbody>
+      </tbody>  
     </table>
-    <button class="btn btn-success mt-4" onClick={(e) => { window.history.back() }}>Go Back</button>
+      <div className="row mt-4">
+        <div className="col-md-12">
+          <table className="table table-bordered">
+            <tbody>
+              <tr>
+                <th style={{color:"red"}}>Facilities</th>
+              </tr>
+              {property.facilities.map((facility) => (
+                <tr key={facility.id}>
+                  <td>{facility.name}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <button class="btn btn-success mt-4" onClick={(e) => { window.history.back() }}>Go Back</button>
   </div>
 
   );

@@ -28,7 +28,7 @@ namespace homerentalsystem.Controllers
           {
               return NotFound();
           }
-            return await _context.Payments.ToListAsync();
+            return await _context.Payments.Include(d=>d.Login).ToListAsync();
         }
 
 

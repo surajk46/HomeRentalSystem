@@ -6,11 +6,14 @@ const ShowAllTransaction = () => {
 
   useEffect(() => {
     // Fetch data from the URL
-    fetch('http://localhost:8080/getalltransaction')
+    // fetch('http://localhost:8080/getalltransaction')
+    fetch('https://localhost:7236/api/Payments')
       .then(response => response.json())
       .then(data => setTransactions(data))
       .catch(error => console.error('Error fetching data:', error));
   }, []);
+
+  
 
   return (
     <div class="container mt-5">
@@ -46,9 +49,9 @@ const ShowAllTransaction = () => {
         {transactions.map(transaction => (
           <tr key={transaction.id}>
             <td>{transaction.id}</td>
-            <td>{transaction.login_id?.email}</td>
+            <td>{transaction.login?.email}</td>
             <td>{transaction.date}</td>
-            <td>{transaction.amount}</td>
+            <td>{transaction.amount} </td>
           </tr>
         ))}
       </tbody>

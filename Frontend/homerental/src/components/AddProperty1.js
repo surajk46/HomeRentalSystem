@@ -208,8 +208,8 @@ const [item, setItem] = useState(1);
                 }
                 else
                 {
-                    //alert("Reg suuccesfull.Photo Upload Failed.Try Later");
-                    window.location.reload();
+                    alert("Reg suuccesfull.Photo Upload Failed.Try Later");
+                    navigate('/ownerhome');
                 }
             })
             
