@@ -28,6 +28,7 @@ export default function ShowAllProperties() {
 
     const[property,setProperty]=useState();
     useEffect(()=>{
+       // fetch("http://localhost:9000/egetallproperty")
         fetch("http://localhost:8080/getallproperty")
         .then(res => res.json())
         .then(data => {setProperty(data)})
