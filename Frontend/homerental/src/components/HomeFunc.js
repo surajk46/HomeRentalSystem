@@ -8,25 +8,44 @@ export default function HomeFunc(){
 
     const[city,setCity]=useState();
     const[area,setArea]=useState();
-    useEffect(()=>{
-       
-        //fetch("https://localhost:7236/api/Cities")
-        fetch("http://localhost:8080/getallcity")  
-        .then(resp => {if(resp.ok)
-            { 
-                return resp.json()
-            }
-          else
-            {
-              alert("Server error")
-            }
-          })
-        
-        .then(data => {setCity(data)})
-        //return()=>{cont.abort()};
-     },[]);
-    
 
+       
+        useEffect(() => {
+            const firstURL = 'https://localhost:7236/api/Cities';
+            const secondURL = 'http://localhost:8080/getallcity';
+        
+            fetch(firstURL)
+              .then(resp => {
+                if (resp.ok) {
+                  return resp.json();
+                } else {
+                  throw new Error('Server error');
+                }
+              })
+              .then(data => {
+                setCity(data);
+              })
+              .catch(firstURLError => {
+                console.error('Error fetching from the first URL:', firstURLError);
+        
+                // If there was an error with the first URL, try fetching from the second URL
+                fetch(secondURL)
+                  .then(resp => {
+                    if (resp.ok) {
+                      return resp.json();
+                    } else {
+                      throw new Error('Server error');
+                    }
+                  })
+                  .then(data => {
+                    setCity(data);
+                  })
+                  .catch(secondURLError => {
+                    console.error('Error fetching from the second URL:', secondURLError);
+                    //setError(secondURLError);
+                  });
+              });
+          }, []);
 
      
     const getAreaByCity=(v)=>{

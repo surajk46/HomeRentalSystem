@@ -4,15 +4,46 @@ import { Link } from 'react-router-dom';
 const ShowAllTransaction = () => {
   const [transactions, setTransactions] = useState([]);
 
+  // useEffect(() => {
+  //   fetch('http://localhost:8080/getalltransaction')
+  //   fetch('https://localhost:7236/api/Payments')
+  //     .then(response => response.json())
+  //     .then(data => setTransactions(data))
+  //     .catch(error => console.error('Error fetching data:', error));
+  // }, []);
   useEffect(() => {
-    // Fetch data from the URL
-    // fetch('http://localhost:8080/getalltransaction')
-    fetch('https://localhost:7236/api/Payments')
-      .then(response => response.json())
-      .then(data => setTransactions(data))
-      .catch(error => console.error('Error fetching data:', error));
-  }, []);
+    const firstURL = 'https://localhost:7236/api/Payments';
+    const secondURL = 'http://localhost:8080/getalltransaction';
 
+    fetch(firstURL)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('First URL request failed');
+        }
+        return response.json();
+      })
+      .then(data => {
+        setTransactions(data);
+      })
+      .catch(firstURLError => {
+        console.error('Error fetching from the first URL:', firstURLError);
+
+        // If there was an error with the first URL, try fetching from the second URL
+        fetch(secondURL)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Second URL request failed');
+            }
+            return response.json();
+          })
+          .then(data => {
+            setTransactions(data);
+          })
+          .catch(secondURLError => {
+            console.error('Error fetching from the second URL:', secondURLError);
+          });
+      });
+  }, []);
   
 
   return (
