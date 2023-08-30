@@ -10,12 +10,40 @@ import AdminHome from './AdminHome';
 export default function ShowAllOwners() {
     const[owner,setOwner]=useState();
 
-    useEffect(()=>{
-        fetch("http://localhost:8080/getallowners")
-        .then(res => res.json())
-        .then(data => {setOwner(data)})
-       // return()=>{cont.abort()};
-     },[]);
+   useEffect(() => {
+    const firstURL = 'http://localhost:9000/getallowners';
+    const secondURL = 'http://localhost:8080/getallowners';
+
+    fetch(firstURL)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('First URL request failed');
+        }
+        return response.json();
+      })
+      .then(data => {
+        setOwner(data);
+      })
+      .catch(firstURLError => {
+        console.error('Error fetching from the first URL:', firstURLError);
+
+        // If there was an error with the first URL, try fetching from the second URL
+        fetch(secondURL)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Second URL request failed');
+            }
+            return response.json();
+          })
+          .then(data => {
+            setOwner(data);
+          })
+          .catch(secondURLError => {
+            console.error('Error fetching from the second URL:', secondURLError);
+           
+          });
+      });
+  }, []);
 
      const deleteOwner =(id) =>
     {

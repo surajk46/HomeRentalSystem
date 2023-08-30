@@ -80,7 +80,7 @@ const ShowAllTransaction = () => {
         {transactions.map(transaction => (
           <tr key={transaction.id}>
             <td>{transaction.id}</td>
-            <td>{transaction.login?.email}</td>
+            <td>{transaction.login?.email}{transaction.login_id?.email}</td>
             <td>{transaction.date}</td>
             <td>{transaction.amount} </td>
           </tr>

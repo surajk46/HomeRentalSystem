@@ -32,7 +32,6 @@ export default function ShowAllProperties() {
         fetch("http://localhost:8080/getallproperty")
         .then(res => res.json())
         .then(data => {setProperty(data)})
-        //return()=>{cont.abort()};
      },[]);
 
      const getPropertyByCity=(v)=>{

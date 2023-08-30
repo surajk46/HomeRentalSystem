@@ -9,12 +9,39 @@ import { useEffect, useReducer, useState } from "react"
 export default function ShowAllTenant() {
     const[tenant,setTenant]=useState();
 
-    useEffect(()=>{
-        fetch("http://localhost:8080/getalltenants")
-        .then(res => res.json())
-        .then(data => setTenant(data))
-       // return()=>{cont.abort()};
-     },[]);
+    useEffect(() => {
+        const firstURL = 'http://localhost:9000/getalltenants';
+        const secondURL = 'http://localhost:8080/getalltenants';
+    
+        fetch(firstURL)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('First URL request failed');
+            }
+            return response.json();
+          })
+          .then(data => {
+            setTenant(data);
+          })
+          .catch(firstURLError => {
+            console.error('Error fetching from the first URL:', firstURLError);
+    
+            // If there was an error with the first URL, try fetching from the second URL
+            fetch(secondURL)
+              .then(response => {
+                if (!response.ok) {
+                  throw new Error('Second URL request failed');
+                }
+                return response.json();
+              })
+              .then(data => {
+                setTenant(data);
+              })
+              .catch(secondURLError => {
+                console.error('Error fetching from the second URL:', secondURLError);
+              });
+          });
+      }, []);
 
 
   
